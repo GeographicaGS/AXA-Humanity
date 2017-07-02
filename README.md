@@ -2,6 +2,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.2.
 
+## Build Status
+
+Status **master** branch: [![Build Status](http://jenkins.geographica.gs/buildStatus/icon?job=varo-www/master)](http://jenkins.geographica.gs/job/varo-www/job/master/)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
