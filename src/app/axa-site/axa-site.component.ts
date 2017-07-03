@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./axa-site.component.scss']
 })
 export class AxaSiteComponent {
-  title = 'AxaSite!';
+
+  constructor() { }
+
 }

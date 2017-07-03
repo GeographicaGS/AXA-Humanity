@@ -44,7 +44,31 @@
       @include font();
       color: $colorAccent;
       font-style: italic;
-      line-height: 20px;
+
+      @include respond-to($small) {
+        line-height: 18px;
+        margin-left: 10px;
+      }
+      @include respond-to($medium) {
+        line-height: 20px;
+        margin-left: 12px;
+      }
+      @include respond-to($large) {
+        line-height: 26px;
+        margin-left: 15px;
+      }
+    }
+
+    span.axaSlash {
+      @include respond-to($small) {
+        margin-left: 6px;
+      }
+      @include respond-to($medium) {
+        margin-left: 10px;
+      }
+      @include respond-to($large) {
+        margin-left: 14px;
+      }
     }
   }
 
@@ -57,11 +81,17 @@
     span {
       @include font();
       font-size: 18px;
-      line-height: 36px;
       color: $colorPrimary;
-
+      display: flex;
+      align-items: flex-end;
       &.bold {
         @include font('superbold');
+      }
+
+      &.axaSlash.small {
+        height: 20px;
+        background-size: 16px 14px;
+        margin: 0 4px 0 4px;
       }
     }
 
@@ -74,6 +104,7 @@
       background-size: cover;
       background-position: center center;
       display: block;
+      margin-left: 12px;
     }
   }
 }
