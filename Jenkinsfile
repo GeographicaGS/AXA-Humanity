@@ -21,10 +21,10 @@ node("docker") {
 
             sh "docker build --pull=true -t geographica/axa_humanity ."
 
-        stage "Testing"
+        //stage "Testing"
 
-            echo "Testing axa_humanity/${ build_name }"
-            sh "docker run -i --rm --name axa_humanity--${ build_name } geographica/axa_humanity npm test"
+        //    echo "Testing axa_humanity/${ build_name }"
+        //    sh "docker run -i --rm --name axa_humanity--${ build_name } geographica/axa_humanity npm test"
 
 
         stage "Linter"
