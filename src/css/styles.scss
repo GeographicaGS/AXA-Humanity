@@ -17,3 +17,11 @@ body {
   font-size: $fontBaseSize;
   height: 100vh;
 }
+
+a {
+  color: $colorPrimary;
+
+  &.geo {
+    color: $colorGEO;
+  }
+}
