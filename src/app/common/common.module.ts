@@ -5,15 +5,13 @@ import { FormsModule } from '@angular/forms';
 
 import { CommonRoutingModule } from './common-routing.module';
 
-import { WindowService } from './window.service';
-
 @NgModule({
   imports: [
     NGCommonModule,
     CommonRoutingModule
   ],
   exports: [CommonRoutingModule],
-  providers: [WindowService],
+  providers: [],
   declarations: []
 })
 export class CommonModule { }

@@ -1,9 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Http } from '@angular/http';
-import { WindowService } from '../../common/window.service';
+import { WindowService } from '../window.service';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
-
 
 declare var cdb: any;
 declare var L: any;

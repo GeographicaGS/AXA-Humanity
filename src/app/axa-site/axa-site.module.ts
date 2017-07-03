@@ -13,6 +13,8 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 
 import { Ng2DragDropModule } from 'ng2-drag-drop';
+import { WindowService } from './window.service';
+
 
 const components = [
   AxaSiteComponent,
@@ -34,7 +36,7 @@ const components = [
   exports: [
     [AxaSiteRoutingModule, ...components]
   ],
-  providers: [],
+  providers: [WindowService],
   bootstrap: [AxaSiteComponent]
 })
 export class AxaSiteModule { }

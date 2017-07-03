@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { WindowService } from '../../common/window.service';
+import { WindowService } from '../window.service';
 
 @Component({
   selector: 'app-axa-indicator',
