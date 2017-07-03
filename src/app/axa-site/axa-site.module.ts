@@ -12,6 +12,8 @@ import { IndicatorComponent } from './indicator/indicator.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 
+import { IndicatorService } from './indicator/indicator.service';
+
 import { Ng2DragDropModule } from 'ng2-drag-drop';
 import { WindowService } from './window.service';
 
@@ -36,7 +38,7 @@ const components = [
   exports: [
     [AxaSiteRoutingModule, ...components]
   ],
-  providers: [WindowService],
+  providers: [WindowService, IndicatorService],
   bootstrap: [AxaSiteComponent]
 })
 export class AxaSiteModule { }

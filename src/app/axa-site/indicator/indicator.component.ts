@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { WindowService } from '../window.service';
+import { IndicatorService } from './indicator.service';
 
 @Component({
   selector: 'app-axa-indicator',
@@ -10,7 +11,13 @@ export class IndicatorComponent implements OnInit {
 
   @Input('indicator') indicator = undefined;
 
-  constructor(private windowService: WindowService) { }
+  indicators: any[];
+
+  constructor(private windowService: WindowService, private indicatorService: IndicatorService) {
+    this.indicatorService.getIndicators().subscribe((data) => {
+      this.indicators = data;
+    });
+  }
 
   ngOnInit() {
     if (this.indicator) {

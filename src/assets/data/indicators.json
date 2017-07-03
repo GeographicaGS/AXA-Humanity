@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Indicator one",
+  	"viz": "https://finanzasdf-admin.carto.com/api/v2/viz/abb29880-b843-11e5-97de-0e9c441fa3f5/viz.json"
+  },
+  {
+    "title": "Indicator two",
+  	"viz": "https://finanzasdf-admin.carto.com/api/v2/viz/abb29880-b843-11e5-97de-0e9c441fa3f5/viz.json"
+  },
+  {
+    "title": "Indicator three",
+  	"viz": "https://finanzasdf-admin.carto.com/api/v2/viz/abb29880-b843-11e5-97de-0e9c441fa3f5/viz.json"
+  },
+  {
+    "title": "Indicator four",
+  	"viz": "https://finanzasdf-admin.carto.com/api/v2/viz/abb29880-b843-11e5-97de-0e9c441fa3f5/viz.json"
+  },
+  {
+    "title": "Indicator five",
+  	"viz": "https://finanzasdf-admin.carto.com/api/v2/viz/abb29880-b843-11e5-97de-0e9c441fa3f5/viz.json"
+  }
+]

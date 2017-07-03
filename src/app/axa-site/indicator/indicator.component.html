@@ -8,5 +8,7 @@
   </span>
 </div>
 <div class="content">
-  loop through indicators list
+  <ul>
+    <li *ngFor="let indicator of indicators">{{ indicator.title }}</li>
+  </ul>
 </div>
