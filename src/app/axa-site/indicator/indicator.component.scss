@@ -1,0 +1,23 @@
+@import 'common';
+
+:host {
+  position: absolute;
+  top: $headerHeight;
+  min-height: 80px;
+  width: 320px;
+  background: transparentize($colorAccent, .05);
+  z-index: 1004;
+  border-radius: 0 0 2px 2px;
+  color: $white;
+
+  @include respond-to($small) {
+    right: $headerSmallPaddingRight;
+  }
+  @include respond-to($medium) {
+    right: $headerMediumPaddingRight;
+  }
+  @include respond-to($large) {
+    right: $headerLargePaddingRight;
+  }
+
+}

@@ -5,7 +5,11 @@ import { AxaSiteComponent } from './axa-site.component';
 const routes: Routes = [
   {
     path: 'map',
-    component: AxaSiteComponent,
+    component: AxaSiteComponent
+  },
+  {
+    path: 'map/:id',
+    component: AxaSiteComponent
   }
 ];
 

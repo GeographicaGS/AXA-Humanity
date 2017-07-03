@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 declare var cdb: any;
 declare var L: any;
@@ -9,6 +9,8 @@ declare var L: any;
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
+
+  @Input('indicator') indicator;
 
   map: any = {};
   options: any = {
