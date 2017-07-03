@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-axa-header',
@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  @Input('indicator') indicator = undefined;
+
+  private headerTitle = 'board';
+
+  constructor() {
+  }
 
   ngOnInit() {
+    if (this.indicator) {
+      this.headerTitle = 'healthcare'; // @TODO: get title from indiators.json filtering by id (this.indicator)
+    }
+  }
+
+  hasIndicator() {
+    return this.indicator !== undefined;
   }
 
 }

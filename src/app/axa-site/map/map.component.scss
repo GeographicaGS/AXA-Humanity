@@ -1,7 +1,14 @@
 @import 'common';
 
 :host {
-  flex-grow: 1;
-  height: 100%;
   overflow: auto;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+#map {
+  flex: 1 1 auto;
+  position: relative;
 }
