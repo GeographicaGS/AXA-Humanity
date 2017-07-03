@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'axa-site',
+  selector: 'app-axa-site',
   templateUrl: './axa-site.component.html',
   styleUrls: ['./axa-site.component.scss']
 })
