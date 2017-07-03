@@ -6,8 +6,15 @@ import { HttpModule } from '@angular/http';
 import { AxaSiteComponent } from './axa-site.component';
 import { AxaSiteRoutingModule } from './axa-site-routing.module';
 
+import { MapComponent } from './map/map.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+
 const components = [
-  AxaSiteComponent
+  AxaSiteComponent,
+  MapComponent,
+  HeaderComponent,
+  FooterComponent
 ];
 
 @NgModule({
