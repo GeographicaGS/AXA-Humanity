@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AxaSiteComponent } from './axa-site.component';
+import { GlobeComponent } from './globe/globe.component';
 
 const routes: Routes = [
   {
-    path: 'map',
-    component: AxaSiteComponent,
+    path: 'landing',
+    component: GlobeComponent,
   }
 ];
 
@@ -17,4 +17,4 @@ const routes: Routes = [
     RouterModule
   ]
 })
-export class AxaSiteRoutingModule { }
+export class LandingRoutingModule { }
