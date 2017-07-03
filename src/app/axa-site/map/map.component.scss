@@ -1,7 +1,7 @@
 @import 'common';
 
 :host {
-  overflow: auto;
+  overflow: hidden;
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;

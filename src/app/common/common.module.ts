@@ -11,6 +11,7 @@ import { CommonRoutingModule } from './common-routing.module';
     CommonRoutingModule
   ],
   exports: [CommonRoutingModule],
+  providers: [],
   declarations: []
 })
 export class CommonModule { }
