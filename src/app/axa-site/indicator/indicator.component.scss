@@ -13,7 +13,19 @@ $indicatorHeaderHeight: 64px;
   display: flex;
   flex-direction: column;
 
-  transition: height 1s;
+  &.dragging {
+    .header {
+      background-color: transparent;
+      color: transparent;
+      span.secondCharacter {
+        color: transparent;
+      }
+    }
+    .content {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
   .header {
     flex: 0 0 $indicatorHeaderHeight;
     background: $stTropaz;
@@ -45,6 +57,7 @@ $indicatorHeaderHeight: 64px;
     padding: 0 20px;
     overflow: auto;
     background: transparentize($azure, .05);
+    transition: opacity .3s;
   }
 
   @include respond-to($small) {
