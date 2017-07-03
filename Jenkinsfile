@@ -47,7 +47,7 @@ node("docker") {
 
             echo "Cleaning axa_humanity/${ build_name }"
 
-        if (currentBuild.result == "SUCCESS" && ["master", "dev"].contains(branch_name)) {
+        if (currentBuild.result == "SUCCESS" && ["master"].contains(branch_name)) {
 
             stage "Deploying"
 
