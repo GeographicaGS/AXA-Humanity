@@ -31,13 +31,13 @@
     align-items: flex-end;
     h1 {
       @include font('extrabold', $fontFamilySecond);
-      color: $colorPrimary;
+      color: $colorAccent;
       cursor: pointer;
     }
 
     h2 {
       @include font('semibold', $fontFamilySecond);
-      color: $colorAccentAlt;
+      color: $burntSienna;
     }
 
     h1,
@@ -58,7 +58,7 @@
 
     span.lightLegend {
       @include font();
-      color: $colorAccent;
+      color: $gray;
       font-style: italic;
 
       @include respond-to($small) {
@@ -97,7 +97,7 @@
     span {
       @include font();
       font-size: 18px;
-      color: $colorPrimary;
+      color: $colorAccent;
       display: flex;
       align-items: flex-end;
       &.bold {
