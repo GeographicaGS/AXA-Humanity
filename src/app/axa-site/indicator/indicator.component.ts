@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { WindowService } from '../../common/window.service';
 
 @Component({
   selector: 'app-axa-indicator',
@@ -9,7 +10,7 @@ export class IndicatorComponent implements OnInit {
 
   @Input('indicator') indicator = undefined;
 
-  constructor() { }
+  constructor(private windowService: WindowService) { }
 
   ngOnInit() {
     if (this.indicator) {
@@ -18,6 +19,14 @@ export class IndicatorComponent implements OnInit {
 
   hasIndicator() {
     return this.indicator !== undefined;
+  }
+
+  onDragStart($event) {
+    this.windowService.setDraggingStatus(true);
+  }
+
+  onDragEnd($event) {
+    this.windowService.setDraggingStatus(false);
   }
 
 }

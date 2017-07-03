@@ -12,6 +12,8 @@ import { IndicatorComponent } from './indicator/indicator.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 
+import { Ng2DragDropModule } from 'ng2-drag-drop';
+
 const components = [
   AxaSiteComponent,
   MapComponent,
@@ -25,7 +27,8 @@ const components = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AxaSiteRoutingModule
+    AxaSiteRoutingModule,
+    Ng2DragDropModule
   ],
   declarations: components,
   exports: [
