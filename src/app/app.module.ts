@@ -3,7 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { CommonModule } from './common/common.module';
+
 import { AppComponent } from './app.component';
+
+import { AxaSiteModule } from './axa-site/axa-site.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +16,9 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    CommonModule,
+    AxaSiteModule
   ],
   providers: [],
   bootstrap: [AppComponent]
