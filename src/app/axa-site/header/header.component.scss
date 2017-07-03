@@ -1,5 +1,79 @@
 @import 'common';
 
 :host {
-  height: 56px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 96px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  background: transparentize($white, .15);
+
+
+  @include respond-to($small) {
+    padding: 0 16px 0 10px;
+  }
+  @include respond-to($medium) {
+    padding: 0 32px 0 20px;
+  }
+  @include respond-to($large) {
+    padding: 0 64px 0 40px;
+  }
+
+  .leftSide {
+    height: 64px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    h1 {
+      @include font('extrabold', $fontFamilySecond);
+      font-size: 36px;
+      line-height: 36px;
+      color: $colorPrimary;
+    }
+
+    h2 {
+      @include font('semibold', $fontFamilySecond);
+      font-size: 36px;
+      line-height: 36px;
+      color: $colorAccentAlt;
+    }
+
+    span.lightLegend {
+      @include font();
+      color: $colorAccent;
+      font-style: italic;
+      line-height: 20px;
+    }
+  }
+
+  .rightSide {
+    height: 64px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+
+    span {
+      @include font();
+      font-size: 18px;
+      line-height: 36px;
+      color: $colorPrimary;
+
+      &.bold {
+        @include font('superbold');
+      }
+    }
+
+    &:after {
+      content: '';
+      width: 64px;
+      height: 64px;
+      background-image: url('/assets/icons/AXA_logo.svg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+      display: block;
+    }
+  }
 }
