@@ -9,7 +9,7 @@
   align-items: flex-start;
   justify-content: space-between;
   background: transparentize($white, .15);
-
+  z-index: 1001;
 
   @include respond-to($small) {
     padding: 0 16px 0 10px;
