@@ -1,14 +1,64 @@
 @import 'common';
 
+$indicatorHeaderHeight: 64px;
+
 :host {
   position: absolute;
   top: $headerHeight;
-  min-height: 80px;
   width: 320px;
-  background: transparentize($colorAccent, .05);
   z-index: 1004;
   border-radius: 0 0 2px 2px;
   color: $white;
+  max-height: calc(100vh - 128px);
+  display: flex;
+  flex-direction: column;
+
+  &.dragging {
+    .header {
+      background-color: transparent;
+      color: transparent;
+      span.secondCharacter {
+        color: transparent;
+      }
+    }
+    .content {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+  .header {
+    flex: 0 0 $indicatorHeaderHeight;
+    background: $stTropaz;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    span.secondCharacter {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      color: $burntSienna;
+      font-size: 14px;
+      line-height: 14px;
+      span.icon {
+        width: 28px;
+        height: 52px;
+        background-image: url('/assets/icons/character2.svg');
+        background-repeat: no-repeat;
+        cursor: pointer;
+        margin-left: 8px;
+      }
+    }
+  }
+
+  .content {
+    flex-grow: 1;
+    padding: 0 20px;
+    overflow: auto;
+    background: transparentize($azure, .05);
+    transition: opacity .3s;
+  }
 
   @include respond-to($small) {
     right: $headerSmallPaddingRight;

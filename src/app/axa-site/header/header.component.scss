@@ -36,8 +36,9 @@
     }
 
     h2 {
-      @include font('semibold', $fontFamilySecond);
+      @include font('semibold');
       color: $burntSienna;
+      text-transform: capitalize;
     }
 
     h1,

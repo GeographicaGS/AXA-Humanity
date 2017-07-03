@@ -21,7 +21,7 @@ import { LandingModule } from './landing/landing.module';
 
     AxaSiteModule,
     LandingModule,
-    CommonModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
