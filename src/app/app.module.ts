@@ -18,7 +18,7 @@ import { LandingModule } from './landing/landing.module';
     BrowserModule,
     FormsModule,
     HttpModule,
-    
+
     CommonModule,
     AxaSiteModule,
     LandingModule,
