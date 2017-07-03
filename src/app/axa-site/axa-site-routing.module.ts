@@ -6,6 +6,10 @@ const routes: Routes = [
   {
     path: 'map',
     component: AxaSiteComponent
+  },
+  {
+    path: 'map/:id',
+    component: AxaSiteComponent
   }
 ];
 

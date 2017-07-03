@@ -4,7 +4,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  height: 96px;
+  height: $headerHeight;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -12,13 +12,16 @@
   z-index: 1001;
 
   @include respond-to($small) {
-    padding: 0 16px 0 10px;
+    padding-left: $headerSmallPaddingLeft;
+    padding-right: $headerSmallPaddingRight;
   }
   @include respond-to($medium) {
-    padding: 0 32px 0 20px;
+    padding-left: $headerMediumPaddingLeft;
+    padding-right: $headerMediumPaddingRight;
   }
   @include respond-to($large) {
-    padding: 0 64px 0 40px;
+    padding-left: $headerLargePaddingLeft;
+    padding-right: $headerLargePaddingRight;
   }
 
   .leftSide {
@@ -28,16 +31,29 @@
     align-items: flex-end;
     h1 {
       @include font('extrabold', $fontFamilySecond);
-      font-size: 36px;
-      line-height: 36px;
       color: $colorPrimary;
+      cursor: pointer;
     }
 
     h2 {
       @include font('semibold', $fontFamilySecond);
-      font-size: 36px;
-      line-height: 36px;
       color: $colorAccentAlt;
+    }
+
+    h1,
+    h2 {
+      @include respond-to($small) {
+        font-size: 28px;
+        line-height: 28px;
+      }
+      @include respond-to($medium) {
+        font-size: 32px;
+        line-height: 32px;
+      }
+      @include respond-to($large) {
+        font-size: 36px;
+        line-height: 36px;
+      }
     }
 
     span.lightLegend {
@@ -46,16 +62,16 @@
       font-style: italic;
 
       @include respond-to($small) {
-        line-height: 18px;
         margin-left: 10px;
+        line-height: 18px;
       }
       @include respond-to($medium) {
-        line-height: 20px;
         margin-left: 12px;
+        line-height: 26px;
       }
       @include respond-to($large) {
-        line-height: 26px;
         margin-left: 15px;
+        line-height: 26px;
       }
     }
 

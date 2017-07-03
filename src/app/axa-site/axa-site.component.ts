@@ -1,12 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-axa-site',
   templateUrl: './axa-site.component.html',
   styleUrls: ['./axa-site.component.scss']
 })
-export class AxaSiteComponent {
+export class AxaSiteComponent implements OnInit {
 
-  constructor() { }
+  indicator: any = undefined;
+
+  constructor(private route: ActivatedRoute) { }
+
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      if (params['id'] !== null) {
+        this.indicator = params['id'];
+      }
+   });
+  }
 
 }
