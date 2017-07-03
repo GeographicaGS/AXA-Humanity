@@ -14,9 +14,10 @@ const routes: Routes = [
   // },
   {
     path: '',
-    redirectTo: '/map',
+    redirectTo: '/landing',
     pathMatch: 'full'
   },
+  { path: '**', redirectTo: '/not_found' }
 ];
 
 const config = <any>environment;

@@ -8,6 +8,7 @@ import { CommonModule } from './common/common.module';
 import { AppComponent } from './app.component';
 
 import { AxaSiteModule } from './axa-site/axa-site.module';
+import { LandingModule } from './landing/landing.module';
 
 @NgModule({
   declarations: [
@@ -17,8 +18,10 @@ import { AxaSiteModule } from './axa-site/axa-site.module';
     BrowserModule,
     FormsModule,
     HttpModule,
+
+    AxaSiteModule,
+    LandingModule,
     CommonModule,
-    AxaSiteModule
   ],
   providers: [],
   bootstrap: [AppComponent]
