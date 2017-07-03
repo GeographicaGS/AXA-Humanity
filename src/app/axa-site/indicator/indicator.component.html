@@ -1,0 +1,14 @@
+<div class="header">
+  <span>Left</span>
+  <span class="secondCharacter">Compare
+    <span
+      draggable
+      (onDragStart)="onDragStart($event)"
+      (onDragEnd)="onDragEnd($event)" class="icon"></span>
+  </span>
+</div>
+<div class="content">
+  <ul>
+    <li *ngFor="let indicator of indicators">{{ indicator.title }}</li>
+  </ul>
+</div>

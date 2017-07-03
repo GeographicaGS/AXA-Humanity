@@ -17,3 +17,27 @@ body {
   font-size: $fontBaseSize;
   height: 100vh;
 }
+
+a {
+  color: $colorAccent;
+
+  &.geo {
+    color: $colorGEO;
+  }
+}
+
+
+.axaSlash {
+  display: block;
+  width: 64px;
+  height: 64px;
+  background-image: url('/assets/logos/AXA_bar.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+
+  &.small {
+    height: 16px;
+    width: 14px;
+  }
+}

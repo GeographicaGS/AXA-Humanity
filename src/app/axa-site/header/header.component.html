@@ -1,10 +1,10 @@
 <div class="leftSide">
-  <h1>Humanity</h1>
-  <span class="axaSlash">/</span>
-  <h2>Board</h2>
-  <span class="lightLegend">Move the character to analyze the data of a country</span>
+  <h1 routerLink="/map">Humanity</h1>
+  <span class="axaSlash"></span>
+  <h2>{{ headerTitle }}</h2>
+  <span class="lightLegend" *ngIf="!hasIndicator();">Move the character to analyze the data of a country</span>
 </div>
 
 <div class="rightSide">
-  <span class="bold">redefining</span> <span class="axaSlash"> / </span> <span>standards</span>
+  <span class="bold">redefining</span> <span class="axaSlash small"></span> <span>standards</span>
 </div>

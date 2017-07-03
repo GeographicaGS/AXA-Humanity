@@ -1,1 +1,62 @@
 @import 'common';
+
+:host {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: $footerHeight;
+
+  color: $gray;
+  font-size: 12px;
+  line-height: 12px;
+
+  .leftSide {
+    margin-left: 15px;
+  }
+
+  .center {
+    &.carto {
+      &:before {
+        content: '';
+        width: 62px;
+        height: 24px;
+        background-image: url('/assets/logos/CARTO_logo.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        display: block;
+      }
+    }
+  }
+
+  .rightSide {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    &:before {
+      content: '';
+      width: 32px;
+      height: 32px;
+      background-image: url('/assets/icons/about.svg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+      display: block;
+      margin-right: 4px;
+    }
+    &:after {
+      content: '';
+      width: 32px;
+      height: 32px;
+      background-image: url('/assets/logos/GEO_alt.svg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+      display: block;
+    }
+
+    a {
+      margin: 0 8px 0 4px;
+    }
+  }
+}

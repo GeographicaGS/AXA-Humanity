@@ -4,21 +4,24 @@
   position: absolute;
   left: 0;
   right: 0;
-  height: 96px;
+  height: $headerHeight;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   background: transparentize($white, .15);
-
+  z-index: 1001;
 
   @include respond-to($small) {
-    padding: 0 16px 0 10px;
+    padding-left: $headerSmallPaddingLeft;
+    padding-right: $headerSmallPaddingRight;
   }
   @include respond-to($medium) {
-    padding: 0 32px 0 20px;
+    padding-left: $headerMediumPaddingLeft;
+    padding-right: $headerMediumPaddingRight;
   }
   @include respond-to($large) {
-    padding: 0 64px 0 40px;
+    padding-left: $headerLargePaddingLeft;
+    padding-right: $headerLargePaddingRight;
   }
 
   .leftSide {
@@ -28,23 +31,61 @@
     align-items: flex-end;
     h1 {
       @include font('extrabold', $fontFamilySecond);
-      font-size: 36px;
-      line-height: 36px;
-      color: $colorPrimary;
+      color: $colorAccent;
+      cursor: pointer;
     }
 
     h2 {
-      @include font('semibold', $fontFamilySecond);
-      font-size: 36px;
-      line-height: 36px;
-      color: $colorAccentAlt;
+      @include font('semibold');
+      color: $burntSienna;
+      text-transform: capitalize;
+    }
+
+    h1,
+    h2 {
+      @include respond-to($small) {
+        font-size: 28px;
+        line-height: 28px;
+      }
+      @include respond-to($medium) {
+        font-size: 32px;
+        line-height: 32px;
+      }
+      @include respond-to($large) {
+        font-size: 36px;
+        line-height: 36px;
+      }
     }
 
     span.lightLegend {
       @include font();
-      color: $colorAccent;
+      color: $gray;
       font-style: italic;
-      line-height: 20px;
+
+      @include respond-to($small) {
+        margin-left: 10px;
+        line-height: 18px;
+      }
+      @include respond-to($medium) {
+        margin-left: 12px;
+        line-height: 26px;
+      }
+      @include respond-to($large) {
+        margin-left: 15px;
+        line-height: 26px;
+      }
+    }
+
+    span.axaSlash {
+      @include respond-to($small) {
+        margin-left: 6px;
+      }
+      @include respond-to($medium) {
+        margin-left: 10px;
+      }
+      @include respond-to($large) {
+        margin-left: 14px;
+      }
     }
   }
 
@@ -57,11 +98,17 @@
     span {
       @include font();
       font-size: 18px;
-      line-height: 36px;
-      color: $colorPrimary;
-
+      color: $colorAccent;
+      display: flex;
+      align-items: flex-end;
       &.bold {
         @include font('superbold');
+      }
+
+      &.axaSlash.small {
+        height: 20px;
+        background-size: 16px 14px;
+        margin: 0 4px 0 4px;
       }
     }
 
@@ -69,11 +116,12 @@
       content: '';
       width: 64px;
       height: 64px;
-      background-image: url('/assets/icons/AXA_logo.svg');
+      background-image: url('/assets/logos/AXA_logo.svg');
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center center;
       display: block;
+      margin-left: 12px;
     }
   }
 }

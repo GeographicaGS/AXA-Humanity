@@ -1,9 +1,76 @@
-$colorPrimary: #00008F;
-$colorAccent: #7F7F7F;
-$colorAccentAlt: #F07662;
+// Base colors
+$colorAccent: #00008F; // Blue axa
+$colorAccentAlt: #FF1721;// Red axa
 
+// Axa Main Palette
+  // Blue variants
+  $deepSapphire: #00005b;
+  $axaBlue: $colorAccent;
+  $stTropaz: #2425aa;
+  $azure: #3032c1;
+  $darkIndigo: #3b3fd8;
+  $indigo: #494df4;
+
+  // Red variants
+  $axaRed: colorAccentAlt;
+  $flamingo: #ec4d33;
+  $burntSienna: #f07662;
+
+  // White / Gray / Black
+  $mineShaft: #333333;
+  $scorpion: #5f5f5f;
+  $gray: #7F7F7F;
+  $dustGray: #999999;
+  $silver: #cccccc;
+  $mercury: #e5e5e5;
+  $wildSand: #f5f5f5;
+  $alabaster: #fafafa;
+
+// Secondary palette
+$outerSpace: #343c3f;
+$amaranth: #f02849;
+$malachite: #1cc54e;
+$shyTomato: #c91432;
+$colorGEO: #15B750;
+
+// Qualitative colors
+$qs01: #7F3C8D;
+$qs02: #11a579;
+$qs03: #3969AC;
+$qs04: #F2B701;
+$qs05: #E73F74;
+$qs06: #80BA5A;
+$qs07: #E68310;
+$qs08: #008695;
+$qs09: #CF1C90;
+$qs010: #F97B72;
+$qs011: #4B4B8F;
+$qs012: #787D8B;
+
+// Neutral colors
+$neutro-100: #1A1E29;
+$neutro-90: #292D3A;
+$neutro-80: #383D4C;
+$neutro-70: #4B505F;
+$neutro-60: #626775;
+$neutro-50: #787D8B;
+$neutro-40: #9397A2;
+$neutro-30: #AEB1B9;
+$neutro-20: #C9CBD1;
+$neutro-10: #E4E5E8;
+$neutro-05: #F2F2F4;
 $white: #FFFFFF;
 
 $fontFamily: 'Source Sans Pro', sans-serif;
 $fontFamilySecond: 'Spectral', serif;
 $fontBaseSize: 16px;
+
+$headerHeight: 96px;
+$footerHeight: 32px;
+
+$headerLargePaddingRight: 64px;
+$headerLargePaddingLeft: 40px;
+$headerMediumPaddingRight: 32px;
+$headerMediumPaddingLeft: 20px;
+$headerSmallPaddingRight: 16px;
+$headerSmallPaddingLeft: 10px;
