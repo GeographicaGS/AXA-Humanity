@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GlobeComponent } from './globe/globe.component';
+import { GlobeService } from './globe/globe.service';
 import { LandingRoutingModule } from './landing.routing.module';
 
 const components = [
@@ -14,8 +15,8 @@ const components = [
   ],
   declarations: components,
   exports: [
-    [LandingRoutingModule, ...components]
+    [ LandingRoutingModule, ...components ]
   ],
-  providers: [],
+  providers: [ GlobeService ],
 })
 export class LandingModule { }

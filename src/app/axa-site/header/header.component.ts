@@ -9,7 +9,7 @@ export class HeaderComponent implements OnInit {
 
   @Input('indicator') indicator = undefined;
 
-  private headerTitle = 'board';
+  public headerTitle = 'board';
 
   constructor() {
   }

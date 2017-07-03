@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { APP_BASE_HREF } from '@angular/common';
+import { LandingModule } from '../landing.module';
 import { GlobeComponent } from './globe.component';
 
 describe('GlobeComponent', () => {
@@ -8,7 +9,10 @@ describe('GlobeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GlobeComponent ]
+      imports: [LandingModule],
+      providers:  [
+        {provide: APP_BASE_HREF, useValue : '/' }
+      ],
     })
     .compileComponents();
   }));
