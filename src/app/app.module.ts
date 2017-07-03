@@ -19,9 +19,9 @@ import { LandingModule } from './landing/landing.module';
     FormsModule,
     HttpModule,
 
-    CommonModule,
     AxaSiteModule,
     LandingModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
