@@ -1,14 +1,34 @@
 @import 'common';
 
+$indicatorHeaderHeight: 64px;
+
 :host {
   position: absolute;
   top: $headerHeight;
-  min-height: 80px;
   width: 320px;
-  background: transparentize($colorAccent, .05);
   z-index: 1004;
   border-radius: 0 0 2px 2px;
   color: $white;
+  max-height: calc(100vh - 128px);
+  display: flex;
+  flex-direction: column;
+
+  transition: height 1s;
+  .header {
+    flex: 0 0 $indicatorHeaderHeight;
+    background: $stTropaz;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .content {
+    flex-grow: 1;
+    padding: 0 20px;
+    overflow: auto;
+    background: transparentize($azure, .05);
+  }
 
   @include respond-to($small) {
     right: $headerSmallPaddingRight;
