@@ -17,9 +17,29 @@ export class MapComponent implements OnInit {
 
   @Input('indicator') indicator;
 
+  geojson;
+
   firstCharacterDefaultPosition: any = {lat: 40.07807142745009, lng: -4.130859375};
   firstCharacterMarker;
+  firstMarkerPreviousPosition;
+  firstCharacterGeometry;
+  firstGeometryStyle = {
+    'color': '#FF1721',
+    'weight': 1.5,
+    'fillOpacity': 0.25,
+    'opacity': 1
+  };
+
   secondCharacterMarker;
+  secondMarkerPreviousPosition;
+  secondCharacterGeometry;
+  secondGeometryStyle = {
+    'color': '#00008F',
+    'weight': 1.5,
+    'fillOpacity': 0.25,
+    'opacity': 1
+  };
+
   countryGeojsonLayer;
 
   map: any = {};
@@ -53,38 +73,10 @@ export class MapComponent implements OnInit {
     this.defineCharacterMarkers();
 
     this.countryService.getGeojson().subscribe((geojson) => {
+      this.geojson = geojson;
       this.countryGeojsonLayer = L.geoJson(geojson, {onEachFeature: this.onEachFeature});
-      // this.countryGeojsonLayer.on('mouseover', (e) => {
-      //   // debugger;
-      //   // console.log('geojson over');
-      // });
       this.countryGeojsonLayer.addTo(this.map);
     });
-  }
-
-  onEachFeature(feature, layer) {
-    const offStyle = {
-      "border-color": "none",
-      "weight": 1,
-      "fillOpacity": 0,
-      "opacity": 0
-    };
-    const onStyle = {
-      "border-color": "#000",
-      "weight": 1,
-      "fillOpacity": 0,
-      "opacity": 1
-    };
-    layer.setStyle(offStyle);
-    layer.on('mouseover', (e) => {
-      layer.setStyle(onStyle);
-    }).on('mouseout', (e) => {
-      layer.setStyle(offStyle);
-    });
-  }
-
-  markerBeingDragged() {
-    return this.windowService.getDraggingStatus() === true;
   }
 
   onItemDrop($event) {
@@ -92,20 +84,48 @@ export class MapComponent implements OnInit {
     const coordsY = $event.nativeEvent.clientY - 26;
     const point = L.point(coordsX, coordsY);
     const markerCoords = this.map.containerPointToLatLng(point);
+
+    this.drawGeometryFromCoords(markerCoords, 'second');
+
     this.secondCharacterMarker.setLatLng(markerCoords).addTo(this.map);
-    this.secondCharacterMarker.on('drag', (e) => {
-      if (e.forced) {
+  }
 
+  drawGeometryFromCoords(markerCoords, who) {
+    this.countryService.getCodeFromCoords(markerCoords.lat, markerCoords.lng).subscribe((data) => {
+      const response = <any>data;
+
+      if (!response.rows[0]) {
+        // No country was found, let's move the marker to the previous position
+        if (who === 'second') {
+          this.secondCharacterMarker.setLatLng(this.secondMarkerPreviousPosition);
+        } else {
+          this.firstCharacterMarker.setLatLng(this.firstMarkerPreviousPosition);
+        }
+        return;
       }
-    }).on('dragend', (e) => {
-    });
 
-    this.secondCharacterMarker.fireEvent('drag', {forced: true});
-    this.map.fireEvent('mouseover', {
-      latlng: markerCoords,
-      layerPoint: this.map.latLngToLayerPoint(markerCoords),
-      containerPoint: this.map.latLngToContainerPoint(markerCoords)
+      if (who === 'first') {
+        if (this.firstCharacterGeometry) {
+          this.map.removeLayer(this.firstCharacterGeometry);
+        }
+        this.firstCharacterGeometry = this.addFilteredGeoJson(response.rows[0].iso3, this.firstGeometryStyle);
+      } else if (who === 'second') {
+
+        if (this.secondCharacterGeometry) {
+          this.map.removeLayer(this.secondCharacterGeometry);
+        }
+        this.secondCharacterGeometry = this.addFilteredGeoJson(response.rows[0].iso3, this.secondGeometryStyle);
+      }
     });
+  }
+
+  private addFilteredGeoJson(iso3, style) {
+    return L.geoJson(this.geojson, {
+      style: style,
+      filter: (feature, layer) => {
+        return feature.properties.iso3 === iso3;
+      }
+    }).addTo(this.map);
   }
 
   private defineCharacterMarkers() {
@@ -123,11 +143,20 @@ export class MapComponent implements OnInit {
       }
     });
     const firstCharacterMarker = new FirstCharacterMarker();
-    this.firstCharacterMarker = L.marker(null, {icon: firstCharacterMarker, draggable: true});
+    this.firstCharacterMarker = L.marker(null, {icon: firstCharacterMarker, draggable: true})
+      .on('dragstart', (e) => {
+        this.firstMarkerPreviousPosition = e.target._latlng;
+      })
+      .on('dragend', (e) => {
+        this.drawGeometryFromCoords(e.target._latlng, 'first');
+      });
 
     this.getUserCountry().subscribe((data) => {
       // @TODO data.country, set marker there
+      const response = <any>data;
       this.firstCharacterMarker.setLatLng(this.firstCharacterDefaultPosition).addTo(this.map);
+      const coords = response.loc.split(',');
+      this.drawGeometryFromCoords({lat: coords[0], lng: coords[1]}, 'first');
     });
   }
 
@@ -141,11 +170,38 @@ export class MapComponent implements OnInit {
       }
     });
     const secondCharacterMarker = new SecondCharacterMarker();
-    this.secondCharacterMarker = L.marker(null, {icon: secondCharacterMarker, draggable: true});
+    this.secondCharacterMarker = L.marker(null, {icon: secondCharacterMarker, draggable: true})
+      .on('dragstart', (e) => {
+        this.secondMarkerPreviousPosition = e.target._latlng;
+      })
+      .on('dragend', (e) => {
+        this.drawGeometryFromCoords(e.target._latlng, 'second');
+      });
   }
 
   private getUserCountry(): Observable<any[]> {
     return this.http.get('https://ipinfo.io')
       .map(res => res.json() as any[]);
+  }
+
+  onEachFeature(feature, layer) {
+    const offStyle = {
+      'border-color': 'none',
+      'weight': 1,
+      'fillOpacity': 0,
+      'opacity': 0
+    };
+    const onStyle = {
+      'border-color': '#000',
+      'weight': 1,
+      'fillOpacity': 0,
+      'opacity': 1
+    };
+    layer.setStyle(offStyle);
+    layer.on('mouseover', (e) => {
+      layer.setStyle(onStyle);
+    }).on('mouseout', (e) => {
+      layer.setStyle(offStyle);
+    });
   }
 }
