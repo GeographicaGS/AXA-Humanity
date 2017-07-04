@@ -2,6 +2,8 @@ import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { WindowService } from '../window.service';
 import { IndicatorService } from './indicator.service';
 
+import * as stickybits from 'stickybits';
+
 @Component({
   selector: 'app-axa-indicator',
   templateUrl: './indicator.component.html',
@@ -11,13 +13,18 @@ export class IndicatorComponent implements OnInit {
 
   @Input('indicator') indicator = undefined;
 
-  indicators: any[];
-
   @HostBinding('class.dragging') dragging;
+
+  indicators: any[];
 
   constructor(private windowService: WindowService, private indicatorService: IndicatorService) {
     this.indicatorService.getIndicators().subscribe((data) => {
       this.indicators = data;
+
+      setTimeout(() => {
+        stickybits('.title', {useStickyClasses: true});
+      }, 400);
+
     });
   }
 

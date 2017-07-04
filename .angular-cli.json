@@ -30,7 +30,8 @@
         ]
       },
       "scripts": [
-         "../node_modules/cesium/Build/Cesium/Cesium.js"
+        "../node_modules/cesium/Build/Cesium/Cesium.js",
+        "../node_modules/stickybits/dist/stickybits.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

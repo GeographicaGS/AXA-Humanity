@@ -1,23 +1,5 @@
 [
   {
-    "title": "Healthcare",
-    "icon": "cat_healthcare.svg",
-    "kpis": [
-      {
-        "title": "How many people is in risk of sinking into poverty due to a surgical operation?"
-      },
-      {
-        "title": "How many people borrowed for medical purposes?"
-      },
-      {
-        "title": "Improved sanitation facilities?"
-      },
-      {
-        "title": "Specialist surgical workforce by country?"
-      }
-    ]
-  },
-  {
     "title": "Automobile",
     "icon": "cat_automobile.svg",
     "kpis": [
@@ -32,6 +14,24 @@
     "kpis": [
       {
         "title": "How many people yyy?"
+      }
+    ]
+  },
+  {
+    "title": "Healthcare",
+    "icon": "cat_healthcare.svg",
+    "kpis": [
+      {
+        "title": "How many people is in risk of sinking into poverty due to a surgical operation?"
+      },
+      {
+        "title": "How many people borrowed for medical purposes?"
+      },
+      {
+        "title": "Improved sanitation facilities?"
+      },
+      {
+        "title": "Specialist surgical workforce by country?"
       }
     ]
   },

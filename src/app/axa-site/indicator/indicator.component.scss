@@ -56,15 +56,14 @@ $indicatorHeaderHeight: 64px;
 
   .content {
     flex-grow: 1;
-    padding: 0 20px;
     overflow: auto;
     background: transparentize($azure, .05);
     transition: opacity .3s;
-
+    max-height: 100%;
     ul.indicatorsList {
       li {
         div.title {
-          padding: 19px 0;
+          padding: 19px 20px;
           color: $burntSienna;
           text-transform: uppercase;
           @include font('semibold');
@@ -75,7 +74,9 @@ $indicatorHeaderHeight: 64px;
           display: flex;
           align-items: center;
           cursor: pointer;
-          position: relative;
+          position: sticky;
+          background: $azure;
+          top: 0;
 
           span.catIcon {
             width: 20px;
@@ -104,7 +105,7 @@ $indicatorHeaderHeight: 64px;
             height: 12px;
             width: 12px;
             position: absolute;
-            right: 0;
+            right: 20px;
             transform: rotate(90deg);
             transition: transform .3s;
           }
@@ -130,13 +131,15 @@ $indicatorHeaderHeight: 64px;
                 margin-right: 8px;
               }
             }
+            &:last-child {
+              border-bottom: 1px solid transparent;
+            }
           }
         }
 
         &.active {
           div.title {
             &:after {
-
               transform: rotate(0deg);
             }
           }
@@ -145,6 +148,7 @@ $indicatorHeaderHeight: 64px;
             opacity: 1;
             visibility: visible;
             height: auto;
+            padding: 0 20px;
             li {
               height: 300px;
               padding: 16px 0;
