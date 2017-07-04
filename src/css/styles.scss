@@ -16,6 +16,10 @@ body {
   @include font();
   font-size: $fontBaseSize;
   height: 100vh;
+
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {

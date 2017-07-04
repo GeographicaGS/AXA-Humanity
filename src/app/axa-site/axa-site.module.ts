@@ -13,6 +13,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 
 import { IndicatorService } from './indicator/indicator.service';
+import { CountryGeojsonService } from './map/country-geojson.service';
 
 import { Ng2DragDropModule } from 'ng2-drag-drop';
 import { WindowService } from './window.service';
@@ -38,7 +39,7 @@ const components = [
   exports: [
     [AxaSiteRoutingModule, ...components]
   ],
-  providers: [WindowService, IndicatorService],
+  providers: [WindowService, IndicatorService, CountryGeojsonService],
   bootstrap: [AxaSiteComponent]
 })
 export class AxaSiteModule { }

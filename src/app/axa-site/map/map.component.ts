@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { WindowService } from '../window.service';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+import { CountryGeojsonService } from './country-geojson.service';
 
 declare var cdb: any;
 declare var L: any;
@@ -19,6 +20,7 @@ export class MapComponent implements OnInit {
   firstCharacterDefaultPosition: any = {lat: 40.07807142745009, lng: -4.130859375};
   firstCharacterMarker;
   secondCharacterMarker;
+  countryGeojsonLayer;
 
   map: any = {};
   options: any = {
@@ -32,7 +34,7 @@ export class MapComponent implements OnInit {
     markerRadius: 7
   };
 
-  constructor(private http: Http, private windowService: WindowService) {
+  constructor(private http: Http, private windowService: WindowService, private countryService: CountryGeojsonService) {
   }
 
   ngOnInit() {
@@ -49,6 +51,36 @@ export class MapComponent implements OnInit {
     });
 
     this.defineCharacterMarkers();
+
+    this.countryService.getGeojson().subscribe((geojson) => {
+      this.countryGeojsonLayer = L.geoJson(geojson, {onEachFeature: this.onEachFeature});
+      // this.countryGeojsonLayer.on('mouseover', (e) => {
+      //   // debugger;
+      //   // console.log('geojson over');
+      // });
+      this.countryGeojsonLayer.addTo(this.map);
+    });
+  }
+
+  onEachFeature(feature, layer) {
+    const offStyle = {
+      "border-color": "none",
+      "weight": 1,
+      "fillOpacity": 0,
+      "opacity": 0
+    };
+    const onStyle = {
+      "border-color": "#000",
+      "weight": 1,
+      "fillOpacity": 0,
+      "opacity": 1
+    };
+    layer.setStyle(offStyle);
+    layer.on('mouseover', (e) => {
+      layer.setStyle(onStyle);
+    }).on('mouseout', (e) => {
+      layer.setStyle(offStyle);
+    });
   }
 
   markerBeingDragged() {
@@ -60,8 +92,20 @@ export class MapComponent implements OnInit {
     const coordsY = $event.nativeEvent.clientY - 26;
     const point = L.point(coordsX, coordsY);
     const markerCoords = this.map.containerPointToLatLng(point);
-
     this.secondCharacterMarker.setLatLng(markerCoords).addTo(this.map);
+    this.secondCharacterMarker.on('drag', (e) => {
+      if (e.forced) {
+
+      }
+    }).on('dragend', (e) => {
+    });
+
+    this.secondCharacterMarker.fireEvent('drag', {forced: true});
+    this.map.fireEvent('mouseover', {
+      latlng: markerCoords,
+      layerPoint: this.map.latLngToLayerPoint(markerCoords),
+      containerPoint: this.map.latLngToContainerPoint(markerCoords)
+    });
   }
 
   private defineCharacterMarkers() {
@@ -79,7 +123,7 @@ export class MapComponent implements OnInit {
       }
     });
     const firstCharacterMarker = new FirstCharacterMarker();
-    this.firstCharacterMarker = L.marker(null, {icon: firstCharacterMarker});
+    this.firstCharacterMarker = L.marker(null, {icon: firstCharacterMarker, draggable: true});
 
     this.getUserCountry().subscribe((data) => {
       // @TODO data.country, set marker there
@@ -97,7 +141,7 @@ export class MapComponent implements OnInit {
       }
     });
     const secondCharacterMarker = new SecondCharacterMarker();
-    this.secondCharacterMarker = L.marker(null, {icon: secondCharacterMarker});
+    this.secondCharacterMarker = L.marker(null, {icon: secondCharacterMarker, draggable: true});
   }
 
   private getUserCountry(): Observable<any[]> {

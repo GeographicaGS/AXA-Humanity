@@ -1,2 +1,3 @@
-<div droppable (onDrop)="onItemDrop($event)" id="map" [ngClass]="{'dragging': markerBeingDragged()}"></div>
+<div droppable (onDrop)="onItemDrop($event)" id="map" [dragOverClass]="'dragging'"></div>
+ <!-- [ngClass]="{'dragging': markerBeingDragged()}" -->
 <app-axa-indicator [indicator]="indicator"></app-axa-indicator>
