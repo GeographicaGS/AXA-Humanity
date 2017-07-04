@@ -17,6 +17,7 @@ $indicatorHeaderHeight: 64px;
     .header {
       background-color: transparent;
       color: transparent;
+      height: 0;
       span.secondCharacter {
         color: transparent;
       }
@@ -24,6 +25,7 @@ $indicatorHeaderHeight: 64px;
     .content {
       opacity: 0;
       visibility: hidden;
+      height: 0;
     }
   }
   .header {
@@ -58,6 +60,99 @@ $indicatorHeaderHeight: 64px;
     overflow: auto;
     background: transparentize($azure, .05);
     transition: opacity .3s;
+
+    ul.indicatorsList {
+      li {
+        div.title {
+          padding: 19px 0;
+          color: $burntSienna;
+          text-transform: uppercase;
+          @include font('semibold');
+          font-size: 14px;
+          letter-spacing: 1px;
+          line-height: 16px;
+
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          position: relative;
+
+          span.catIcon {
+            width: 20px;
+            height: 20px;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            display: block;
+            margin-right: 11px;
+          }
+          span.totalKpis {
+            @include font('semibold');
+            letter-spacing: 1px;
+            font-size: 14px;
+            line-height: 16px;
+            color: transparentize($white, .5);
+            margin-left: 12px;
+          }
+          &:after {
+            content: '';
+            display: block;
+            background-image: url("/assets/icons/arrow-dropdown-sienna.svg");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 12px;
+            width: 12px;
+            position: absolute;
+            right: 0;
+            transform: rotate(90deg);
+            transition: transform .3s;
+          }
+        }
+
+        ul.kpisList {
+          max-height: 0;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity .5s;
+          height: 0;
+          li {
+            height: 0;
+            padding: 0;
+            border-bottom: 1px solid $stTropaz;
+            div.kpiTitle {
+              @include font('extrabold');
+              color: $white;
+              font-size: 20px;
+              line-height: 20px;
+
+              span {
+                margin-right: 8px;
+              }
+            }
+          }
+        }
+
+        &.active {
+          div.title {
+            &:after {
+
+              transform: rotate(0deg);
+            }
+          }
+          ul.kpisList {
+            max-height: none;
+            opacity: 1;
+            visibility: visible;
+            height: auto;
+            li {
+              height: 300px;
+              padding: 16px 0;
+            }
+          }
+        }
+      }
+    }
   }
 
   @include respond-to($small) {

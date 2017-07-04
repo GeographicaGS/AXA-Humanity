@@ -8,7 +8,19 @@
   </span>
 </div>
 <div class="content">
-  <ul>
-    <li *ngFor="let indicator of indicators">{{ indicator.title }}</li>
+  <ul class="indicatorsList">
+    <li *ngFor="let indicator of indicators; let i= index;" class="active" id="indicator_{{i}}">
+      <div class="title" (click)="toggleIndicator($event)">
+        <span class="catIcon" [ngStyle]="getIndicatorIcon(indicator)"></span>
+        {{ indicator.title }}
+        <span class="totalKpis">{{ indicator.kpis.length }} KPIs</span>
+      </div>
+
+      <ul class="kpisList">
+        <li *ngFor="let kpi of indicator.kpis; let i= index;">
+          <div class="kpiTitle"><span>{{ i + 1 }}.</span> {{ kpi.title }}</div>
+        </li>
+      </ul>
+    </li>
   </ul>
 </div>

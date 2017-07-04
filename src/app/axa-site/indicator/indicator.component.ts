@@ -39,4 +39,17 @@ export class IndicatorComponent implements OnInit {
     this.dragging = false;
     this.windowService.setDraggingStatus(false);
   }
+
+  getIndicatorIcon(indicator) {
+    if (!indicator.icon) {
+      return { };
+    } else {
+      return {'background-image': `url(/assets/icons/${indicator.icon})`};
+    }
+  }
+
+  toggleIndicator($event) {
+    const target = $event.currentTarget;
+    target.parentElement.classList.toggle('active');
+  }
 }

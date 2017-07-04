@@ -1,22 +1,47 @@
 [
   {
-    "title": "Indicator one",
-  	"viz": "https://finanzasdf-admin.carto.com/api/v2/viz/abb29880-b843-11e5-97de-0e9c441fa3f5/viz.json"
+    "title": "Healthcare",
+    "icon": "cat_healthcare.svg",
+    "kpis": [
+      {
+        "title": "How many people is in risk of sinking into poverty due to a surgical operation?"
+      },
+      {
+        "title": "How many people borrowed for medical purposes?"
+      },
+      {
+        "title": "Improved sanitation facilities?"
+      },
+      {
+        "title": "Specialist surgical workforce by country?"
+      }
+    ]
   },
   {
-    "title": "Indicator two",
-  	"viz": "https://finanzasdf-admin.carto.com/api/v2/viz/abb29880-b843-11e5-97de-0e9c441fa3f5/viz.json"
+    "title": "Automobile",
+    "icon": "cat_automobile.svg",
+    "kpis": [
+      {
+        "title": "How many people xxx?"
+      }
+    ]
   },
   {
-    "title": "Indicator three",
-  	"viz": "https://finanzasdf-admin.carto.com/api/v2/viz/abb29880-b843-11e5-97de-0e9c441fa3f5/viz.json"
+    "title": "Pension",
+    "icon": "cat_pension.svg",
+    "kpis": [
+      {
+        "title": "How many people yyy?"
+      }
+    ]
   },
   {
-    "title": "Indicator four",
-  	"viz": "https://finanzasdf-admin.carto.com/api/v2/viz/abb29880-b843-11e5-97de-0e9c441fa3f5/viz.json"
-  },
-  {
-    "title": "Indicator five",
-  	"viz": "https://finanzasdf-admin.carto.com/api/v2/viz/abb29880-b843-11e5-97de-0e9c441fa3f5/viz.json"
+    "title": "Others",
+    "icon": "cat_Others.svg",
+    "kpis": [
+      {
+        "title": "Life insurance share?"
+      }
+    ]
   }
 ]
