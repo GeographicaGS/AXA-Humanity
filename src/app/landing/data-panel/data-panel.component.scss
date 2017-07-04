@@ -1,0 +1,123 @@
+@import 'common';
+
+:host {
+  width: 368px;
+  background-color: #000;
+  padding: 150px 64px 0px 64px;
+  h4{
+    @include font(bold);
+    font-size: 16px;
+    color: $indigo;
+    text-align: center;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+    position: relative;
+    &:after{
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: $indigo;
+    }
+  }
+
+  ul {
+    li {
+      color: #fff;
+      position: relative;
+      padding: 25px 0 22px 0;
+      text-align: center;
+      .data {
+        .value {
+          @include font(extrabold, $fontFamilySecond);
+          font-size: 72px;
+          line-height: 60px;
+
+          &.big{
+            font-size: 96px;
+            line-height: 70px;
+            margin: 5px 0;
+          }
+
+        }
+        .units {
+          @include font();
+          font-size: 24px;
+        }
+      }
+      .title {
+        @include font(semibold);
+        font-size: 18px;
+      }
+
+      &:after{
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background-color: $mineShaft;
+      }
+
+      &.big {
+
+      }
+    }
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    a.button {
+      height: 48px;
+      width: 107px;
+      padding: 17px 20px;
+      border-radius: 1px;
+      margin-top: 20px;
+      text-transform: uppercase;
+      background-color: $colorAccent;
+      color: #FFFFFF;
+      @include font(semibold);
+      letter-spacing: 2px;
+      line-height: 14px;
+      font-size: 14px;
+    }
+
+  }
+
+  .geographica {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    a {
+      @include font();
+      font-size: 12px;
+      line-height: 12px;
+      color: $neutro-40;
+      display: flex;
+      align-items: center;
+      span{
+        color: $colorGEO;
+        margin-left: 4px;
+      }
+
+      &:after {
+        content: '';
+        display: flex;
+        align-items: center;
+        height: 36px;
+        width: 36px;
+        background: url('/assets/logos/GEO_alt.svg') no-repeat;
+        background-size: 36px 36px;
+        margin-left: 5px;
+
+      }
+    }
+  }
+}

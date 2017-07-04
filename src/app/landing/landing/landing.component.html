@@ -1,0 +1,14 @@
+<header>
+  <div class="logoHumanity">
+    <h1>Humanity</h1>
+    <h2>People-centered Data<span>by AXA</span></h2>
+  </div>
+  <div class="logoAxa">
+    <a href="https://www.axa.com/" target="_blank">
+      <img src="/assets/logos/AXA_logo.svg" alt="AXA logo">
+    </a>
+  </div>
+</header>
+<app-globe (changeInfo)="changeInfoModel($event)"></app-globe>
+<app-data-panel></app-data-panel>
+<app-globe-info-panel [infoModel]="infoModel"></app-globe-info-panel>
