@@ -59,4 +59,18 @@ export class IndicatorComponent implements OnInit {
     const target = $event.currentTarget;
     target.parentElement.classList.toggle('active');
   }
+
+  getFirstCountryName() {
+    const country = this.windowService.getFirstCountry();
+    return country !== null ? country.name : false;
+  }
+
+  getSecondCountryName() {
+    const country = this.windowService.getSecondCountry();
+    return country !== null ? country.name : false;
+  }
+
+  isComparisonGoingOn() {
+    return this.windowService.comparisonGoingOn();
+  }
 }

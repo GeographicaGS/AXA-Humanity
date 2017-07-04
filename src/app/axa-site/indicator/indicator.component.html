@@ -1,10 +1,17 @@
 <div class="header">
-  <span>Left</span>
-  <span class="secondCharacter">Compare
+  <span class="firstCountryName">
+    <span *ngIf="getFirstCountryName() !== false">{{ getFirstCountryName() }}</span>
+  </span>
+
+  <span *ngIf="!isComparisonGoingOn()" class="secondCharacter">Compare
     <span
       draggable
       (onDragStart)="onDragStart($event)"
       (onDragEnd)="onDragEnd($event)" class="icon"></span>
+  </span>
+
+  <span class="secondCountryName" *ngIf="isComparisonGoingOn()">
+    <span *ngIf="getSecondCountryName() !== false">{{ getSecondCountryName() }}</span>
   </span>
 </div>
 <div class="content">

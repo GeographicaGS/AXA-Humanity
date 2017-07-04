@@ -109,12 +109,16 @@ export class MapComponent implements OnInit {
           this.map.removeLayer(this.firstCharacterGeometry);
         }
         this.firstCharacterGeometry = this.addFilteredGeoJson(response.rows[0].iso3, this.firstGeometryStyle);
+
+        this.windowService.setFirstCountry({name: response.rows[0].name, code: response.rows[0].iso3});
       } else if (who === 'second') {
 
         if (this.secondCharacterGeometry) {
           this.map.removeLayer(this.secondCharacterGeometry);
         }
         this.secondCharacterGeometry = this.addFilteredGeoJson(response.rows[0].iso3, this.secondGeometryStyle);
+
+        this.windowService.setSecondCountry({name: response.rows[0].name, code: response.rows[0].iso3});
       }
     });
   }
