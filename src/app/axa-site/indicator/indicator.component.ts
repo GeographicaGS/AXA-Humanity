@@ -17,24 +17,58 @@ export class IndicatorComponent implements OnInit {
 
   indicators: any[];
 
+  firstCountry;
+  secondCountry;
+
   constructor(private windowService: WindowService, private indicatorService: IndicatorService) {
+
+    this.windowService.getFirstCountry().subscribe((country) => {
+      this.firstCountry = country;
+      this.processKpis(this.firstCountry, 'first');
+    });
+    this.windowService.getSecondCountry().subscribe((country) => {
+      this.secondCountry = country;
+      this.processKpis(this.secondCountry, 'second');
+    });
+
     this.indicatorService.getIndicators().subscribe((data) => {
       this.indicators = data;
 
+      if (this.firstCountry) {
+        this.processKpis(this.firstCountry, 'first');
+      }
+      if (this.secondCountry) {
+        this.processKpis(this.secondCountry, 'second');
+      }
       setTimeout(() => {
         stickybits('.title', {useStickyClasses: true});
       }, 400);
-
     });
+
   }
 
-  ngOnInit() {
-    if (this.indicator) {
+  processKpis(country = null, type = 'first') {
+    if (!this.indicators) { return; }
+    for (const category in this.indicators) {
+      if (this.indicators[category].kpis) {
+        for (const kpi in this.indicators[category].kpis) {
+          if (this.indicators[category].kpis[kpi]) {
+            this.indicatorService.getKpiData(this.indicators[category].kpis[kpi].tableName, country.code).subscribe((kpiData) => {
+              const response = <any>kpiData;
+              if (type === 'first') {
+                this.indicators[category].kpis[kpi].firstCountryValue = response.rows[0] ? response.rows[0].data : null;
+              } else {
+                this.indicators[category].kpis[kpi].secondCountryValue = response.rows[0] ? response.rows[0].data : null;
+              }
+            });
+          }
+        }
+      }
     }
   }
 
-  hasIndicator() {
-    return this.indicator !== undefined;
+  ngOnInit() {
+    if (this.indicator) { }
   }
 
   onDragStart($event) {
@@ -61,16 +95,30 @@ export class IndicatorComponent implements OnInit {
   }
 
   getFirstCountryName() {
-    const country = this.windowService.getFirstCountry();
-    return country !== null ? country.name : false;
+    return this.firstCountry ? this.firstCountry.name : false;
   }
 
   getSecondCountryName() {
-    const country = this.windowService.getSecondCountry();
-    return country !== null ? country.name : false;
+    return this.secondCountry ? this.secondCountry.name : false;
   }
 
   isComparisonGoingOn() {
-    return this.windowService.comparisonGoingOn();
+    return this.firstCountry && this.secondCountry;
+  }
+
+  getFillBar(value, value2, units = '%') {
+
+    if (units !== '%') {
+      if (value < value2) {
+        value = (value * 100) / value2;
+      } else {
+        value = 100;
+      }
+
+    } else if (value > 100) {
+      value = 100;
+    }
+
+    return { 'width': value + '%'};
   }
 }

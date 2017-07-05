@@ -25,7 +25,58 @@
 
       <ul class="kpisList">
         <li *ngFor="let kpi of indicator.kpis; let i= index;">
-          <div class="kpiTitle"><span>{{ i + 1 }}.</span> {{ kpi.title }}</div>
+
+          <div class="kpiTitle">
+            <div class="titleWrapper"><span>{{ i + 1 }}.</span> {{ kpi.title }}</div>
+            <div class="actions"> a <br> b </div>
+          </div>
+
+          <div class="singleMode"
+            *ngIf="getFirstCountryName() !== false && getSecondCountryName() === false"
+          >
+            <div class="noValue" *ngIf="!kpi.firstCountryValue">No value</div>
+            <div class="value" *ngIf="kpi.firstCountryValue && kpi.unit === '%'">{{ kpi.firstCountryValue | number }} {{ kpi.unit }}</div>
+            <div class="value" *ngIf="kpi.firstCountryValue && (kpi.unit === 'EUR' || kpi.unit === 'USD')">{{ kpi.firstCountryValue | currency:kpi.unit:true }}</div>
+            <div class="value" *ngIf="kpi.firstCountryValue && kpi.unit === ''">{{ kpi.firstCountryValue | number }}</div>
+          </div>
+
+          <div class="comparisonMode"
+            *ngIf="isComparisonGoingOn()"
+          >
+
+            <div class="barWrapper firstCountryData" *ngIf="getFirstCountryName() !== false">
+
+              <div class="dataWrapper">
+                <div class="countryName">{{ getFirstCountryName() }}</div>
+
+                <div class="value" *ngIf="!kpi.firstCountryValue">No value</div>
+                <div class="value" *ngIf="kpi.firstCountryValue && kpi.unit === '%'">{{ kpi.firstCountryValue | number }} {{ kpi.unit }}</div>
+                <div class="value" *ngIf="kpi.firstCountryValue && (kpi.unit === 'EUR' || kpi.unit === 'USD')">{{ kpi.firstCountryValue | currency:kpi.unit:true }}</div>
+                <div class="value" *ngIf="kpi.firstCountryValue && kpi.unit === ''">{{ kpi.firstCountryValue | number }}</div>
+
+              </div>
+              <div class="barFigure"><span class="barFill red" [ngStyle]="getFillBar(kpi.firstCountryValue, kpi.secondCountryValue, kpi.unit)"></span></div>
+            </div>
+
+            <div class="barWrapper secondCountryData" *ngIf="getSecondCountryName() !== false">
+
+              <div class="dataWrapper">
+                <div class="countryName">{{ getSecondCountryName() }}</div>
+
+                <div class="value" *ngIf="!kpi.secondCountryValue">No value</div>
+                <div class="value" *ngIf="kpi.secondCountryValue && kpi.unit === '%'">{{ kpi.secondCountryValue | number }} {{ kpi.unit }}</div>
+                <div class="value" *ngIf="kpi.secondCountryValue && (kpi.unit === 'EUR' || kpi.unit === 'USD')">{{ kpi.secondCountryValue | currency:kpi.unit:true }}</div>
+                <div class="value" *ngIf="kpi.secondCountryValue && kpi.unit === ''">{{ kpi.secondCountryValue | number }}</div>
+
+              </div>
+
+              <div class="barFigure">
+                <span class="barFill blue" [ngStyle]="getFillBar(kpi.secondCountryValue, kpi.firstCountryValue, kpi.unit)" *ngIf="kpi.secondCountryValue"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="placeholder">{{ kpi.unitText }}</div>
         </li>
       </ul>
     </li>

@@ -39,7 +39,11 @@ const components = [
   exports: [
     [AxaSiteRoutingModule, ...components]
   ],
-  providers: [WindowService, IndicatorService, CountryGeojsonService],
+  providers: [
+    WindowService,
+    IndicatorService,
+    CountryGeojsonService
+  ],
   bootstrap: [AxaSiteComponent]
 })
 export class AxaSiteModule { }

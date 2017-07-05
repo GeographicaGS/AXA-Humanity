@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 function getWindow (): any {
   return window;
@@ -9,9 +10,14 @@ export class WindowService {
 
   private draggingStatus: boolean;
 
-  private firstCountry: any = null;
+  private indicators = new BehaviorSubject<Array<any>>([]);
+  private $indicators = this.indicators.asObservable();
 
-  private secondCountry: any = null;
+  private firstCountry = new BehaviorSubject<any>(false);
+  private $firstCountry = this.firstCountry.asObservable();
+
+  private secondCountry = new BehaviorSubject<any>(false);
+  private $secondCountry = this.secondCountry.asObservable();
 
   constructor() { }
 
@@ -27,12 +33,20 @@ export class WindowService {
     return this.draggingStatus;
   }
 
+  getIndicators() {
+    return this.indicators;
+  }
+
+  setIndicators(indicators) {
+    this.indicators.next(indicators);
+  }
+
   getFirstCountry() {
     return this.firstCountry;
   }
 
   setFirstCountry(country) {
-    this.firstCountry = country;
+    this.firstCountry.next(country);
   }
 
   getSecondCountry() {
@@ -40,7 +54,7 @@ export class WindowService {
   }
 
   setSecondCountry(country) {
-    this.secondCountry = country;
+    this.secondCountry.next(country);
   }
 
   comparisonGoingOn() {

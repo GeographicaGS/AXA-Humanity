@@ -13,4 +13,12 @@ export class IndicatorService {
             .map(response => response.json() as any[]);
   }
 
+  getKpiData(table, country = null): Observable<any[]> {
+    let where = '';
+    if (country) {
+      where = ` WHERE iso3 = '${country}'`;
+    }
+    return this.http.get(`https://axa-cdo.carto.com/api/v2/sql?q=SELECT data FROM ${table} ${where}`)
+            .map(response => response.json() as any[]);
+  }
 }
