@@ -12,7 +12,10 @@ $indicatorHeaderHeight: 64px;
   max-height: calc(100vh - 128px);
   display: flex;
   flex-direction: column;
-
+  transition: top .3s;
+  &.freeFromTop {
+    top: calc(#{$headerHeight} + 8px);
+  }
   &.dragging {
     .header {
       background-color: transparent;
@@ -136,6 +139,18 @@ $indicatorHeaderHeight: 64px;
     max-height: 100%;
     ul.indicatorsList {
       li {
+        &.showingTitle {
+          .title {
+            .kpiTitleAsHeader {
+              text-transform: none;
+              color: $white;
+              white-space: nowrap;
+              width: 280px;
+              text-overflow: ellipsis;
+              overflow: hidden;
+            }
+          }
+        }
         div.title {
           padding: 19px 20px;
           color: $burntSienna;
@@ -216,6 +231,10 @@ $indicatorHeaderHeight: 64px;
                 margin-bottom: 22px;
                 span {
                   margin-right: 8px;
+                }
+
+                &.over {
+                  color: $burntSienna;
                 }
               }
               div.actions {

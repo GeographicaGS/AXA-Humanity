@@ -23,9 +23,10 @@
 
   <ul class="indicatorsList singleMode" *ngIf="!hasComparisonModeEnabled() && indicator !== undefined && indicator.category">
     <li class="active">
-      <div class="title">
+      <div class="title" (click)="toggleIndicator($event, true)">
         <span class="catIcon" [ngStyle]="getIndicatorIcon(indicator.category)"></span>
-        {{ indicator.category.title }}
+        <span *ngIf="!freeFromTop">{{ indicator.category.title }}</span>
+        <span class="kpiTitleAsHeader" *ngIf="freeFromTop">{{ indicator.kpi.title }}</span>
         <span class="totalKpis"></span>
       </div>
 
@@ -98,11 +99,13 @@
         <li *ngFor="let kpi of indicator.kpis; let i= index;">
 
           <div class="kpiTitle">
-            <div class="titleWrapper"><span>{{ kpi.id }}.</span> {{ kpi.title }}</div>
+            <div class="titleWrapper" id="kpi_{{ kpi.id }}_title"><span>{{ kpi.id }}.</span> {{ kpi.title }}</div>
             <div class="actions" routerLink="/map/{{ kpi.id }}">
-              <div class="worldIcon tooltipContainer">
+
+              <div class="worldIcon tooltipContainer" (mouseover)="highlightTitle(kpi.id)" (mouseout)="normalTitle(kpi.id)">
                 <div class="tooltipMessage">View global data</div>
               </div>
+
               <div class="flagIcon"></div>
             </div>
           </div>

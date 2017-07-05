@@ -15,6 +15,8 @@ export class IndicatorComponent implements OnInit {
 
   @HostBinding('class.dragging') dragging;
 
+  @HostBinding('class.freeFromTop') freeFromTop;
+
   indicators: any[];
 
   firstCountry;
@@ -123,9 +125,14 @@ export class IndicatorComponent implements OnInit {
     }
   }
 
-  toggleIndicator($event) {
+  toggleIndicator($event, detail = false) {
     const target = $event.currentTarget;
-    target.parentElement.classList.toggle('active');
+    const parent = target.parentElement;
+    parent.classList.toggle('active');
+    if (detail) {
+      parent.classList.toggle('showingTitle');
+      this.freeFromTop = !this.freeFromTop;
+    }
   }
 
   getFirstCountryName() {
@@ -166,6 +173,20 @@ export class IndicatorComponent implements OnInit {
     const infoElement = document.getElementById('kpiInfo_' + kpiId);
     if (infoElement) {
       infoElement.classList.toggle('active');
+    }
+  }
+
+  highlightTitle(kpiId) {
+    const titleElement = document.getElementById('kpi_' + kpiId + '_title');
+    if (titleElement) {
+      titleElement.classList.add('over');
+    }
+  }
+
+  normalTitle(kpiId) {
+    const titleElement = document.getElementById('kpi_' + kpiId + '_title');
+    if (titleElement) {
+      titleElement.classList.remove('over');
     }
   }
 
