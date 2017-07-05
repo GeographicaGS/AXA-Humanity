@@ -9,10 +9,12 @@ import { AxaSiteRoutingModule } from './axa-site-routing.module';
 
 import { MapComponent } from './map/map.component';
 import { IndicatorComponent } from './indicator/indicator.component';
+import { IndicatorNavigationComponent } from './indicator-navigation/indicator-navigation.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 
 import { IndicatorService } from './indicator/indicator.service';
+import { CountryGeojsonService } from './map/country-geojson.service';
 
 import { Ng2DragDropModule } from 'ng2-drag-drop';
 import { WindowService } from './window.service';
@@ -22,6 +24,7 @@ const components = [
   AxaSiteComponent,
   MapComponent,
   IndicatorComponent,
+  IndicatorNavigationComponent,
   HeaderComponent,
   FooterComponent
 ];
@@ -38,7 +41,11 @@ const components = [
   exports: [
     [AxaSiteRoutingModule, ...components]
   ],
-  providers: [WindowService, IndicatorService],
+  providers: [
+    WindowService,
+    IndicatorService,
+    CountryGeojsonService
+  ],
   bootstrap: [AxaSiteComponent]
 })
 export class AxaSiteModule { }
