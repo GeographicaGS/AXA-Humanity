@@ -12,7 +12,10 @@ $indicatorHeaderHeight: 64px;
   max-height: calc(100vh - 128px);
   display: flex;
   flex-direction: column;
-
+  transition: top .3s;
+  &.freeFromTop {
+    top: calc(#{$headerHeight} + 8px);
+  }
   &.dragging {
     .header {
       background-color: transparent;
@@ -107,13 +110,23 @@ $indicatorHeaderHeight: 64px;
       color: $burntSienna;
       font-size: 14px;
       line-height: 14px;
-      span.icon {
-        width: 28px;
+
+      span.iconBase {
+        width: 32px;
         height: 52px;
-        background-image: url('/assets/icons/character2.svg');
+        background-image: url('/assets/icons/character-alt_base.svg');
         background-repeat: no-repeat;
-        cursor: pointer;
         margin-left: 8px;
+        position: relative;
+
+        span.icon {
+          width: 32px;
+          height: 52px;
+          background-image: url('/assets/icons/character2-alt.svg');
+          background-repeat: no-repeat;
+          cursor: pointer;
+          position: absolute;
+        }
       }
     }
   }
@@ -126,6 +139,18 @@ $indicatorHeaderHeight: 64px;
     max-height: 100%;
     ul.indicatorsList {
       li {
+        &.showingTitle {
+          .title {
+            .kpiTitleAsHeader {
+              text-transform: none;
+              color: $white;
+              white-space: nowrap;
+              width: 280px;
+              text-overflow: ellipsis;
+              overflow: hidden;
+            }
+          }
+        }
         div.title {
           padding: 19px 20px;
           color: $burntSienna;
@@ -206,6 +231,10 @@ $indicatorHeaderHeight: 64px;
                 margin-bottom: 22px;
                 span {
                   margin-right: 8px;
+                }
+
+                &.over {
+                  color: $burntSienna;
                 }
               }
               div.actions {
