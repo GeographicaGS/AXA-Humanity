@@ -1,7 +1,7 @@
 <div id="cesiumContainer"></div>
 <p id="cesiumCredit"></p>
 
-<div id="dark_control" class="navControl" [ngClass]="{'disabled': mode!=='dark'}">
+<div id="dark_control" class="navControl" [ngClass]="{'disabled': mode!=='dark'}" (click)="onClickMode('dark')">
   <div class="icons">
     <div class="point"></div>
     <img src="/assets/icons/globe_amaranth.svg"  class="globe"/>
@@ -9,7 +9,7 @@
   </div>
   <p>Issues to improve</p>
 </div>
-<div id="light_control" class="navControl" [ngClass]="{'disabled': mode!=='light'}">
+<div id="light_control" class="navControl" [ngClass]="{'disabled': mode!=='light'}" (click)="onClickMode('light')">
   <div class="icons">
     <img src="/assets/icons/arrow2-indigo.svg" class="arrow"/>
     <img src="/assets/icons/globe_indigo.svg" class="globe"/>

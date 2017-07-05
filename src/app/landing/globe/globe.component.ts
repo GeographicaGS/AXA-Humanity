@@ -33,6 +33,7 @@ export class GlobeComponent implements OnInit {
   private viewer: any;
   private mode = 'dark';
   private interval: any;
+  private modeTimeout: any;
 
   @Output()
   changeInfo: EventEmitter<any> = new EventEmitter<any>();
@@ -143,6 +144,13 @@ export class GlobeComponent implements OnInit {
     }
   }
 
+  private onClickMode(mode: string) {
+    if (mode !== this.mode) {
+      this.startMode(mode);
+    }
+
+  }
+
   private startMode(mode: string) {
     this.mode = mode;
 
@@ -157,9 +165,12 @@ export class GlobeComponent implements OnInit {
     }
 
     this.layersSmooth(src, dst);
-
-
+    if (this.modeTimeout) {
+      clearTimeout(this.modeTimeout);
+    }
     this.currentPointAnimation = 0;
+    this.runningAnimations = [];
+    this.changeInfo.emit(null);
     // Clear the map
     this.viewer.entities.removeAll();
     this.points = this.globeService.getData(this.mode);
@@ -175,7 +186,7 @@ export class GlobeComponent implements OnInit {
       });
     }
 
-    setTimeout(() => {
+    this.modeTimeout = setTimeout(() => {
       this.modeTick();
     }, 1000);
 
@@ -226,7 +237,7 @@ export class GlobeComponent implements OnInit {
       }
     });
 
-    setTimeout( () => {
+    this.modeTimeout = setTimeout( () => {
       this.modeTick();
     }, 7000);
   }
