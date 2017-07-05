@@ -116,7 +116,7 @@ export class IndicatorComponent implements OnInit {
   }
 
   getIndicatorIcon(indicator) {
-    if (!indicator || !indicator.icon) {
+    if (!indicator || !indicator.icon) {
       return { };
     } else {
       return {'background-image': `url(/assets/icons/${indicator.icon})`};

@@ -243,4 +243,8 @@ export class MapComponent implements OnInit {
       layer.setStyle(offStyle);
     });
   }
+
+  indicatorDetailView() {
+    return this.indicator !== false && this.indicator !== undefined;
+  }
 }

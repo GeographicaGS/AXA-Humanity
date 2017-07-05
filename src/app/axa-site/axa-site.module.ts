@@ -9,6 +9,7 @@ import { AxaSiteRoutingModule } from './axa-site-routing.module';
 
 import { MapComponent } from './map/map.component';
 import { IndicatorComponent } from './indicator/indicator.component';
+import { IndicatorNavigationComponent } from './indicator-navigation/indicator-navigation.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 
@@ -23,6 +24,7 @@ const components = [
   AxaSiteComponent,
   MapComponent,
   IndicatorComponent,
+  IndicatorNavigationComponent,
   HeaderComponent,
   FooterComponent
 ];
