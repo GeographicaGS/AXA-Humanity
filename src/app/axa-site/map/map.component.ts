@@ -175,7 +175,7 @@ export class MapComponent implements OnInit {
   private defineFirstCharacterMarker() {
     const FirstCharacterMarker = L.Icon.Default.extend({
       options: {
-        iconUrl: '/assets/icons/character1_map.svg',
+        iconUrl: '/assets/icons/character1-alt_map.svg',
         iconSize: [28, 52],
         shadowSize: [0, 0],
         iconAnchor: [8, 8]
@@ -202,7 +202,7 @@ export class MapComponent implements OnInit {
   private defineSecondCharacterMarker() {
     const SecondCharacterMarker = L.Icon.Default.extend({
       options: {
-        iconUrl: '/assets/icons/character2_map.svg',
+        iconUrl: '/assets/icons/character2-alt_map.svg',
         iconSize: [28, 52],
         shadowSize: [0, 0],
         iconAnchor: [8, 8]
