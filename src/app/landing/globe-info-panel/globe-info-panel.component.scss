@@ -30,7 +30,7 @@ $speed: 0.5s;
     .zone {
       @include font(bold);
       font-size: 14px;
-      color: $dustGray;
+      color: #fff;
       line-height: 16px;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -41,6 +41,9 @@ $speed: 0.5s;
       line-height: 48px;
       @include font(extrabold,$fontFamilySecond);
       margin-top: 7px;
+    }
+    .value,.units {
+      color: $silver;
     }
 
     .units,.subtitle {
@@ -54,22 +57,21 @@ $speed: 0.5s;
     }
 
     &.dark {
-      background-color: #202020;
-      .value {
-        color: #fff;
-      }
+      background-color: $amaranth;
+
       .title,.subtitle {
-        color: $amaranth;
+        color: #000;
+      }
+      .units,.value {
+        color: $mercury;
       }
     }
 
     &.light {
-      background-color: #FFFFFF;
-      .value {
-        color: $mineShaft;
-      }
+      background-color: $indigo;
+
       .title,.subtitle {
-        color: $indigo;
+        color: #fff;
       }
     }
 
