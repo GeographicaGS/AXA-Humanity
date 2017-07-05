@@ -21,7 +21,6 @@
     height: 30px;
     bottom: 120px;
 
-
     .icons {
       display: flex;
       align-items: center;
@@ -88,6 +87,7 @@
     }
 
     &.disabled{
+      cursor: pointer;
       p{
         opacity: 0.5;
       }
