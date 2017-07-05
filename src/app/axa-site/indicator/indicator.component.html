@@ -1,4 +1,4 @@
-<div class="header">
+<div class="header" *ngIf="hasComparisonModeEnabled()">
   <span class="firstCountryName">
     <span *ngIf="getFirstCountryName() !== false">{{ getFirstCountryName() }}</span>
   </span>
@@ -28,7 +28,12 @@
 
           <div class="kpiTitle">
             <div class="titleWrapper"><span>{{ i + 1 }}.</span> {{ kpi.title }}</div>
-            <div class="actions"> a <br> b </div>
+            <div class="actions" routerLink="/map/{{ kpi.id }}">
+              <div class="worldIcon tooltipContainer">
+                <div class="tooltipMessage">View global data</div>
+              </div>
+              <div class="flagIcon"></div>
+            </div>
           </div>
 
           <div class="singleMode"
@@ -76,7 +81,10 @@
             </div>
           </div>
 
-          <div class="placeholder">{{ kpi.unitText }}</div>
+          <div class="placeholder">
+            <span>{{ kpi.unitText }}</span>
+            <span class="infoIcon"></span>
+          </div>
         </li>
       </ul>
     </li>

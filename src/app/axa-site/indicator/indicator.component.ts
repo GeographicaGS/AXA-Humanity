@@ -20,15 +20,43 @@ export class IndicatorComponent implements OnInit {
   firstCountry;
   secondCountry;
 
-  constructor(private windowService: WindowService, private indicatorService: IndicatorService) {
+  constructor(private windowService: WindowService, private indicatorService: IndicatorService) { }
 
+  ngOnInit() {
+
+    if (this.indicator) {
+      this.windowService.getIndicator().subscribe((indicator) => {
+        if (!indicator) {
+          return;
+        } else {
+          this.detailMode();
+        }
+      });
+    } else {
+      this.comparisonMode();
+    }
+  }
+
+  private detailMode() {
+    this.firstCountry = false;
+    this.secondCountry = false;
+    this.windowService.setFirstCountry(this.firstCountry);
+    this.windowService.setSecondCountry(this.secondCountry);
+    this.indicators = [];
+  }
+
+  private comparisonMode() {
     this.windowService.getFirstCountry().subscribe((country) => {
       this.firstCountry = country;
-      this.processKpis(this.firstCountry, 'first');
+      if (this.firstCountry) {
+        this.processKpis(this.firstCountry, 'first');
+      }
     });
     this.windowService.getSecondCountry().subscribe((country) => {
       this.secondCountry = country;
-      this.processKpis(this.secondCountry, 'second');
+      if (this.secondCountry) {
+        this.processKpis(this.secondCountry, 'second');
+      }
     });
 
     this.indicatorService.getIndicators().subscribe((data) => {
@@ -44,7 +72,6 @@ export class IndicatorComponent implements OnInit {
         stickybits('.title', {useStickyClasses: true});
       }, 400);
     });
-
   }
 
   processKpis(country = null, type = 'first') {
@@ -65,10 +92,6 @@ export class IndicatorComponent implements OnInit {
         }
       }
     }
-  }
-
-  ngOnInit() {
-    if (this.indicator) { }
   }
 
   onDragStart($event) {
@@ -122,5 +145,9 @@ export class IndicatorComponent implements OnInit {
     }
 
     return { 'width': value + '%'};
+  }
+
+  hasComparisonModeEnabled() {
+    return this.indicators !== undefined && this.indicators.length > 0 && (this.indicator === false || this.indicator === undefined);
   }
 }

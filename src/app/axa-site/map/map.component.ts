@@ -58,6 +58,7 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.map = L.map('map', {
       zoomControl: this.options.zoomControl,
       center: this.options.center,
@@ -69,6 +70,26 @@ export class MapComponent implements OnInit {
          { style: 'light_all', zIndex: 0 } )
       ]
     });
+
+    if (this.indicator) {
+      this.detailMode();
+    } else {
+      this.comparisonMode();
+    }
+  }
+
+  private detailMode() {
+    this.windowService.getIndicator().subscribe((indicator) => {
+      if (!indicator) {
+        // this.indicator = false;
+      } else {
+        // this.indicator = indicator;
+        // @TODO: load viz for the kpi and add the layer to the map!
+      }
+    });
+  }
+
+  private comparisonMode() {
 
     this.defineCharacterMarkers();
 

@@ -149,7 +149,15 @@ $indicatorHeaderHeight: 64px;
             height: 0;
             padding: 0;
             border-bottom: 1px solid $stTropaz;
+            overflow: hidden;
 
+            &:hover {
+              div.kpiTitle {
+                div.actions {
+                  transform: translateY(0%);
+                }
+              }
+            }
             div.kpiTitle {
               display: flex;
               div.titleWrapper {
@@ -167,6 +175,49 @@ $indicatorHeaderHeight: 64px;
                 margin-left: 10px;
                 min-width: 36px;
                 flex: 1 1 36px;
+                transform: translateY(-120%);
+                transition: transform .4s;
+                div {
+                  margin-bottom: 10px;
+                }
+                .worldIcon {
+                  height: 36px;
+                  width: 36px;
+                  border-radius: 50%;
+                  background-color: #3032C1;
+                  background-image: url('/assets/icons/globe_white.svg');
+                  background-size: 18px;
+                  background-repeat: no-repeat;
+                  background-position: center center;
+                  cursor: pointer;
+                  transition: background-image .3s;
+                  &:hover {
+                    background-image: url('/assets/icons/arrow-go_sienna.svg');
+                    background-size: 20px;
+                  }
+                }
+                .flagIcon {
+                  height: 36px;
+                  width: 36px;
+                  border-radius: 50%;
+                  background-color: #3032C1;
+                  background-image: url('/assets/icons/flag_white.svg');
+                  background-size: 18px;
+                  background-repeat: no-repeat;
+                  background-position: center center;
+                  cursor: pointer;
+                  transition: background-image .3s;
+                  &:hover {
+                    background-image: url('/assets/icons/flag_sienna.svg');
+                  }
+                }
+
+                .tooltipMessage {
+                  left: auto;
+                  bottom: auto;
+                  top: auto;
+                  right: 100%;
+                }
               }
             }
 
@@ -235,6 +286,18 @@ $indicatorHeaderHeight: 64px;
               color: $silver;
               font-size: 16px;
               line-height: 16px;
+
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              .infoIcon {
+                height: 20px;
+                width: 20px;
+                background-image: url('/assets/icons/info.svg');
+                background-size: cover;
+                background-repeat: no-repeat;
+                cursor: pointer;
+              }
             }
 
             &:last-child {

@@ -10,8 +10,8 @@ export class WindowService {
 
   private draggingStatus: boolean;
 
-  private indicators = new BehaviorSubject<Array<any>>([]);
-  private $indicators = this.indicators.asObservable();
+  private indicator = new BehaviorSubject<any>(false);
+  private $indicator = this.indicator.asObservable();
 
   private firstCountry = new BehaviorSubject<any>(false);
   private $firstCountry = this.firstCountry.asObservable();
@@ -33,12 +33,12 @@ export class WindowService {
     return this.draggingStatus;
   }
 
-  getIndicators() {
-    return this.indicators;
+  getIndicator() {
+    return this.indicator;
   }
 
-  setIndicators(indicators) {
-    this.indicators.next(indicators);
+  setIndicator(indicator) {
+    this.indicator.next(indicator);
   }
 
   getFirstCountry() {
@@ -60,6 +60,5 @@ export class WindowService {
   comparisonGoingOn() {
     return this.firstCountry !== null && this.secondCountry !== null;
   }
-
 
 }

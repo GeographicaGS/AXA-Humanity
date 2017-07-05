@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Spectral:400,700,800');
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,800,900');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,600i,700,800,900');
 
 @import './reset.scss';
 @import './_common.scss';
@@ -43,5 +43,40 @@ a {
   &.small {
     height: 16px;
     width: 14px;
+  }
+}
+
+
+.tooltipMessage {
+  position: absolute;
+  top: 100%;
+  background-color: $neutro-100;
+  border-radius: 12px;
+  opacity: 0;
+  visibility: hidden;
+  height: 0;
+  text-align: center;
+  color: $silver;
+  padding: 5px 8px 5px 8px;
+  font-size: 12px;
+  display: inline-table;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 1003;
+  white-space: nowrap;
+  margin-top: 6px;
+}
+
+.tooltipContainer {
+  cursor: pointer;
+  position: relative;
+  &:hover {
+    .tooltipMessage {
+      opacity: 1;
+      height: auto;
+      visibility: visible;
+    }
   }
 }

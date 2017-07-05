@@ -1,9 +1,12 @@
 [
   {
+    "id": 1,
     "title": "Healthcare",
     "icon": "cat_healthcare.svg",
     "kpis": [
       {
+        "id": 1,
+        "category_id": 1,
         "title": "How many people is in risk of sinking into poverty due to a surgical operation?",
         "unit": "%",
         "unitText": "people at risk",
@@ -14,6 +17,8 @@
         "tableName": "kpi_01"
       },
       {
+        "id": 2,
+        "category_id": 1,
         "title": "How many people borrowed for medical purposes?",
         "unit": "%",
         "unitText": "of people > 15 years old",
@@ -24,6 +29,8 @@
         "tableName": "kpi_02"
       },
       {
+        "id": 3,
+        "category_id": 1,
         "title": "How many people has access to improved sanitation facilities?",
         "unit": "%",
         "unitText": "of people with access",
@@ -34,6 +41,8 @@
         "tableName": "kpi_03"
       },
       {
+        "id": 4,
+        "category_id": 1,
         "title": "How many people on the specialist surgical workforce?",
         "unit": "%",
         "unitText": "per 100.000 population",
@@ -44,6 +53,8 @@
         "tableName": "kpi_04"
       },
       {
+        "id": 5,
+        "category_id": 1,
         "title": "How much is the health expenditure (public)?",
         "unit": "%",
         "unitText": "of total health expenditure",
@@ -54,6 +65,8 @@
         "tableName": "kpi_05"
       },
       {
+        "id": 6,
+        "category_id": 1,
         "title": "How many maternal deaths?",
         "unit": "",
         "unitText": "deaths",
@@ -66,10 +79,13 @@
     ]
   },
   {
+    "id": 2,
     "title": "Automobile",
     "icon": "cat_automobile.svg",
     "kpis": [
       {
+        "id": 7,
+        "category_id": 2,
         "title": "How many people died because of car accident injuries?",
         "unit": "%",
         "unitText": "per 100.000 people",
@@ -82,10 +98,13 @@
     ]
   },
   {
+    "id": 3,
     "title": "Pension",
     "icon": "cat_pension.svg",
     "kpis": [
       {
+        "id": 8,
+        "category_id": 3,
         "title": "What's the contribution to pensions?",
         "unit": "%",
         "unitText": "of GDP",
