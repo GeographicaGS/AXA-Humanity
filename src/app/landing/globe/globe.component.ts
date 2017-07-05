@@ -59,7 +59,7 @@ export class GlobeComponent implements OnInit {
     });
 
     this.viewer.scene.imageryLayers.addImageryProvider(positronLight, 1);
-
+    this.viewer.scene.globe.baseColor = Cesium.Color.WHITE;
     this.startMode('dark');
 
   }
@@ -128,15 +128,48 @@ export class GlobeComponent implements OnInit {
     return this.mode === 'dark' ? new Cesium.Color(1, 0, 0, alpha)
       : new Cesium.Color(0, 0, 1, alpha);
   }
+
+  private layersSmooth(src, dst) {
+    const step = 0.1;
+    if (dst.alpha < 1) {
+      setTimeout(() => {
+        src.alpha = src.alpha - step;
+        dst.alpha = dst.alpha + step;
+        this.layersSmooth(src, dst)
+      }, 100);
+    } else {
+      src.alpha = 0;
+      dst.alpha = 1;
+    }
+
+
+  }
+
   private startMode(mode: string) {
     this.mode = mode;
+    // if ( mode  === 'dark') {
+    //   this.viewer.scene.imageryLayers.get(0).show = true ;
+    //   this.viewer.scene.imageryLayers.get(1).show = false ;
+    // } else {
+    //   this.viewer.scene.imageryLayers.get(1).show = true ;
+    //   this.viewer.scene.imageryLayers.get(0).show = false ;
+    // }
+
+    let src, dst;
+
     if ( mode  === 'dark') {
-      this.viewer.scene.imageryLayers.get(0).show = true ;
-      this.viewer.scene.imageryLayers.get(1).show = false ;
+      src = this.viewer.scene.imageryLayers.get(1);
+      dst = this.viewer.scene.imageryLayers.get(0);
+      // this.viewer.scene.imageryLayers.get(1).alpha = 0 ;
+
+
     } else {
-      this.viewer.scene.imageryLayers.get(1).show = true ;
-      this.viewer.scene.imageryLayers.get(0).show = false ;
+      src = this.viewer.scene.imageryLayers.get(0);
+      dst = this.viewer.scene.imageryLayers.get(1);
     }
+
+    this.layersSmooth(src, dst);
+
 
     this.currentPointAnimation = 0;
     // Clear the map
