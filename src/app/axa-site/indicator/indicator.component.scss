@@ -36,9 +36,16 @@ $indicatorHeaderHeight: 64px;
     align-items: center;
     justify-content: space-between;
 
-    span.firstCountryName {
+    div.firstCountryName {
       display: flex;
       align-items: center;
+      flex: 0 1 100%;
+      height: 60px;
+
+      span {
+        text-align: left;
+      }
+
       &:before {
         content: '';
         height: 12px;
@@ -47,11 +54,22 @@ $indicatorHeaderHeight: 64px;
         background-color: $amaranth;
         display: block;
         margin-right: 8px;
+        min-width: 12px;
       }
     }
-    span.secondCountryName {
+    div.secondCountryName {
       display: flex;
       align-items: center;
+      flex: 0 1 100%;
+      height: 60px;
+      justify-content: flex-end;
+      position: relative;
+      border-left: 1px solid $otherBlue;
+
+      span {
+        text-align: right;
+      }
+
       &:after {
         content: '';
         height: 12px;
@@ -60,6 +78,25 @@ $indicatorHeaderHeight: 64px;
         background-color: $indigo;
         display: block;
         margin-left: 8px;
+        min-width: 12px;
+      }
+
+      .clearBtn {
+        width: 20px;
+        height: 20px;
+        background-color: transparent;
+        background-image: url('/assets/icons/discard-white.svg');
+        background-repeat: no-repeat;
+        background-size: 16px;
+        background-position: center center;
+        border-radius: 50%;
+        position: absolute;
+        left: -10px;
+        cursor: pointer;
+        transition: background-image .3s;
+        &:hover {
+          background-image: url('/assets/icons/discard-sienna.svg');
+        }
       }
     }
 
@@ -162,7 +199,7 @@ $indicatorHeaderHeight: 64px;
               display: flex;
               div.titleWrapper {
                 flex: 1 1 auto;
-                @include font('extrabold');
+                @include font('extrabold', $fontFamilySecond);
                 color: $white;
                 font-size: 20px;
                 line-height: 20px;
@@ -221,6 +258,95 @@ $indicatorHeaderHeight: 64px;
               }
             }
 
+            div.stats {
+              div.maxWrapper {
+                .maxName {
+                  @include font('semibold');
+                  font-size: 16px;
+                  line-height: 16px;
+                  color: $white;
+                  display: flex;
+                  align-items: center;
+                  &:before {
+                    content: 'MAX';
+                    background-color: $malachite;
+                    border-radius: 1px;
+                    height: 16px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: $colorAccent;
+                    font-size: 12px;
+                    line-height: 12px;
+                    letter-spacing: 1px;
+                    margin-right: 8px;
+                    padding: 0 2px;
+                  }
+                }
+                .maxValue {
+                  margin-top: 6px;
+                  @include font('extrabold', $fontFamilySecond);
+                  font-size: 48px;
+                  line-height: 48px;
+                }
+              }
+
+              div.statWrapper {
+                .statName {
+                  @include font('semibold');
+                  font-size: 16px;
+                  line-height: 16px;
+                  color: $white;
+                  display: flex;
+                  align-items: center;
+                  &:before {
+                    content: '';
+                    border-radius: 1px;
+                    height: 16px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: $colorAccent;
+                    font-size: 12px;
+                    line-height: 12px;
+                    letter-spacing: 1px;
+                    margin-right: 8px;
+                    padding: 0 2px;
+                  }
+
+                  &.max {
+                    &:before {
+                      content: 'MAX';
+                      background-color: $malachite;
+                    }
+                  }
+                  &.min {
+                    &:before {
+                      content: 'MIN';
+                      background-color: $amaranth;
+                    }
+                  }
+                  &.avg {
+                    &:before {
+                      content: 'AVG';
+                      color: $white;
+                      background-color: $neutro-50;
+                    }
+                  }
+                }
+                .statValue {
+                  @include font('extrabold', $fontFamilySecond);
+                  font-size: 48px;
+                  line-height: 48px;
+                  margin: 6px auto 10px auto;
+
+                  &.avg {
+                    font-size: 32px;
+                    line-height: 32px;
+                  }
+                }
+              }
+            }
             div.singleMode {
               div.value {
                 @include font('extrabold', $fontFamilySecond);
@@ -300,6 +426,42 @@ $indicatorHeaderHeight: 64px;
               }
             }
 
+            div.info {
+              margin-top: 39px;
+              margin-bottom: 20px;
+              padding-top: 10px;
+              border-top: 1px solid $stTropaz;
+
+              .headline {
+                @include font(bold);
+                font-size: 18px;
+                line-height: 24px;
+                color: $mercury;
+              }
+
+              .body {
+                @include font();
+                font-size: 16px;
+                line-height: 24px;
+                color: $mercury;
+              }
+
+              height: 0;
+              max-height: 0;
+              opacity: 0;
+              visibility: hidden;
+
+              transition: opacity .3s, max-height .3s;
+              &.active {
+                opacity: 1;
+                visibility: visible;
+                height: auto;
+                max-height: 500px;
+                overflow-y: auto;
+              }
+
+            }
+
             &:last-child {
               border-bottom: 1px solid transparent;
             }
@@ -319,7 +481,8 @@ $indicatorHeaderHeight: 64px;
             height: auto;
             padding: 0 20px;
             li {
-              height: 300px;
+              min-height: 280px;
+              height: auto;
               padding: 16px 0;
             }
           }

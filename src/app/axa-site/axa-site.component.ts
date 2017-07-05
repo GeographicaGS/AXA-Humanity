@@ -30,7 +30,7 @@ export class AxaSiteComponent implements OnInit {
       for (const cat of data) {
         const result = cat.kpis.filter((kpi) => kpi.id === id);
         if (result.length) {
-          this.indicator = {category: {title: cat.title, icon: cat.icon}, kpi: result};
+          this.indicator = {category: {title: cat.title, icon: cat.icon}, kpi: result[0]};
           this.windowService.setIndicator(this.indicator);
           break;
         }

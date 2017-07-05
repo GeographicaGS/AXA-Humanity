@@ -98,6 +98,20 @@ export class MapComponent implements OnInit {
       this.countryGeojsonLayer = L.geoJson(geojson, {onEachFeature: this.onEachFeature});
       this.countryGeojsonLayer.addTo(this.map);
     });
+
+    this.windowService.getSecondCountry().subscribe((country) => {
+      if (country === false) {
+        if (this.secondCharacterMarker) {
+          this.map.removeLayer(this.secondCharacterMarker);
+        }
+        if (this.secondMarkerPreviousPosition) {
+          this.secondMarkerPreviousPosition = null;
+        }
+        if (this.secondCharacterGeometry) {
+          this.map.removeLayer(this.secondCharacterGeometry);
+        }
+      }
+    });
   }
 
   onItemDrop($event) {

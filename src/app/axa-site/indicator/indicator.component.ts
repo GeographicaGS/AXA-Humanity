@@ -29,6 +29,7 @@ export class IndicatorComponent implements OnInit {
         if (!indicator) {
           return;
         } else {
+          this.indicator = indicator;
           this.detailMode();
         }
       });
@@ -43,6 +44,16 @@ export class IndicatorComponent implements OnInit {
     this.windowService.setFirstCountry(this.firstCountry);
     this.windowService.setSecondCountry(this.secondCountry);
     this.indicators = [];
+    this.processSingleKpi();
+  }
+
+  private processSingleKpi() {
+    this.indicatorService.getKpiStatistics(this.indicator.kpi.tableName).subscribe((data) => {
+      const response = <any>data;
+      if (response.rows[0]) {
+        this.indicator.stats = response.rows[0];
+      }
+    });
   }
 
   private comparisonMode() {
@@ -105,7 +116,7 @@ export class IndicatorComponent implements OnInit {
   }
 
   getIndicatorIcon(indicator) {
-    if (!indicator.icon) {
+    if (!indicator || !indicator.icon) {
       return { };
     } else {
       return {'background-image': `url(/assets/icons/${indicator.icon})`};
@@ -149,5 +160,17 @@ export class IndicatorComponent implements OnInit {
 
   hasComparisonModeEnabled() {
     return this.indicators !== undefined && this.indicators.length > 0 && (this.indicator === false || this.indicator === undefined);
+  }
+
+  toggleKpiInfo(kpiId) {
+    const infoElement = document.getElementById('kpiInfo_' + kpiId);
+    if (infoElement) {
+      infoElement.classList.toggle('active');
+    }
+  }
+
+  clearSecondCountry() {
+    this.secondCountry = false;
+    this.windowService.setSecondCountry(this.secondCountry);
   }
 }
