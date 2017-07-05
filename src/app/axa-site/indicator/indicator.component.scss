@@ -222,10 +222,10 @@ $indicatorHeaderHeight: 64px;
                   transition: width .3s;
 
                   &.blue {
-                    background-color: blue;
+                    background-color: $indigo;
                   }
                   &.red {
-                    background-color: red;
+                    background-color: $amaranth;
                   }
                 }
               }

@@ -107,7 +107,9 @@ export class IndicatorComponent implements OnInit {
   }
 
   getFillBar(value, value2, units = '%') {
-
+    if (value === null) {
+      value = 0;
+    }
     if (units !== '%') {
       if (value < value2) {
         value = (value * 100) / value2;
