@@ -14,10 +14,10 @@ const ALPHA_DECREMENT = (START_ALPHA - FINISH_ALPHA) / (FINISH_PIXEL_SIZE - STAR
 const ALPHA_BORDER_DECREMENT = (START_ALPHA_BORDER - FINISH_ALPHA_BORDER) / (FINISH_PIXEL_SIZE - START_PIXEL_SIZE);
 
 const positronDark = new Cesium.UrlTemplateImageryProvider({
-    url : 'http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
+    url: 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
 });
 const positronLight = new Cesium.UrlTemplateImageryProvider({
-    url : 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+    url: 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png'
 });
 
 @Component({
