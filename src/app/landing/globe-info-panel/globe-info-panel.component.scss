@@ -1,0 +1,77 @@
+@import 'common';
+
+$speed: 0.5s;
+
+:host {
+  position: absolute;
+  top: 130px;
+  left: 40px;
+
+  .globeInfoContainer {
+    border-radius: 4px 4px 0 4px;
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.1);
+    position: relative;
+    color: white;
+    opacity:1;
+    padding: 10px 20px;
+
+    &.show{
+      opacity: 1;
+      top: 15px;
+      transition: opacity $speed ease-in-out,top $speed ease-in-out;
+    }
+
+    &.hide {
+      opacity: 0;
+      top: 0px;
+      transition: opacity $speed ease-in-out,top $speed  ease-in-out;
+    }
+
+    .zone {
+      @include font(bold);
+      font-size: 14px;
+      color: $dustGray;
+      line-height: 16px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .value,.title {
+      font-size: 48px;
+      line-height: 48px;
+      @include font(extrabold,$fontFamilySecond);
+      margin-top: 7px;
+    }
+
+    .units,.subtitle {
+      font-size: 16px;
+      color: $neutro-30;
+      margin-top: 5px;
+    }
+
+    .title {
+      margin-top: 24px;
+    }
+
+    &.dark {
+      background-color: #202020;
+      .value {
+        color: #fff;
+      }
+      .title,.subtitle {
+        color: $amaranth;
+      }
+    }
+
+    &.light {
+      background-color: #FFFFFF;
+      .value {
+        color: $mineShaft;
+      }
+      .title,.subtitle {
+        color: $indigo;
+      }
+    }
+
+  }
+}

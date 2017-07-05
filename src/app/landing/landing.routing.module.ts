@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { GlobeComponent } from './globe/globe.component';
+import { LandingComponent } from './landing/landing.component';
 
 const routes: Routes = [
   {
     path: 'landing',
-    component: GlobeComponent,
+    component: LandingComponent,
   }
 ];
 

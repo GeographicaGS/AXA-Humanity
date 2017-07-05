@@ -1,0 +1,117 @@
+@import 'common';
+
+:host {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  header{
+    position: absolute;
+    top:0;
+    left:40px;
+    right:40px;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+
+    .logoHumanity {
+      height: 100%;
+      position: relative;
+      padding-right:60px;
+      h1 {
+        margin-top: 40px;
+        @include font(extrabold,$fontFamilySecond);
+        font-size: 36px;
+        color: #fff;
+        line-height: 36px;
+      }
+      h2 {
+        @include font();
+        font-size: 16px;
+        color: $neutro-30;
+        line-height: 16px;
+        margin-top: 2px;
+        span {
+          margin-left: 5px;
+          color: $stTropaz;
+        }
+      }
+
+      &:before {
+        content: '';
+        position: absolute;
+        right:0;
+        top:0;
+        width: 56px;
+        height: 64px;
+        background: url('/assets/logos/AXA_bar.svg') no-repeat;
+        background-size: 56px 64px;
+      }
+
+    }
+    .logoAxa {
+      img{
+        width: 64px;
+        height: 64px;
+      }
+    }
+  }
+
+  footer {
+    position: absolute;
+    bottom: 0;
+    height: 32px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .copyright {
+      @include font();
+      font-size: 12px;
+      line-height: 12px;
+      color:#fff;
+      margin-left: 15px;
+    }
+
+    .logoCARTO {
+      img {
+        width: 55px;
+        height: 26px;
+      }
+    }
+
+    .geographica {
+
+      display: flex;
+      align-items: center;
+      a {
+        @include font();
+        font-size: 12px;
+        line-height: 12px;
+        color: $neutro-40;
+        display: flex;
+        align-items: center;
+        span{
+          color: $colorGEO;
+          margin-left: 4px;
+        }
+
+        &:after {
+          content: '';
+          display: flex;
+          align-items: center;
+          height: 36px;
+          width: 36px;
+          background: url('/assets/logos/GEO_alt.svg') no-repeat;
+          background-size: 36px 36px;
+          margin-left: 5px;
+
+        }
+      }
+    }
+
+
+  }
+}
