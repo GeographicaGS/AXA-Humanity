@@ -143,26 +143,26 @@ export class MapComponent implements OnInit {
         if (this.firstCharacterGeometry) {
           this.map.removeLayer(this.firstCharacterGeometry);
         }
-        this.firstCharacterGeometry = this.addFilteredGeoJson(response.rows[0].iso3, this.firstGeometryStyle);
+        this.firstCharacterGeometry = this.addFilteredGeoJson(response.rows[0].adm0_a3, this.firstGeometryStyle);
 
-        this.windowService.setFirstCountry({name: response.rows[0].name, code: response.rows[0].iso3});
+        this.windowService.setFirstCountry({name: response.rows[0].name, code: response.rows[0].adm0_a3});
       } else if (who === 'second') {
 
         if (this.secondCharacterGeometry) {
           this.map.removeLayer(this.secondCharacterGeometry);
         }
-        this.secondCharacterGeometry = this.addFilteredGeoJson(response.rows[0].iso3, this.secondGeometryStyle);
+        this.secondCharacterGeometry = this.addFilteredGeoJson(response.rows[0].adm0_a3, this.secondGeometryStyle);
 
-        this.windowService.setSecondCountry({name: response.rows[0].name, code: response.rows[0].iso3});
+        this.windowService.setSecondCountry({name: response.rows[0].name, code: response.rows[0].adm0_a3});
       }
     });
   }
 
-  private addFilteredGeoJson(iso3, style) {
+  private addFilteredGeoJson(adm0_a3, style) {
     return L.geoJson(this.geojson, {
       style: style,
       filter: (feature, layer) => {
-        return feature.properties.iso3 === iso3;
+        return feature.properties.adm0_a3 === adm0_a3;
       }
     }).addTo(this.map);
   }
