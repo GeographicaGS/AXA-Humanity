@@ -85,39 +85,21 @@
       letter-spacing: 2px;
       line-height: 14px;
       font-size: 14px;
-    }
-
-  }
-
-  .geographica {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    a {
-      @include font();
-      font-size: 12px;
-      line-height: 12px;
-      color: $neutro-40;
       display: flex;
       align-items: center;
-      span{
-        color: $colorGEO;
-        margin-left: 4px;
+      &:after{
+        content:'';
+        background: url('/assets/icons/arrow-go_white.svg') no-repeat;
+        width: 18px;
+        height: 18px;
+        background-size: 18px 18px;
       }
 
-      &:after {
-        content: '';
-        display: flex;
-        align-items: center;
-        height: 36px;
-        width: 36px;
-        background: url('/assets/logos/GEO_alt.svg') no-repeat;
-        background-size: 36px 36px;
-        margin-left: 5px;
-
-      }
     }
+
   }
+
+
+
+
 }

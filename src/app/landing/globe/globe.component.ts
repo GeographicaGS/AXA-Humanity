@@ -209,4 +209,11 @@ export class GlobeComponent implements OnInit {
       this.modeTick();
     }, 7000);
   }
+
+  modeClass() {
+    const obj = {};
+    obj[this.mode] = this.mode;
+    obj['navControl'] = true;
+    return obj;
+  }
 }

@@ -17,5 +17,4 @@ export class LandingComponent implements OnInit {
   changeInfoModel(infoModel: any) {
     this.infoModel = infoModel;
   }
-
 }
