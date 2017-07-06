@@ -24,6 +24,7 @@
     "core-js": "^2.4.1",
     "intl": "^1.2.5",
     "ng2-drag-drop": "^1.5.1",
+    "perfect-scrollbar": "^0.7.1",
     "rxjs": "^5.1.0",
     "web-animations-js": "^2.2.5",
     "zone.js": "^0.8.4"

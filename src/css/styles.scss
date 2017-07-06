@@ -148,3 +148,43 @@ a {
 .cartodb-logo {
   display: none !important;
 }
+
+.ps:hover.ps__in-scrolling.ps--y > .ps_scrollbar-y-rail {
+  background-color: #3032C1;
+  width: 15px;
+}
+
+.ps:hover.ps__in-scrolling.ps--y > .ps_scrollbar-y-rail > .ps__scrollbar-y {
+  background-color: rgba(255,255,255,0.25);
+}
+
+.ps:hover > .ps__scrollbar-y-rail:hover {
+  background-color: #3032C1;
+  width: 15px;
+  .ps__scrollbar-y {
+    background-color: rgba(255,255,255,0.25);
+  }
+}
+
+.ps {
+  &.ps--active-y {
+    .ps__scrollbar-y-rail {
+      background-color: #3032C1;
+    }
+  }
+  .ps__scrollbar-y-rail {
+    width: 10px;
+    .ps__scrollbar-y {
+      background-color: rgba(255,255,255,0.25);
+      width: 4px;
+      border-radius: 2px;
+    }
+  }
+}
+.ps__scrollbar-y-rail {
+  z-index: 103;
+}
+.ps-container > .ps-scrollbar-x-rail,
+.ps-container > .ps-scrollbar-y-rail {
+  opacity: 0.6;
+}

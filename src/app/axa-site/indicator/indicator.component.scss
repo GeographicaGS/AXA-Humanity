@@ -137,6 +137,7 @@ $indicatorHeaderHeight: 64px;
     background: transparentize($azure, .05);
     transition: opacity .3s;
     max-height: 100%;
+    position: relative;
     ul.indicatorsList {
       li {
         &.showingTitle {
