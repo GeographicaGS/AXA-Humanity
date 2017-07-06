@@ -12,3 +12,36 @@
   flex: 1 1 auto;
   position: relative;
 }
+
+.customZoomControl {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background-color: $white;
+  z-index: 1200;
+  display: flex;
+  flex-direction: row;
+  height: 32px;
+  width: 65px;
+  border-radius: 2px;
+  box-shadow: 0 0 4px 0 rgba(26,30,41,0.1);
+
+  .btn {
+    flex: 0 1 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    &.plusOne {
+      background-image: url('/assets/icons/zoom-in.svg');
+      border-right: 1px solid $neutro-10;
+    }
+
+    &.minusOne {
+      background-image: url('/assets/icons/zoom-out.svg');
+    }
+  }
+}

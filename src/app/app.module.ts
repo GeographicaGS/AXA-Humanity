@@ -12,7 +12,6 @@ import { AppComponent } from './app.component';
 import { AxaSiteModule } from './axa-site/axa-site.module';
 import { LandingModule } from './landing/landing.module';
 
-
 @NgModule({
   declarations: [
     AppComponent

@@ -9,7 +9,7 @@ export class CountryGeojsonService {
   constructor(private http: Http) {}
 
   getGeojson(): Observable<any[]> {
-    return this.http.get(`assets/data/world_borders_hd.geojson`)
+    return this.http.get(`assets/data/world_borders_hd_small.geojson`)
             .map(response => response.json() as any[]);
   }
 

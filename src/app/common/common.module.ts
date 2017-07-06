@@ -3,6 +3,7 @@ import { CommonModule as NGCommonModule } from '@angular/common';
 import { HttpModule, RequestOptions } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
+import { UtilsService } from './utils.service';
 import { CommonRoutingModule } from './common-routing.module';
 
 @NgModule({
@@ -11,7 +12,7 @@ import { CommonRoutingModule } from './common-routing.module';
     CommonRoutingModule
   ],
   exports: [CommonRoutingModule],
-  providers: [],
+  providers: [UtilsService],
   declarations: []
 })
 export class CommonModule { }
