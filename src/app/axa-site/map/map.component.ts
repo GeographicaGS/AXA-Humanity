@@ -4,6 +4,7 @@ import { WindowService } from '../window.service';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import { CountryGeojsonService } from './country-geojson.service';
+import { UtilsService } from '../../common/utils.service';
 
 declare var cdb: any;
 declare var L: any;
@@ -18,6 +19,9 @@ export class MapComponent implements OnInit {
   @Input('indicator') indicator;
 
   geojson;
+
+  currentLayer;
+  layerSource;
 
   firstCharacterDefaultPosition: any = {lat: 40.07807142745009, lng: -4.130859375};
   firstCharacterMarker;
@@ -41,7 +45,7 @@ export class MapComponent implements OnInit {
   };
 
   countryGeojsonLayer;
-
+  infoPopup;
   map: any = {};
   options: any = {
     zoomControl: false,
@@ -54,7 +58,7 @@ export class MapComponent implements OnInit {
     markerRadius: 7
   };
 
-  constructor(private http: Http, private windowService: WindowService, private countryService: CountryGeojsonService) {
+  constructor(private utils: UtilsService, private http: Http, private windowService: WindowService, private countryService: CountryGeojsonService) {
   }
 
   ngOnInit() {
@@ -80,13 +84,74 @@ export class MapComponent implements OnInit {
 
   private detailMode() {
     this.windowService.getIndicator().subscribe((indicator) => {
-      if (!indicator) {
-        // this.indicator = false;
-      } else {
-        // this.indicator = indicator;
-        // @TODO: load viz for the kpi and add the layer to the map!
+      if (indicator) {
+        this.indicator = indicator;
+        this.layerSource = {
+          user_name: 'axa-cdo',
+          type: 'cartodb',
+          sublayers: indicator.kpi.layers
+        };
+
+        if (this.currentLayer) {
+          this.map.removeLayer(this.currentLayer);
+        }
+
+        cdb.createLayer(this.map, this.layerSource, {legends: true, https: false})
+          .addTo(this.map)
+          .on('done', (layer) => {
+            this.currentLayer = layer;
+            layer.setInteraction(true);
+
+            const sublayer2 = layer.getSubLayer(1);
+            sublayer2.setInteraction(true);
+
+            sublayer2.on('mouseover', (e, latlng, point, data) => {
+              if (this.infoPopup) {
+                this.infoPopup.setLatLng(latlng).setContent(this.setPopupTemplate(data))
+              } else {
+                this.infoPopup = L.popup({className: 'axa-popup', closeButton: false})
+                 .setLatLng(latlng)
+                 .setContent(this.setPopupTemplate(data))
+                 .openOn(this.map);
+              }
+            }).on('mouseout', () => {
+              if (this.infoPopup) {
+                this.map.removeLayer(this.infoPopup);
+                this.infoPopup = false;
+              }
+            })
+          })
+          .on('error', (error) => { console.log('error', error); });
       }
     });
+  }
+
+  private setPopupTemplate(data) {
+    let template = `<div class="countryName">${data.name}</div>`,
+        dataFormatted,
+        averageFormatted;
+
+    if (data.data !== null) {
+      dataFormatted = this.utils.formatNumber(data.data);
+      template = template + `<div class="value">${dataFormatted} ${this.indicator.kpi.unit}</div>`;
+    }
+
+    if (data.average) {
+      let avgDiff,
+          avgClass = 'positive';
+      averageFormatted = this.utils.formatNumber(data.average);
+      if (dataFormatted > averageFormatted) {
+        avgDiff = this.utils.formatNumber(data.data - data.average);
+        avgDiff = '+ ' + avgDiff;
+      } else {
+        avgDiff = this.utils.formatNumber(data.average - data.data);
+        avgDiff = '- ' + avgDiff;
+        avgClass = 'negative';
+      }
+
+      template = template + `<div class="avg"><span class="${avgClass}">${avgDiff}</span></div>`;
+    }
+    return template;
   }
 
   private comparisonMode() {

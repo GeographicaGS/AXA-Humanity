@@ -17,12 +17,22 @@
         "tableName": "kpi_01",
         "layers": [
           {
-            "sql": "sql here",
-            "cartocss": "cartoCss here",
+            "sql": "SELECT q.id AS cartodb_id, q.id, (SELECT the_geom FROM continents WHERE id = q.id) AS the_geom, (SELECT ST_Centroid(the_geom_webmercator) FROM continents WHERE id = q.id) AS the_geom_webmercator, (SELECT name FROM continents WHERE id = q.id) AS name, (100 * q.data_population / q.total_population) AS data FROM ( SELECT c.id AS id, SUM(sub_q.data_population) AS data_population, SUM(sub_q.total_population) AS total_population FROM continents c, ( SELECT ST_Centroid(k.the_geom) AS the_geom, (k.data * p.data / 100) AS data_population, p.data AS total_population FROM (SELECT the_geom, data, iso3 FROM kpi_01 WHERE data IS NOT NULL) k INNER JOIN (SELECT id, data FROM population WHERE data IS NOT NULL) p ON k.iso3 = p.id) sub_q WHERE ST_Intersects(c.the_geom, sub_q.the_geom) GROUP BY c.id ) q",
+            "cartocss": "#layer [zoom<3] { marker-width: ramp([data], range(10, 50), quantiles(5)); marker-fill: #F07662; marker-fill-opacity: 1; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #EC4D33; marker-line-opacity: 1;   [zoom=4]{   marker-width: ramp([data], range(20, 70), quantiles(5)); }  [zoom>=5]{   marker-width: ramp([data], range(30, 80), quantiles(5)); }  [zoom>=6]{   marker-width: ramp([data], range(50, 100), quantiles(5)); } } #layer::labels { text-name: [data] + '%'; text-face-name: 'Lato Regular'; text-size: 12; text-fill: #FFF; text-halo-radius: 0; text-opacity: 1; text-allow-overlap: true; text-avoid-edges: true;   }",
             "interactivity": [
               "cartodb_id",
               "name",
-              "value"
+              "data"
+            ]
+          },
+          {
+            "sql": "SELECT cartodb_id,the_geom_webmercator, data, iso3 as id,name, (SELECT AVG(data) FROM kpi_01) as average FROM kpi_01",
+            "cartocss": "#layer [zoom>=3] { polygon-fill: ramp([data], (#ffc6c4, #ee919b, #cc607d, #9e3963, #672044), quantiles); line-width: 1; line-color: #FFF; line-opacity: 0.5; }",
+            "interactivity": [
+              "cartodb_id",
+              "name",
+              "data",
+              "average"
             ]
           }
         ]
@@ -40,12 +50,12 @@
         "tableName": "kpi_02",
         "layers": [
           {
-            "sql": "sql here",
-            "cartocss": "cartoCss here",
+            "sql": "SELECT * FROM table_02_borrowed_for_health_2014;",
+            "cartocss": "#table_02_borrowed_for_health_2014{polygon-fill:#FF6600;}",
             "interactivity": [
               "cartodb_id",
-              "name",
-              "value"
+              "country_name",
+              "data"
             ]
           }
         ]
@@ -63,12 +73,12 @@
         "tableName": "kpi_03",
         "layers": [
           {
-            "sql": "sql here",
-            "cartocss": "cartoCss here",
+            "sql": "SELECT * FROM table_03_improved_sanitation_facilities;",
+            "cartocss": "#table_03_improved_sanitation_facilities{polygon-fill:#FF6600;}",
             "interactivity": [
               "cartodb_id",
-              "name",
-              "value"
+              "country_name",
+              "data"
             ]
           }
         ]
@@ -86,12 +96,12 @@
         "tableName": "kpi_04",
         "layers": [
           {
-            "sql": "sql here",
-            "cartocss": "cartoCss here",
+            "sql": "SELECT * FROM table_04_specialist_surgical_workforce_per_100_000_population_2;",
+            "cartocss": "#table_04_specialist_surgical_workforce_per_100_000_population_2{polygon-fill:#FF6600;}",
             "interactivity": [
               "cartodb_id",
-              "name",
-              "value"
+              "country_name",
+              "data"
             ]
           }
         ]
@@ -109,12 +119,12 @@
         "tableName": "kpi_05",
         "layers": [
           {
-            "sql": "sql here",
-            "cartocss": "cartoCss here",
+            "sql": "SELECT * FROM table_05_health_expenditure_public_of_total_health_expenditure_;",
+            "cartocss": "#table_05_health_expenditure_public_of_total_health_expenditure_{polygon-fill:#FF6600;}",
             "interactivity": [
               "cartodb_id",
-              "name",
-              "value"
+              "field_1",
+              "field_5"
             ]
           }
         ]
@@ -132,12 +142,12 @@
         "tableName": "kpi_06",
         "layers": [
           {
-            "sql": "sql here",
-            "cartocss": "cartoCss here",
+            "sql": "SELECT * FROM table_06_number_of_maternal_deaths_2015;",
+            "cartocss": "#table_06_number_of_maternal_deaths_2015{polygon-fill:#FF6600;}",
             "interactivity": [
               "cartodb_id",
-              "name",
-              "value"
+              "field_1",
+              "field_5"
             ]
           }
         ]
@@ -162,12 +172,12 @@
         "tableName": "kpi_07",
         "layers": [
           {
-            "sql": "sql here",
-            "cartocss": "cartoCss here",
+            "sql": "SELECT * FROM table_07_mortality_caused_by_road_traffic_injury;",
+            "cartocss": "#table_07_mortality_caused_by_road_traffic_injury{polygon-fill:#FF6600;}",
             "interactivity": [
               "cartodb_id",
-              "name",
-              "value"
+              "field_1",
+              "field_5"
             ]
           }
         ]
@@ -192,12 +202,12 @@
         "tableName": "kpi_08",
         "layers": [
           {
-            "sql": "sql here",
-            "cartocss": "cartoCss here",
+            "sql": "SELECT * FROM table_08_pensions_gdp_2015;",
+            "cartocss": "#table_08_pensions_gdp_2015{polygon-fill:#FF6600;}",
             "interactivity": [
               "cartodb_id",
-              "name",
-              "value"
+              "_name",
+              "data"
             ]
           }
         ]
