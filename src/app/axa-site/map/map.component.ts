@@ -168,7 +168,7 @@ export class MapComponent implements OnInit {
       this.geojson = geojson;
       this.countryGeojsonLayer = L.geoJson(geojson, {onEachFeature: this.onEachFeature})
         .on('click', (e) => {
-          this.setComparerMarkerByClick(e);
+          this.setProperMarkerAndGeomPosition({x: e.originalEvent.clientX, y: e.originalEvent.clientY});
         });
       this.countryGeojsonLayer.addTo(this.map);
     });
@@ -186,10 +186,6 @@ export class MapComponent implements OnInit {
         }
       }
     });
-  }
-
-  setComparerMarkerByClick(e) {
-    this.setProperMarkerAndGeomPosition({x: e.layerPoint.x, y: e.layerPoint.y});
   }
 
   onItemDrop($event) {
