@@ -11,11 +11,10 @@
         (onDragStart)="onDragStart($event)"
         (onDragEnd)="onDragEnd($event)" class="icon"></span>
     </span>
-
   </span>
 
-  <div class="clearBtnWrapper">
-    <div class="clearBtn" (click)="clearSecondCountry()" *ngIf="isComparisonGoingOn()"></div>
+  <div class="clearBtnWrapper" *ngIf="isComparisonGoingOn()">
+    <div class="clearBtn" (click)="clearSecondCountry()"></div>
     <div class="separatorLine"></div>
   </div>
 

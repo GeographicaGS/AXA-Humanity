@@ -100,7 +100,7 @@ export class MapComponent implements OnInit {
           this.map.removeLayer(this.currentLayer);
         }
 
-        cdb.createLayer(this.map, this.layerSource, {legends: true, https: false})
+        cdb.createLayer(this.map, this.layerSource, {legends: true, https: true})
           .addTo(this.map)
           .on('done', (layer) => {
             this.currentLayer = layer;

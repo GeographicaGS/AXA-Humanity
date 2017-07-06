@@ -75,18 +75,13 @@
         line-height: 26px;
       }
 
-      .marker {
-        width: 24px;
-        height: 39px;
+      .markers {
+        width: 32px;
+        height: 24px;
         background-repeat: no-repeat;
         background-size: cover;
         display: inline-block;
-        &.one {
-          background-image: url('/assets/icons/character1-alt_map.svg');
-        }
-        &.two {
-          background-image: url('/assets/icons/character2-alt_map.svg');
-        }
+        background-image: url('/assets/icons/characters_mini.svg');
       }
     }
 

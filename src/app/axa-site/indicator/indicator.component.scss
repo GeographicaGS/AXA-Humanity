@@ -152,7 +152,7 @@ $indicatorHeaderHeight: 64px;
   .content {
     flex-grow: 1;
     overflow: auto;
-    background: transparentize($azure, .05);
+    background: $azure;
     transition: opacity .3s;
     max-height: 100%;
     position: relative;
@@ -230,11 +230,13 @@ $indicatorHeaderHeight: 64px;
             height: 0;
             padding: 0;
             border-bottom: 1px solid $stTropaz;
-            overflow: hidden;
+            // overflow: hidden;
 
             &:hover {
               div.kpiTitle {
                 div.actions {
+                  animation: actionIcons 1s;
+                  opacity: 1;
                   transform: translateY(0%);
                 }
               }
@@ -262,6 +264,7 @@ $indicatorHeaderHeight: 64px;
                 flex: 1 1 36px;
                 transform: translateY(-120%);
                 transition: transform .4s;
+                opacity: 0;
                 div {
                   margin-bottom: 10px;
                 }
@@ -269,7 +272,7 @@ $indicatorHeaderHeight: 64px;
                   height: 36px;
                   width: 36px;
                   border-radius: 50%;
-                  background-color: #3032C1;
+                  background-color: transparentize($colorAccent, .75);
                   background-image: url('/assets/icons/globe_white.svg');
                   background-size: 18px;
                   background-repeat: no-repeat;
@@ -282,10 +285,11 @@ $indicatorHeaderHeight: 64px;
                   }
                 }
                 .flagIcon {
+                  display: none;
                   height: 36px;
                   width: 36px;
                   border-radius: 50%;
-                  background-color: #3032C1;
+                  background-color: transparentize($colorAccent, .75);
                   background-image: url('/assets/icons/flag_white.svg');
                   background-size: 18px;
                   background-repeat: no-repeat;
@@ -549,4 +553,13 @@ $indicatorHeaderHeight: 64px;
     right: $headerLargePaddingRight;
   }
 
+}
+
+@keyframes actionIcons {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
