@@ -74,6 +74,15 @@
         margin-left: 15px;
         line-height: 26px;
       }
+
+      .markers {
+        width: 32px;
+        height: 24px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: inline-block;
+        background-image: url('/assets/icons/characters_mini.svg');
+      }
     }
 
     span.axaSlash {

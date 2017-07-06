@@ -21,6 +21,7 @@
       "prefix": "app",
       "styles": [
         "../node_modules/cesium/Build/Cesium/Widgets/widgets.css",
+        "../node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.css",
         "css/styles.scss"
       ],
       "stylePreprocessorOptions": {
@@ -30,7 +31,9 @@
         ]
       },
       "scripts": [
-         "../node_modules/cesium/Build/Cesium/Cesium.js"
+        "../node_modules/cesium/Build/Cesium/Cesium.js",
+        "../node_modules/stickybits/dist/stickybits.js",
+        "../node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Spectral:400,700,800');
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,800,900');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,600i,700,800,900');
 
 @import './reset.scss';
 @import './_common.scss';
@@ -16,6 +16,10 @@ body {
   @include font();
   font-size: $fontBaseSize;
   height: 100vh;
+
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -40,4 +44,155 @@ a {
     height: 16px;
     width: 14px;
   }
+}
+
+
+.tooltipMessage {
+  position: absolute;
+  top: 100%;
+  background-color: $neutro-100;
+  border-radius: 12px;
+  opacity: 0;
+  visibility: hidden;
+  height: 0;
+  text-align: center;
+  color: $silver;
+  padding: 5px 8px 5px 8px;
+  font-size: 12px;
+  display: inline-table;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 1003;
+  white-space: nowrap;
+  margin-top: 6px;
+  // &.active {
+  //   opacity: 1;
+  //   height: auto;
+  //   visibility: visible;
+  // }
+}
+
+.tooltipContainer {
+  cursor: pointer;
+  position: relative;
+  &:hover {
+    .tooltipMessage {
+      opacity: 1;
+      height: auto;
+      visibility: visible;
+    }
+  }
+}
+
+
+.leaflet-popup.axa-popup {
+  .leaflet-popup-tip-container {
+    opacity: 0;
+    visibility: hidden;
+  }
+  .leaflet-popup-content-wrapper {
+    background-color: $outerSpace;
+    border-radius: 2px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.2);
+    .leaflet-popup-content {
+      margin: 10px 20px 12px 12px;
+    }
+    .countryName {
+      @include font('semibold');
+      font-size: 16px;
+      line-height: 16px;
+      color: $white;
+      margin-bottom: 4px;
+    }
+    .value {
+      @include font('extrabold', $fontFamilySecond);
+      font-size: 32px;
+      line-height: 32px;
+      color: $white;
+
+      &.noData {
+        font-size: 20px;
+        line-height: 20px;
+      }
+    }
+
+    .avg {
+      @include font('semibold');
+      font-size: 16px;
+      line-height: 16px;
+      color: $white;
+      display: flex;
+      align-items: center;
+      span {
+        margin-bottom: 1px;
+        &.positive {
+          color: $malachite;
+        }
+        &.negative {
+          color: $amaranth;
+        }
+      }
+      &:before {
+        content: 'AVG';
+        border-radius: 1px;
+        height: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $white;
+        background-color: $neutro-50;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: 1px;
+        margin-right: 8px;
+        padding: 0 2px;
+      }
+    }
+  }
+}
+
+.cartodb-logo {
+  display: none !important;
+}
+
+.ps:hover.ps__in-scrolling.ps--y > .ps_scrollbar-y-rail {
+  background-color: #3032C1;
+  width: 15px;
+}
+
+.ps:hover.ps__in-scrolling.ps--y > .ps_scrollbar-y-rail > .ps__scrollbar-y {
+  background-color: rgba(255,255,255,0.25);
+}
+
+.ps:hover > .ps__scrollbar-y-rail:hover {
+  background-color: #3032C1;
+  width: 15px;
+  .ps__scrollbar-y {
+    background-color: rgba(255,255,255,0.25);
+  }
+}
+
+.ps {
+  &.ps--active-y {
+    .ps__scrollbar-y-rail {
+      background-color: #3032C1;
+    }
+  }
+  .ps__scrollbar-y-rail {
+    width: 10px;
+    .ps__scrollbar-y {
+      background-color: rgba(255,255,255,0.25);
+      width: 4px;
+      border-radius: 2px;
+    }
+  }
+}
+.ps__scrollbar-y-rail {
+  z-index: 103;
+}
+.ps-container > .ps-scrollbar-x-rail,
+.ps-container > .ps-scrollbar-y-rail {
+  opacity: 0.6;
 }

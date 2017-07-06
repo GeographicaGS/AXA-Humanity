@@ -1,14 +1,174 @@
-<div class="header">
-  <span>Left</span>
-  <span class="secondCharacter">Compare
-    <span
-      draggable
-      (onDragStart)="onDragStart($event)"
-      (onDragEnd)="onDragEnd($event)" class="icon"></span>
+<div class="header" *ngIf="hasComparisonModeEnabled()">
+  <div class="firstCountryName">
+    <span *ngIf="getFirstCountryName() !== false">{{ getFirstCountryName() }}</span>
+  </div>
+
+  <span *ngIf="!isComparisonGoingOn()" class="secondCharacter">
+    Compare
+    <span class="iconBase">
+      <span
+        draggable
+        (onDragStart)="onDragStart($event)"
+        (onDragEnd)="onDragEnd($event)" class="icon"></span>
+    </span>
   </span>
+
+  <div class="clearBtnWrapper" *ngIf="isComparisonGoingOn()">
+    <div class="clearBtn" (click)="clearSecondCountry()"></div>
+    <div class="separatorLine"></div>
+  </div>
+
+  <div class="secondCountryName" *ngIf="isComparisonGoingOn()">
+    <span *ngIf="getSecondCountryName() !== false">{{ getSecondCountryName() }}</span>
+  </div>
 </div>
 <div class="content">
-  <ul>
-    <li *ngFor="let indicator of indicators">{{ indicator.title }}</li>
+
+  <ul class="indicatorsList singleMode" *ngIf="!hasComparisonModeEnabled() && indicator !== undefined && indicator.category">
+    <li class="active">
+      <div class="title" (click)="toggleIndicator($event, true)">
+        <span class="catIcon" [ngStyle]="getIndicatorIcon(indicator.category)"></span>
+        <span *ngIf="!freeFromTop">{{ indicator.category.title }}</span>
+        <span class="kpiTitleAsHeader" *ngIf="freeFromTop">{{ indicator.kpi.title }}</span>
+        <span class="totalKpis"></span>
+      </div>
+
+      <ul class="kpisList">
+        <li>
+          <div class="kpiTitle">
+            <div class="titleWrapper"><span>{{ indicator.kpi.id }}.</span> {{ indicator.kpi.title }}</div>
+            <div class="actions">
+              <div class="flagIcon"></div>
+            </div>
+          </div>
+
+          <div class="stats" *ngIf="indicator.stats">
+            <div class="statWrapper">
+              <div class="statName max">
+                {{ indicator.stats.max_country }}
+              </div>
+              <div class="statValue">
+                <span *ngIf="indicator.kpi.unit === '%'">{{ indicator.stats.max_value | number:'.2' }} {{ indicator.kpi.unit }}</span>
+                <span *ngIf="indicator.kpi.unit === 'EUR' || indicator.kpi.unit === 'USD'">{{ indicator.stats.max_value | currency:indicator.kpi.unit:true }}</span>
+                <span *ngIf="indicator.kpi.unit === ''">{{ indicator.stats.max_value | number:'.2' }}</span>
+              </div>
+            </div>
+
+            <div class="statWrapper">
+              <div class="statName min">
+                {{ indicator.stats.min_country }}
+              </div>
+              <div class="statValue min">
+                <span *ngIf="indicator.kpi.unit === '%'">{{ indicator.stats.min_value | number:'.2' }} {{ indicator.kpi.unit }}</span>
+                <span *ngIf="indicator.kpi.unit === 'EUR' || indicator.kpi.unit === 'USD'">{{ indicator.stats.min_value | currency:indicator.kpi.unit:true }}</span>
+                <span *ngIf="indicator.kpi.unit === ''">{{ indicator.stats.min_value | number:'.2' }}</span>
+              </div>
+            </div>
+
+            <div class="statWrapper">
+              <div class="statName avg"></div>
+              <div class="statValue avg">
+                <span *ngIf="indicator.kpi.unit === '%'">{{ indicator.stats.avg_value | number:'.1-2' }} {{ indicator.kpi.unit }}</span>
+                <span *ngIf="indicator.kpi.unit === 'EUR' || indicator.kpi.unit === 'USD'">{{ indicator.stats.avg_value | currency:indicator.kpi.unit:true }}</span>
+                <span *ngIf="indicator.kpi.unit === ''">{{ indicator.stats.avg_value | number:'.2' }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="placeholder">
+            <span>{{ indicator.kpi.unitText }}</span>
+          </div>
+
+          <div class="info active" *ngIf="indicator.kpi.info">
+            <div class="headline">{{ indicator.kpi.info.headline }}</div>
+            <div class="body">{{ indicator.kpi.info.body }}</div>
+          </div>
+
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+
+  <ul class="indicatorsList" *ngIf="hasComparisonModeEnabled()">
+    <li *ngFor="let indicator of indicators; let i= index;" class="active" id="indicator_{{i}}">
+      <div class="title" (click)="toggleIndicator($event)">
+        <span class="catIcon" [ngStyle]="getIndicatorIcon(indicator)"></span>
+        {{ indicator.title }}
+        <span class="totalKpis">{{ indicator.kpis.length }} KPIs</span>
+      </div>
+
+      <ul class="kpisList">
+        <li *ngFor="let kpi of indicator.kpis; let i= index;">
+
+          <div class="kpiTitle">
+            <div class="titleWrapper" id="kpi_{{ kpi.id }}_title"><span>{{ kpi.id }}.</span> {{ kpi.title }}</div>
+            <div class="actions" routerLink="/map/{{ kpi.id }}">
+
+              <div class="worldIcon tooltipContainer" (mouseover)="highlightTitle(kpi.id)" (mouseout)="normalTitle(kpi.id)">
+                <div class="tooltipMessage">View global data</div>
+              </div>
+
+              <div class="flagIcon"></div>
+            </div>
+          </div>
+
+          <div class="singleMode"
+            *ngIf="getFirstCountryName() !== false && getSecondCountryName() === false"
+          >
+            <div class="noValue" *ngIf="!kpi.firstCountryValue">No value</div>
+            <div class="value" *ngIf="kpi.firstCountryValue && kpi.unit === '%'">{{ kpi.firstCountryValue | number:'.2' }} {{ kpi.unit }}</div>
+            <div class="value" *ngIf="kpi.firstCountryValue && (kpi.unit === 'EUR' || kpi.unit === 'USD')">{{ kpi.firstCountryValue | currency:kpi.unit:true }}</div>
+            <div class="value" *ngIf="kpi.firstCountryValue && kpi.unit === ''">{{ kpi.firstCountryValue | number:'.2' }}</div>
+          </div>
+
+          <div class="comparisonMode"
+            *ngIf="isComparisonGoingOn()"
+          >
+
+            <div class="barWrapper firstCountryData" *ngIf="getFirstCountryName() !== false">
+
+              <div class="dataWrapper">
+                <div class="countryName">{{ getFirstCountryName() }}</div>
+
+                <div class="value" *ngIf="!kpi.firstCountryValue">No value</div>
+                <div class="value" *ngIf="kpi.firstCountryValue && kpi.unit === '%'">{{ kpi.firstCountryValue | number:'.2' }} {{ kpi.unit }}</div>
+                <div class="value" *ngIf="kpi.firstCountryValue && (kpi.unit === 'EUR' || kpi.unit === 'USD')">{{ kpi.firstCountryValue | currency:kpi.unit:true }}</div>
+                <div class="value" *ngIf="kpi.firstCountryValue && kpi.unit === ''">{{ kpi.firstCountryValue | number:'.2' }}</div>
+
+              </div>
+              <div class="barFigure"><span class="barFill red" [ngStyle]="getFillBar(kpi.firstCountryValue, kpi.secondCountryValue, kpi.unit)"></span></div>
+            </div>
+
+            <div class="barWrapper secondCountryData" *ngIf="getSecondCountryName() !== false">
+
+              <div class="dataWrapper">
+                <div class="countryName">{{ getSecondCountryName() }}</div>
+
+                <div class="value" *ngIf="!kpi.secondCountryValue">No value</div>
+                <div class="value" *ngIf="kpi.secondCountryValue && kpi.unit === '%'">{{ kpi.secondCountryValue | number:'.2' }} {{ kpi.unit }}</div>
+                <div class="value" *ngIf="kpi.secondCountryValue && (kpi.unit === 'EUR' || kpi.unit === 'USD')">{{ kpi.secondCountryValue | currency:kpi.unit:true }}</div>
+                <div class="value" *ngIf="kpi.secondCountryValue && kpi.unit === ''">{{ kpi.secondCountryValue | number:'.2' }}</div>
+
+              </div>
+
+              <div class="barFigure">
+                <span class="barFill blue" [ngStyle]="getFillBar(kpi.secondCountryValue, kpi.firstCountryValue, kpi.unit)"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="placeholder">
+            <span>{{ kpi.unitText }}</span>
+            <span class="infoIcon" (click)="toggleKpiInfo(kpi.id)"></span>
+          </div>
+
+          <div id="kpiInfo_{{ kpi.id }}" class="info" *ngIf="kpi.info">
+            <div class="headline">{{ kpi.info.headline }}</div>
+            <div class="body">{{ kpi.info.body }}</div>
+          </div>
+        </li>
+      </ul>
+    </li>
   </ul>
 </div>

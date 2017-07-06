@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { WindowService } from '../window.service';
 
 @Component({
   selector: 'app-axa-header',
@@ -11,13 +12,17 @@ export class HeaderComponent implements OnInit {
 
   public headerTitle = 'board';
 
-  constructor() {
+  constructor(private windowService: WindowService) {
+    this.windowService.getIndicator().subscribe((indicator) => {
+      if (!indicator) {
+        this.headerTitle = 'board';
+      } else {
+        this.headerTitle = indicator.category.title;
+      }
+    });
   }
 
   ngOnInit() {
-    if (this.indicator) {
-      this.headerTitle = 'healthcare'; // @TODO: get title from indiators.json filtering by id (this.indicator)
-    }
   }
 
   hasIndicator() {
