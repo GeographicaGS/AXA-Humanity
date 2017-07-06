@@ -74,6 +74,20 @@
         margin-left: 15px;
         line-height: 26px;
       }
+
+      .marker {
+        width: 24px;
+        height: 39px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: inline-block;
+        &.one {
+          background-image: url('/assets/icons/character1-alt_map.svg');
+        }
+        &.two {
+          background-image: url('/assets/icons/character2-alt_map.svg');
+        }
+      }
     }
 
     span.axaSlash {
