@@ -58,7 +58,11 @@ export class MapComponent implements OnInit {
     markerRadius: 7
   };
 
-  constructor(private utils: UtilsService, private http: Http, private windowService: WindowService, private countryService: CountryGeojsonService) {
+  constructor(
+    private utils: UtilsService,
+    private http: Http,
+    private windowService: WindowService,
+    private countryService: CountryGeojsonService) {
   }
 
   ngOnInit() {
@@ -107,7 +111,7 @@ export class MapComponent implements OnInit {
 
             sublayer2.on('mouseover', (e, latlng, point, data) => {
               if (this.infoPopup) {
-                this.infoPopup.setLatLng(latlng).setContent(this.setPopupTemplate(data))
+                this.infoPopup.setLatLng(latlng).setContent(this.setPopupTemplate(data));
               } else {
                 this.infoPopup = L.popup({className: 'axa-popup', closeButton: false})
                  .setLatLng(latlng)
@@ -119,7 +123,7 @@ export class MapComponent implements OnInit {
                 this.map.removeLayer(this.infoPopup);
                 this.infoPopup = false;
               }
-            })
+            });
           })
           .on('error', (error) => { console.log('error', error); });
       }
