@@ -17,15 +17,17 @@ export class IndicatorComponent implements OnInit {
 
   @HostBinding('class.freeFromTop') freeFromTop;
 
+  @HostBinding('class.loading') loading;
+
   indicators: any[];
 
   firstCountry;
   secondCountry;
 
-  constructor(private windowService: WindowService, private indicatorService: IndicatorService) { }
+  constructor(private windowService: WindowService, private indicatorService: IndicatorService) {
+  }
 
   ngOnInit() {
-
     if (this.indicator) {
       this.windowService.getIndicator().subscribe((indicator) => {
         if (!indicator) {
@@ -41,6 +43,7 @@ export class IndicatorComponent implements OnInit {
   }
 
   private detailMode() {
+    this.loading = true;
     this.firstCountry = false;
     this.secondCountry = false;
     this.windowService.setFirstCountry(this.firstCountry);
@@ -54,27 +57,41 @@ export class IndicatorComponent implements OnInit {
       const response = <any>data;
       if (response.rows[0]) {
         this.indicator.stats = response.rows[0];
+        setTimeout(() => {
+          this.loading = false;
+        }, 100);
       }
     });
   }
 
   private comparisonMode() {
     this.windowService.getFirstCountry().subscribe((country) => {
+      this.loading = true;
       this.firstCountry = country;
       if (this.firstCountry) {
         this.processKpis(this.firstCountry, 'first');
+
+        setTimeout(() => {
+          this.loading = false;
+        }, 100);
       }
     });
     this.windowService.getSecondCountry().subscribe((country) => {
+      this.loading = true;
       this.secondCountry = country;
       if (this.secondCountry) {
         this.processKpis(this.secondCountry, 'second');
+
+        setTimeout(() => {
+          this.loading = false;
+        }, 100);
+      } else {
+        this.loading = false;
       }
     });
 
     this.indicatorService.getIndicators().subscribe((data) => {
       this.indicators = data;
-
       if (this.firstCountry) {
         this.processKpis(this.firstCountry, 'first');
       }

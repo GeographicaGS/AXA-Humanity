@@ -13,6 +13,28 @@ $indicatorHeaderHeight: 64px;
   display: flex;
   flex-direction: column;
   transition: top .3s;
+
+  &.loading {
+    .content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $azure;
+      ul.indicatorsList {
+        opacity: 0;
+      }
+      .loading-ico-big  {
+        display: block;
+        svg {
+          animation-play-state: running;
+          path {
+            animation-play-state: running;
+          }
+        }
+      }
+    }
+  }
+
   &.freeFromTop {
     top: calc(#{$headerHeight} + 8px);
   }
