@@ -14,8 +14,12 @@
 
   </span>
 
+  <div class="clearBtnWrapper">
+    <div class="clearBtn" (click)="clearSecondCountry()" *ngIf="isComparisonGoingOn()"></div>
+    <div class="separatorLine"></div>
+  </div>
+
   <div class="secondCountryName" *ngIf="isComparisonGoingOn()">
-    <div class="clearBtn" (click)="clearSecondCountry()"></div>
     <span *ngIf="getSecondCountryName() !== false">{{ getSecondCountryName() }}</span>
   </div>
 </div>
