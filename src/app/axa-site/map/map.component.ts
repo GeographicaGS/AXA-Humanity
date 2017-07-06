@@ -138,13 +138,15 @@ export class MapComponent implements OnInit {
     if (data.data !== null) {
       dataFormatted = this.utils.formatNumber(data.data);
       template = template + `<div class="value">${dataFormatted} ${this.indicator.kpi.unit}</div>`;
+    } else {
+      template = template + `<div class="value noData">No data found</div>`;
     }
 
-    if (data.average) {
+    if (data.average && data.data !== null) {
       let avgDiff,
           avgClass = 'positive';
       averageFormatted = this.utils.formatNumber(data.average);
-      if (dataFormatted > averageFormatted) {
+      if (data.data > data.average) {
         avgDiff = this.utils.formatNumber(data.data - data.average);
         avgDiff = '+ ' + avgDiff;
       } else {
