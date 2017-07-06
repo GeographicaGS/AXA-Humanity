@@ -47,6 +47,7 @@ $indicatorHeaderHeight: 64px;
 
       span {
         text-align: left;
+        line-height: 16px;
       }
 
       &:before {
@@ -60,16 +61,51 @@ $indicatorHeaderHeight: 64px;
         min-width: 12px;
       }
     }
+
+    .clearBtnWrapper {
+      width: 20px;
+      height: 20px;
+      flex: 0 1 20px;
+      min-width: 20px;
+      position: relative;
+
+      .clearBtn {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        z-index: 101;
+        cursor: pointer;
+        background-color: transparent;
+        background-image: url('/assets/icons/discard-white.svg');
+        background-repeat: no-repeat;
+        background-size: 16px;
+        background-position: center center;
+        border-radius: 50%;
+        transition: background-image .3s;
+        &:hover {
+          background-image: url('/assets/icons/discard-sienna.svg');
+        }
+      }
+
+      .separatorLine {
+        height: 60px;
+        width: 1px;
+        display: block;
+        border-left: 1px solid $otherBlue;
+        transform: translate(10px, -19px);
+      }
+    }
+
     div.secondCountryName {
       display: flex;
       align-items: center;
-      flex: 0 1 100%;
+      flex: 0 1 calc(100% - 20px);
       height: 60px;
       justify-content: flex-end;
       position: relative;
-      border-left: 1px solid $otherBlue;
 
       span {
+        line-height: 16px;
         text-align: right;
       }
 
@@ -82,24 +118,6 @@ $indicatorHeaderHeight: 64px;
         display: block;
         margin-left: 8px;
         min-width: 12px;
-      }
-
-      .clearBtn {
-        width: 20px;
-        height: 20px;
-        background-color: transparent;
-        background-image: url('/assets/icons/discard-white.svg');
-        background-repeat: no-repeat;
-        background-size: 16px;
-        background-position: center center;
-        border-radius: 50%;
-        position: absolute;
-        left: -10px;
-        cursor: pointer;
-        transition: background-image .3s;
-        &:hover {
-          background-image: url('/assets/icons/discard-sienna.svg');
-        }
       }
     }
 
@@ -134,9 +152,10 @@ $indicatorHeaderHeight: 64px;
   .content {
     flex-grow: 1;
     overflow: auto;
-    background: transparentize($azure, .05);
+    background: $azure;
     transition: opacity .3s;
     max-height: 100%;
+    position: relative;
     ul.indicatorsList {
       li {
         &.showingTitle {
@@ -211,11 +230,13 @@ $indicatorHeaderHeight: 64px;
             height: 0;
             padding: 0;
             border-bottom: 1px solid $stTropaz;
-            overflow: hidden;
+            // overflow: hidden;
 
             &:hover {
               div.kpiTitle {
                 div.actions {
+                  animation: actionIcons 1s;
+                  opacity: 1;
                   transform: translateY(0%);
                 }
               }
@@ -243,6 +264,7 @@ $indicatorHeaderHeight: 64px;
                 flex: 1 1 36px;
                 transform: translateY(-120%);
                 transition: transform .4s;
+                opacity: 0;
                 div {
                   margin-bottom: 10px;
                 }
@@ -250,7 +272,7 @@ $indicatorHeaderHeight: 64px;
                   height: 36px;
                   width: 36px;
                   border-radius: 50%;
-                  background-color: #3032C1;
+                  background-color: transparentize($colorAccent, .75);
                   background-image: url('/assets/icons/globe_white.svg');
                   background-size: 18px;
                   background-repeat: no-repeat;
@@ -263,10 +285,11 @@ $indicatorHeaderHeight: 64px;
                   }
                 }
                 .flagIcon {
+                  display: none;
                   height: 36px;
                   width: 36px;
                   border-radius: 50%;
-                  background-color: #3032C1;
+                  background-color: transparentize($colorAccent, .75);
                   background-image: url('/assets/icons/flag_white.svg');
                   background-size: 18px;
                   background-repeat: no-repeat;
@@ -530,4 +553,13 @@ $indicatorHeaderHeight: 64px;
     right: $headerLargePaddingRight;
   }
 
+}
+
+@keyframes actionIcons {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

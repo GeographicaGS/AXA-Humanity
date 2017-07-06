@@ -1,15 +1,16 @@
-import { Component, OnInit, Input, HostBinding } from '@angular/core';
+import { Component, OnInit, Input, HostBinding, AfterViewInit } from '@angular/core';
 import { WindowService } from '../window.service';
 import { IndicatorService } from './indicator.service';
 
 import * as stickybits from 'stickybits';
+import * as perfectScrollbar from 'perfect-scrollbar';
 
 @Component({
   selector: 'app-axa-indicator',
   templateUrl: './indicator.component.html',
   styleUrls: ['./indicator.component.scss']
 })
-export class IndicatorComponent implements OnInit {
+export class IndicatorComponent implements OnInit, AfterViewInit {
 
   @Input('indicator') indicator = undefined;
 
@@ -38,6 +39,14 @@ export class IndicatorComponent implements OnInit {
     } else {
       this.comparisonMode();
     }
+  }
+
+  ngAfterViewInit() {
+    perfectScrollbar.initialize(<any>document.getElementsByClassName('content')[0], {
+      wheelSpeed: 2,
+      wheelPropagation: true,
+      minScrollbarLength: 20
+    });
   }
 
   private detailMode() {
@@ -128,10 +137,20 @@ export class IndicatorComponent implements OnInit {
   toggleIndicator($event, detail = false) {
     const target = $event.currentTarget;
     const parent = target.parentElement;
+
     parent.classList.toggle('active');
     if (detail) {
       parent.classList.toggle('showingTitle');
       this.freeFromTop = !this.freeFromTop;
+    }
+
+    // This is a workaround to update the scroll location since the perfect-scrollbar plugin doesn't.
+    const content = document.getElementsByClassName('content')[0];
+    const activeLi = document.getElementsByClassName('indicatorsList')[0].getElementsByClassName('active');
+    if (activeLi.length === 0) {
+      content.scrollTop = 0;
+    } else if (parent.classList.toString().indexOf('active') === -1) {
+      content.scrollTop = parent.offsetTop;
     }
   }
 
