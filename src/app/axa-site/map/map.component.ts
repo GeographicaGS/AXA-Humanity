@@ -3,6 +3,8 @@ import { Http } from '@angular/http';
 import { WindowService } from '../window.service';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+import { CountryGeojsonService } from './country-geojson.service';
+import { UtilsService } from '../../common/utils.service';
 
 declare var cdb: any;
 declare var L: any;
@@ -16,10 +18,34 @@ export class MapComponent implements OnInit {
 
   @Input('indicator') indicator;
 
+  geojson;
+
+  currentLayer;
+  layerSource;
+
   firstCharacterDefaultPosition: any = {lat: 40.07807142745009, lng: -4.130859375};
   firstCharacterMarker;
-  secondCharacterMarker;
+  firstMarkerPreviousPosition;
+  firstCharacterGeometry;
+  firstGeometryStyle = {
+    'color': '#FF1721',
+    'weight': 1.5,
+    'fillOpacity': 0.25,
+    'opacity': 1
+  };
 
+  secondCharacterMarker;
+  secondMarkerPreviousPosition;
+  secondCharacterGeometry;
+  secondGeometryStyle = {
+    'color': '#00008F',
+    'weight': 1.5,
+    'fillOpacity': 0.25,
+    'opacity': 1
+  };
+
+  countryGeojsonLayer;
+  infoPopup;
   map: any = {};
   options: any = {
     zoomControl: false,
@@ -32,10 +58,15 @@ export class MapComponent implements OnInit {
     markerRadius: 7
   };
 
-  constructor(private http: Http, private windowService: WindowService) {
+  constructor(
+    private utils: UtilsService,
+    private http: Http,
+    private windowService: WindowService,
+    private countryService: CountryGeojsonService) {
   }
 
   ngOnInit() {
+
     this.map = L.map('map', {
       zoomControl: this.options.zoomControl,
       center: this.options.center,
@@ -48,11 +79,110 @@ export class MapComponent implements OnInit {
       ]
     });
 
-    this.defineCharacterMarkers();
+    if (this.indicator) {
+      this.detailMode();
+    } else {
+      this.comparisonMode();
+    }
   }
 
-  markerBeingDragged() {
-    return this.windowService.getDraggingStatus() === true;
+  private detailMode() {
+    this.windowService.getIndicator().subscribe((indicator) => {
+      if (indicator) {
+        this.indicator = indicator;
+        this.layerSource = {
+          user_name: 'axa-cdo',
+          type: 'cartodb',
+          sublayers: indicator.kpi.layers
+        };
+
+        if (this.currentLayer) {
+          this.map.removeLayer(this.currentLayer);
+        }
+
+        cdb.createLayer(this.map, this.layerSource, {legends: true, https: false})
+          .addTo(this.map)
+          .on('done', (layer) => {
+            this.currentLayer = layer;
+            layer.setInteraction(true);
+
+            const sublayer2 = layer.getSubLayer(1);
+            sublayer2.setInteraction(true);
+
+            sublayer2.on('mouseover', (e, latlng, point, data) => {
+              if (this.infoPopup) {
+                this.infoPopup.setLatLng(latlng).setContent(this.setPopupTemplate(data));
+              } else {
+                this.infoPopup = L.popup({className: 'axa-popup', closeButton: false})
+                 .setLatLng(latlng)
+                 .setContent(this.setPopupTemplate(data))
+                 .openOn(this.map);
+              }
+            }).on('mouseout', () => {
+              if (this.infoPopup) {
+                this.map.removeLayer(this.infoPopup);
+                this.infoPopup = false;
+              }
+            });
+          })
+          .on('error', (error) => { console.log('error', error); });
+      }
+    });
+  }
+
+  private setPopupTemplate(data) {
+    let template = `<div class="countryName">${data.name}</div>`,
+        dataFormatted,
+        averageFormatted;
+
+    if (data.data !== null) {
+      dataFormatted = this.utils.formatNumber(data.data);
+      template = template + `<div class="value">${dataFormatted} ${this.indicator.kpi.unit}</div>`;
+    } else {
+      template = template + `<div class="value noData">No data found</div>`;
+    }
+
+    if (data.average && data.data !== null) {
+      let avgDiff,
+          avgClass = 'positive';
+      averageFormatted = this.utils.formatNumber(data.average);
+      if (data.data > data.average) {
+        avgDiff = this.utils.formatNumber(data.data - data.average);
+        avgDiff = '+ ' + avgDiff;
+      } else {
+        avgDiff = this.utils.formatNumber(data.average - data.data);
+        avgDiff = '- ' + avgDiff;
+        avgClass = 'negative';
+      }
+
+      template = template + `<div class="avg"><span class="${avgClass}">${avgDiff}</span></div>`;
+    }
+    return template;
+  }
+
+  private comparisonMode() {
+
+    this.defineCharacterMarkers();
+
+    this.countryService.getGeojson().subscribe((geojson) => {
+      this.geojson = geojson;
+      this.countryGeojsonLayer = L.geoJson(geojson, {onEachFeature: this.onEachFeature});
+      this.countryGeojsonLayer.addTo(this.map);
+    });
+
+    this.windowService.getSecondCountry().subscribe((country) => {
+      if (country === false) {
+        if (this.secondCharacterMarker) {
+          this.map.removeLayer(this.secondCharacterMarker);
+        }
+        if (this.secondMarkerPreviousPosition) {
+          this.secondMarkerPreviousPosition = null;
+        }
+        if (this.secondCharacterGeometry) {
+          this.map.removeLayer(this.secondCharacterGeometry);
+        }
+      }
+    });
   }
 
   onItemDrop($event) {
@@ -61,7 +191,51 @@ export class MapComponent implements OnInit {
     const point = L.point(coordsX, coordsY);
     const markerCoords = this.map.containerPointToLatLng(point);
 
+    this.drawGeometryFromCoords(markerCoords, 'second');
+
     this.secondCharacterMarker.setLatLng(markerCoords).addTo(this.map);
+  }
+
+  drawGeometryFromCoords(markerCoords, who) {
+    this.countryService.getCodeFromCoords(markerCoords.lat, markerCoords.lng).subscribe((data) => {
+      const response = <any>data;
+
+      if (!response.rows[0]) {
+        // No country was found, let's move the marker to the previous position
+        if (who === 'second') {
+          this.secondCharacterMarker.setLatLng(this.secondMarkerPreviousPosition);
+        } else {
+          this.firstCharacterMarker.setLatLng(this.firstMarkerPreviousPosition);
+        }
+        return;
+      }
+
+      if (who === 'first') {
+        if (this.firstCharacterGeometry) {
+          this.map.removeLayer(this.firstCharacterGeometry);
+        }
+        this.firstCharacterGeometry = this.addFilteredGeoJson(response.rows[0].adm0_a3, this.firstGeometryStyle);
+
+        this.windowService.setFirstCountry({name: response.rows[0].name, code: response.rows[0].adm0_a3});
+      } else if (who === 'second') {
+
+        if (this.secondCharacterGeometry) {
+          this.map.removeLayer(this.secondCharacterGeometry);
+        }
+        this.secondCharacterGeometry = this.addFilteredGeoJson(response.rows[0].adm0_a3, this.secondGeometryStyle);
+
+        this.windowService.setSecondCountry({name: response.rows[0].name, code: response.rows[0].adm0_a3});
+      }
+    });
+  }
+
+  private addFilteredGeoJson(adm0_a3, style) {
+    return L.geoJson(this.geojson, {
+      style: style,
+      filter: (feature, layer) => {
+        return feature.properties.adm0_a3 === adm0_a3;
+      }
+    }).addTo(this.map);
   }
 
   private defineCharacterMarkers() {
@@ -72,36 +246,86 @@ export class MapComponent implements OnInit {
   private defineFirstCharacterMarker() {
     const FirstCharacterMarker = L.Icon.Default.extend({
       options: {
-        iconUrl: '/assets/icons/character1_map.svg',
+        iconUrl: '/assets/icons/character1-alt_map.svg',
         iconSize: [28, 52],
         shadowSize: [0, 0],
         iconAnchor: [8, 8]
       }
     });
     const firstCharacterMarker = new FirstCharacterMarker();
-    this.firstCharacterMarker = L.marker(null, {icon: firstCharacterMarker});
+    this.firstCharacterMarker = L.marker(null, {icon: firstCharacterMarker, draggable: true})
+      .on('dragstart', (e) => {
+        this.firstMarkerPreviousPosition = e.target._latlng;
+      })
+      .on('dragend', (e) => {
+        this.drawGeometryFromCoords(e.target._latlng, 'first');
+      });
 
     this.getUserCountry().subscribe((data) => {
       // @TODO data.country, set marker there
+      const response = <any>data;
       this.firstCharacterMarker.setLatLng(this.firstCharacterDefaultPosition).addTo(this.map);
+      const coords = response.loc.split(',');
+      this.drawGeometryFromCoords({lat: coords[0], lng: coords[1]}, 'first');
     });
   }
 
   private defineSecondCharacterMarker() {
     const SecondCharacterMarker = L.Icon.Default.extend({
       options: {
-        iconUrl: '/assets/icons/character2_map.svg',
+        iconUrl: '/assets/icons/character2-alt_map.svg',
         iconSize: [28, 52],
         shadowSize: [0, 0],
         iconAnchor: [8, 8]
       }
     });
     const secondCharacterMarker = new SecondCharacterMarker();
-    this.secondCharacterMarker = L.marker(null, {icon: secondCharacterMarker});
+    this.secondCharacterMarker = L.marker(null, {icon: secondCharacterMarker, draggable: true})
+      .on('dragstart', (e) => {
+        this.secondMarkerPreviousPosition = e.target._latlng;
+      })
+      .on('dragend', (e) => {
+        this.drawGeometryFromCoords(e.target._latlng, 'second');
+      });
   }
 
   private getUserCountry(): Observable<any[]> {
     return this.http.get('https://ipinfo.io')
       .map(res => res.json() as any[]);
+  }
+
+  onEachFeature(feature, layer) {
+    const offStyle = {
+      'border-color': 'none',
+      'weight': 1,
+      'fillOpacity': 0,
+      'opacity': 0
+    };
+    const onStyle = {
+      'border-color': '#000',
+      'weight': 1,
+      'fillOpacity': 0,
+      'opacity': 1
+    };
+    layer.setStyle(offStyle);
+    layer.on('mouseover', (e) => {
+      layer.setStyle(onStyle);
+    }).on('mouseout', (e) => {
+      layer.setStyle(offStyle);
+    });
+  }
+
+  indicatorDetailView() {
+    return this.indicator !== false && this.indicator !== undefined;
+  }
+
+  zoomIn() {
+    const currentZoom = this.map.getZoom();
+    this.map.setZoom(currentZoom + 1);
+  }
+
+  zoomOut() {
+    const currentZoom = this.map.getZoom();
+    this.map.setZoom(currentZoom - 1);
   }
 }

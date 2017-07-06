@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.1 (43504) - http://www.bohemiancoding.com/sketch -->
+    <title>icons/discard-white</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/discard-white" fill="#FFFFFF">
+            <path d="M10,18 C5.581722,18 2,14.418278 2,10 C2,5.581722 5.581722,2 10,2 C14.418278,2 18,5.581722 18,10 C18,14.418278 14.418278,18 10,18 Z M13.3941125,12.2627417 L11.1313708,10 L13.3941125,7.7372583 L12.2627417,6.60588745 L10,8.86862915 L7.7372583,6.60588745 L6.60588745,7.7372583 L8.86862915,10 L6.60588745,12.2627417 L7.7372583,13.3941125 L10,11.1313708 L12.2627417,13.3941125 L13.3941125,12.2627417 Z" id="Combined-Shape"></path>
+        </g>
+    </g>
+</svg>

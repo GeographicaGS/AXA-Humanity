@@ -1,2 +1,8 @@
-<div droppable (onDrop)="onItemDrop($event)" id="map" [ngClass]="{'dragging': markerBeingDragged()}"></div>
+<div droppable (onDrop)="onItemDrop($event)" id="map" [dragOverClass]="'dragging'"></div>
+<div class="customZoomControl">
+  <div class="btn plusOne" (click)="zoomIn()"></div>
+  <div class="btn minusOne" (click)="zoomOut()"></div>
+</div>
+
 <app-axa-indicator [indicator]="indicator"></app-axa-indicator>
+<app-axa-indicator-navigation *ngIf="indicatorDetailView()" [indicator]="indicator"></app-axa-indicator-navigation>

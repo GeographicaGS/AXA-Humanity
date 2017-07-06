@@ -1,22 +1,287 @@
 [
   {
-    "title": "Indicator one",
-  	"viz": "https://finanzasdf-admin.carto.com/api/v2/viz/abb29880-b843-11e5-97de-0e9c441fa3f5/viz.json"
+    "id": 1,
+    "title": "Healthcare",
+    "icon": "cat_healthcare.svg",
+    "kpis": [
+      {
+        "id": 1,
+        "category_id": 1,
+        "title": "How many people is in risk of sinking into poverty due to a surgical operation?",
+        "unit": "%",
+        "unitText": "people at risk",
+        "info": {
+          "headline": "Metadata",
+          "body": "The proportion of population at risk of impoverishing expenditure when surgical care is required. Impoverishing expenditure is defined as direct out of pocket payments for surgical and anaesthesia care which drive people below a poverty threshold (using a threshold of $1.25 PPP/day). The Lancet Commission on Global Surgery (www.lancetglobalsurgery.org). 2014"
+        },
+        "tableName": "kpi_01",
+        "layers": [
+          {
+            "sql": "SELECT q.id AS cartodb_id, q.id, (SELECT the_geom FROM continents WHERE id = q.id) AS the_geom, (SELECT ST_Centroid(the_geom_webmercator) FROM continents WHERE id = q.id) AS the_geom_webmercator, (SELECT name FROM continents WHERE id = q.id) AS name, (100 * q.data_population / q.total_population) AS data FROM ( SELECT c.id AS id, SUM(sub_q.data_population) AS data_population, SUM(sub_q.total_population) AS total_population FROM continents c, ( SELECT ST_Centroid(k.the_geom) AS the_geom, (k.data * p.data / 100) AS data_population, p.data AS total_population FROM (SELECT the_geom, data, iso3 FROM kpi_01 WHERE data IS NOT NULL) k INNER JOIN (SELECT id, data FROM population WHERE data IS NOT NULL) p ON k.iso3 = p.id) sub_q WHERE ST_Intersects(c.the_geom, sub_q.the_geom) GROUP BY c.id ) q",
+            "cartocss": "#layer [zoom<3] { marker-width: ramp([data], range(10, 50), quantiles(5)); marker-fill: #F07662; marker-fill-opacity: 1; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #EC4D33; marker-line-opacity: 1;   [zoom=4]{   marker-width: ramp([data], range(20, 70), quantiles(5)); }  [zoom>=5]{   marker-width: ramp([data], range(30, 80), quantiles(5)); }  [zoom>=6]{   marker-width: ramp([data], range(50, 100), quantiles(5)); } } #layer::labels { text-name: [data] + '%'; text-face-name: 'Lato Regular'; text-size: 12; text-fill: #FFF; text-halo-radius: 0; text-opacity: 1; text-allow-overlap: true; text-avoid-edges: true;   }",
+            "interactivity": [
+              "cartodb_id",
+              "name",
+              "data"
+            ]
+          },
+          {
+            "sql": "SELECT cartodb_id,the_geom_webmercator, data, iso3 as id,name, (SELECT AVG(data) FROM kpi_01) as average FROM kpi_01",
+            "cartocss": "#layer [zoom>=3] { polygon-fill: ramp([data], (#ffc6c4, #ee919b, #cc607d, #9e3963, #672044), quantiles); line-width: 1; line-color: #FFF; line-opacity: 0.5; }",
+            "interactivity": [
+              "cartodb_id",
+              "name",
+              "data",
+              "average"
+            ]
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "category_id": 1,
+        "title": "How many people borrowed for medical purposes?",
+        "unit": "%",
+        "unitText": "of people > 15 years old",
+        "info": {
+          "headline": "Metadata",
+          "body": "Denotes the percentage of respondents who report borrowing any money in the past 12 months (by themselves or together with someone else) for health or medical purposes (male, % age 15+). [w2: data are available for wave 2]. Demirguc-Kunt et al., 2015"
+        },
+        "tableName": "kpi_02",
+        "layers": [
+          {
+            "sql": "SELECT q.id as cartodb_id, q.id, (SELECT the_geom FROM continents WHERE id = q.id) AS the_geom, (SELECT centroid FROM continents WHERE id = q.id) AS the_geom_webmercator, (SELECT name FROM continents WHERE id = q.id) AS name, (100 * q.data_population / q.total_population) AS data FROM ( SELECT c.id AS id, SUM(sub_q.data_population) AS data_population, SUM(sub_q.total_population) AS total_population FROM continents c, ( SELECT ST_Centroid(k.the_geom) AS the_geom, (k.data * p.data / 100) AS data_population, p.data AS total_population FROM (SELECT the_geom, data, iso3 FROM kpi_02 WHERE data IS NOT NULL) k INNER JOIN (SELECT id, data FROM population WHERE data IS NOT NULL) p ON k.iso3 = p.id) sub_q WHERE ST_Intersects(c.the_geom, sub_q.the_geom) GROUP BY c.id ) q",
+            "cartocss": "#layer [zoom<3]{ marker-width: ramp([data], range(10, 50), quantiles(5)); marker-fill: #F07662; marker-fill-opacity: 1; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #EC4D33; marker-line-opacity: 1; [zoom=4]{ marker-width: ramp([data], range(20, 70), quantiles(5)); } [zoom>=5]{ marker-width: ramp([data], range(30, 80), quantiles(5)); } [zoom>=6]{ marker-width: ramp([data], range(50, 100), quantiles(5)); } } #layer::labels { text-name: [data] + '%'; text-face-name: 'Lato Regular'; text-size: 12; text-fill: #FFF; text-halo-radius: 0; text-opacity: 1; text-allow-overlap: true; text-avoid-edges: true; }",
+            "interactivity": [
+              "cartodb_id",
+              "name",
+              "data"
+            ]
+          },
+          {
+            "sql": "SELECT cartodb_id,the_geom_webmercator, data, iso3 as id,name, (SELECT AVG(data) FROM kpi_02) as average FROM kpi_02",
+            "cartocss": "#layer [zoom>=3] { polygon-fill: ramp([data], (#ffc6c4, #ee919b, #cc607d, #9e3963, #672044), quantiles); line-width: 1; line-color: #FFF; line-opacity: 0.5; }",
+            "interactivity": [
+              "cartodb_id",
+              "name",
+              "data",
+              "average"
+            ]
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "category_id": 1,
+        "title": "How many people has access to improved sanitation facilities?",
+        "unit": "%",
+        "unitText": "of people with access",
+        "info": {
+          "headline": "Metadata",
+          "body": "Access to improved sanitation facilities refers to the percentage of the population using improved sanitation facilities. Improved sanitation facilities are likely to ensure hygienic separation of human excreta from human contact. They include flush/pour flush (to piped sewer system, septic tank, pit latrine), ventilated improved pit (VIP) latrine, pit latrine with slab, and composting toilet. WHO/UNICEF Joint Monitoring Programme (JMP) for Water Supply and Sanitation (http://www.wssinfo.org/). 2015."
+        },
+        "tableName": "kpi_03",
+        "layers": [
+          {
+            "sql": "SELECT q.id as cartodb_id, q.id, (SELECT the_geom FROM continents WHERE id = q.id) AS the_geom, (SELECT centroid FROM continents WHERE id = q.id) AS the_geom_webmercator, (SELECT name FROM continents WHERE id = q.id) AS name, (100 * q.data_population / q.total_population) AS data FROM ( SELECT c.id AS id, SUM(sub_q.data_population) AS data_population, SUM(sub_q.total_population) AS total_population FROM continents c, ( SELECT ST_Centroid(k.the_geom) AS the_geom, (k.data * p.data / 100) AS data_population, p.data AS total_population FROM (SELECT the_geom, data, iso3 FROM kpi_03 WHERE data IS NOT NULL) k INNER JOIN (SELECT id, data FROM population WHERE data IS NOT NULL) p ON k.iso3 = p.id) sub_q WHERE ST_Intersects(c.the_geom, sub_q.the_geom) GROUP BY c.id ) q",
+            "cartocss": "#layer [zoom<3]{ marker-width: ramp([data], range(10, 50), quantiles(5)); marker-fill: #F07662; marker-fill-opacity: 1; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #EC4D33; marker-line-opacity: 1; [zoom=4]{ marker-width: ramp([data], range(20, 70), quantiles(5)); } [zoom>=5]{ marker-width: ramp([data], range(30, 80), quantiles(5)); } [zoom>=6]{ marker-width: ramp([data], range(50, 100), quantiles(5)); } } #layer::labels { text-name: [data] + '%'; text-face-name: 'Lato Regular'; text-size: 12; text-fill: #FFF; text-halo-radius: 0; text-opacity: 1; text-allow-overlap: true; text-avoid-edges: true; }",
+            "interactivity": [
+              "cartodb_id",
+              "name",
+              "data"
+            ]
+          },
+          {
+            "sql": "SELECT cartodb_id,the_geom_webmercator, data, iso3 as id,name, (SELECT AVG(data) FROM kpi_03) as average FROM kpi_03",
+            "cartocss": "#layer [zoom>=3] { polygon-fill: ramp([data], (#ffc6c4, #ee919b, #cc607d, #9e3963, #672044), quantiles); line-width: 1; line-color: #FFF;line-opacity: 0.5;}",
+            "interactivity": [
+              "cartodb_id",
+              "name",
+              "data",
+              "average"
+            ]
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "category_id": 1,
+        "title": "How many people on the specialist surgical workforce?",
+        "unit": "%",
+        "unitText": "per 100.000 population",
+        "info": {
+          "headline": "Metadata",
+          "body": "Specialist surgical workforce is the number of specialist surgical, anaesthetic, and obstetric (SAO) providers who are working in each country per 100,000 population. The Lancet Commission on Global Surgery (www.lancetglobalsurgery.org). 2015."
+        },
+        "tableName": "kpi_04",
+        "layers": [
+          {
+            "sql": "SELECT q.id as cartodb_id, q.id, (SELECT the_geom FROM continents WHERE id = q.id) AS the_geom, (SELECT centroid FROM continents WHERE id = q.id) AS the_geom_webmercator, (SELECT name FROM continents WHERE id = q.id) AS name, (100000 * q.data_population / q.total_population) AS data FROM ( SELECT c.id AS id, SUM(sub_q.data_population) AS data_population, SUM(sub_q.total_population) AS total_population FROM continents c, ( SELECT ST_Centroid(k.the_geom) AS the_geom, (k.data * p.data / 100000) AS data_population, p.data AS total_population FROM (SELECT the_geom, data, iso3 FROM kpi_04 WHERE data IS NOT NULL) k INNER JOIN (SELECT id, data FROM population WHERE data IS NOT NULL) p ON k.iso3 = p.id) sub_q WHERE ST_Intersects(c.the_geom, sub_q.the_geom) GROUP BY c.id ) q",
+            "cartocss": "#layer [zoom<3]{ marker-width: ramp([data], range(10, 50), quantiles(5)); marker-fill: #F07662; marker-fill-opacity: 1; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #EC4D33; marker-line-opacity: 1; [zoom=4]{ marker-width: ramp([data], range(20, 70), quantiles(5)); } [zoom>=5]{ marker-width: ramp([data], range(30, 80), quantiles(5)); } [zoom>=6]{ marker-width: ramp([data], range(50, 100), quantiles(5)); } } #layer::labels { text-name: [data] + '%'; text-face-name: 'Lato Regular'; text-size: 12; text-fill: #FFF; text-halo-radius: 0; text-opacity: 1; text-allow-overlap: true; text-avoid-edges: true; }",
+            "interactivity": [
+              "cartodb_id",
+              "name",
+              "data"
+            ]
+          },
+          {
+            "sql": "SELECT cartodb_id,the_geom_webmercator, data, iso3 as id,name, (SELECT AVG(data) FROM kpi_04) as average FROM kpi_04",
+            "cartocss": "#layer [zoom>=3] { polygon-fill: ramp([data], (#ffc6c4, #ee919b, #cc607d, #9e3963, #672044), quantiles);line-width: 1;line-color: #FFF;line-opacity: 0.5;}",
+            "interactivity": [
+              "cartodb_id",
+              "name",
+              "data",
+              "average"
+            ]
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "category_id": 1,
+        "title": "How much is the health expenditure (public)?",
+        "unit": "%",
+        "unitText": "of total health expenditure",
+        "info": {
+          "headline": "Metadata",
+          "body": "Public health expenditure consists of recurrent and capital spending from government (central and local) budgets, external borrowings and grants (including donations from international agencies and nongovernmental organizations), and social (or compulsory) health insurance funds. Total health expenditure is the sum of public and private health expenditure. It covers the provision of health services (preventive and curative), family planning activities, nutrition activities, and emergency aid designated for health but does not include provision of water and sanitation. World Health Organization Global Health Expenditure database (see http://apps.who.int/nha/database for the most recent updates). 2014."
+        },
+        "tableName": "kpi_05",
+        "layers": [
+          {
+            "sql": "SELECT q.id as cartodb_id, q.id, (SELECT the_geom FROM continents WHERE id = q.id) AS the_geom, (SELECT centroid FROM continents WHERE id = q.id) AS the_geom_webmercator, (SELECT name FROM continents WHERE id = q.id) AS name, (100 * q.data_population / q.total_population) AS data FROM ( SELECT c.id AS id, SUM(sub_q.data_population) AS data_population, SUM(sub_q.total_population) AS total_population FROM continents c, ( SELECT ST_Centroid(k.the_geom) AS the_geom, (k.data * g.data / 100) AS data_population, g.data AS total_population FROM (SELECT the_geom, data, iso3 FROM kpi_05 WHERE data IS NOT NULL) k INNER JOIN (SELECT id, data FROM global_government_expenditure WHERE data IS NOT NULL) g ON k.iso3 = g.id) sub_q WHERE ST_Intersects(c.the_geom, sub_q.the_geom) GROUP BY c.id ) q",
+            "cartocss": "#layer [zoom<3]{ marker-width: ramp([data], range(10, 50), quantiles(5)); marker-fill: #F07662; marker-fill-opacity: 1; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #EC4D33; marker-line-opacity: 1; [zoom=4]{ marker-width: ramp([data], range(20, 70), quantiles(5)); } [zoom>=5]{ marker-width: ramp([data], range(30, 80), quantiles(5)); } [zoom>=6]{ marker-width: ramp([data], range(50, 100), quantiles(5)); } } #layer::labels { text-name: [data] + '%'; text-face-name: 'Lato Regular'; text-size: 12; text-fill: #FFF; text-halo-radius: 0; text-opacity: 1; text-allow-overlap: true; text-avoid-edges: true; }",
+            "interactivity": [
+              "cartodb_id",
+              "name",
+              "data"
+            ]
+          },
+          {
+           "sql": "SELECT cartodb_id,the_geom_webmercator, data, iso3 as id,name, (SELECT AVG(data) FROM kpi_05) as average FROM kpi_05",
+           "cartocss": "#layer [zoom>=3] { polygon-fill: ramp([data], (#ffc6c4, #ee919b, #cc607d, #9e3963, #672044), quantiles);line-width: 1;line-color: #FFF;line-opacity: 0.5;}",
+           "interactivity": [
+             "cartodb_id",
+             "name",
+             "data",
+             "average"
+           ]
+         }
+        ]
+      },
+      {
+        "id": 6,
+        "category_id": 1,
+        "title": "How many maternal deaths?",
+        "unit": "",
+        "unitText": "deaths",
+        "info": {
+          "headline": "Metadata",
+          "body": "A maternal death refers to the death of a woman while pregnant or within 42 days of termination of pregnancy, irrespective of the duration and site of the pregnancy, from any cause related to or aggravated by the pregnancy or its management but not from accidental or incidental causes. WHO, UNICEF, UNFPA, World Bank Group, and the United Nations Population Division. Trends in Maternal Mortality: 1990 to 2015. Geneva, World Health Organization, 2015"
+        },
+        "tableName": "kpi_06",
+        "layers": [
+          {
+            "sql": "SELECT q.id as cartodb_id, q.id, (SELECT the_geom FROM continents WHERE id = q.id) AS the_geom, (SELECT centroid FROM continents WHERE id = q.id) AS the_geom_webmercator, (SELECT name FROM continents WHERE id = q.id) AS name, data FROM ( SELECT c.id AS id, SUM(k.data) AS data FROM continents c, (SELECT the_geom, data FROM kpi_06 WHERE data IS NOT NULL) k WHERE ST_Intersects(c.the_geom, ST_Centroid(k.the_geom)) GROUP BY c.id ) q",
+            "cartocss": "#layer [zoom<3]{ marker-width: ramp([data], range(10, 50), quantiles(5)); marker-fill: #F07662; marker-fill-opacity: 1; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #EC4D33; marker-line-opacity: 1; [zoom=4]{ marker-width: ramp([data], range(20, 70), quantiles(5)); } [zoom>=5]{ marker-width: ramp([data], range(30, 80), quantiles(5)); } [zoom>=6]{ marker-width: ramp([data], range(50, 100), quantiles(5)); } } #layer::labels { text-name: [data] + '%'; text-face-name: 'Lato Regular'; text-size: 12; text-fill: #FFF; text-halo-radius: 0; text-opacity: 1; text-allow-overlap: true; text-avoid-edges: true; }",
+            "interactivity": [
+              "cartodb_id",
+              "name",
+              "data"
+            ]
+          },
+          {
+            "sql": "SELECT cartodb_id,the_geom_webmercator, data, iso3 as id,name, (SELECT AVG(data) FROM kpi_06) as average FROM kpi_06",
+            "cartocss": "#layer [zoom>=3] { polygon-fill: ramp([data], (#ffc6c4, #ee919b, #cc607d, #9e3963, #672044), quantiles); line-width: 1; line-color: #FFF; line-opacity: 0.5;}",
+            "interactivity": [
+              "cartodb_id",
+              "name",
+              "data",
+              "average"
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
-    "title": "Indicator two",
-  	"viz": "https://finanzasdf-admin.carto.com/api/v2/viz/abb29880-b843-11e5-97de-0e9c441fa3f5/viz.json"
+    "id": 2,
+    "title": "Automobile",
+    "icon": "cat_automobile.svg",
+    "kpis": [
+      {
+        "id": 7,
+        "category_id": 2,
+        "title": "How many people died because of car accident injuries?",
+        "unit": "%",
+        "unitText": "per 100.000 people",
+        "info": {
+          "headline": "Metadata",
+          "body": "Mortality caused by road traffic injury is estimated road traffic fatal injury deaths per 100,000 population. World Health Organization, Global Status Report on Road Safety. 2015."
+        },
+        "tableName": "kpi_07",
+        "layers": [
+          {
+            "sql": "SELECT q.id as cartodb_id, q.id, (SELECT the_geom FROM continents WHERE id = q.id) AS the_geom, (SELECT centroid FROM continents WHERE id = q.id) AS the_geom_webmercator, (SELECT name FROM continents WHERE id = q.id) AS name, (100000 * q.data_population / q.total_population) AS data FROM ( SELECT c.id AS id, SUM(sub_q.data_population) AS data_population, SUM(sub_q.total_population) AS total_population FROM continents c, ( SELECT ST_Centroid(k.the_geom) AS the_geom, (k.data * p.data / 100000) AS data_population, p.data AS total_population FROM (SELECT the_geom, data, iso3 FROM kpi_07 WHERE data IS NOT NULL) k INNER JOIN (SELECT id, data FROM population WHERE data IS NOT NULL) p ON k.iso3 = p.id) sub_q WHERE ST_Intersects(c.the_geom, sub_q.the_geom) GROUP BY c.id ) q",
+            "cartocss": "#layer [zoom<3]{ marker-width: ramp([data], range(10, 50), quantiles(5)); marker-fill: #F07662; marker-fill-opacity: 1; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #EC4D33; marker-line-opacity: 1; [zoom=4]{ marker-width: ramp([data], range(20, 70), quantiles(5)); } [zoom>=5]{ marker-width: ramp([data], range(30, 80), quantiles(5)); } [zoom>=6]{ marker-width: ramp([data], range(50, 100), quantiles(5)); } } #layer::labels { text-name: [data] + '%'; text-face-name: 'Lato Regular'; text-size: 12; text-fill: #FFF; text-halo-radius: 0; text-opacity: 1; text-allow-overlap: true; text-avoid-edges: true; }",
+            "interactivity": [
+              "cartodb_id",
+              "name",
+              "data"
+            ]
+          },
+          {
+            "sql": "SELECT cartodb_id,the_geom_webmercator, data, iso3 as id,name, (SELECT AVG(data) FROM kpi_07) as average FROM kpi_07",
+            "cartocss": "#layer [zoom>=3] { polygon-fill: ramp([data], (#ffc6c4, #ee919b, #cc607d, #9e3963, #672044), quantiles); line-width: 1; line-color: #FFF; line-opacity: 0.5; }",
+            "interactivity": [
+              "cartodb_id",
+              "name",
+              "data",
+              "average"
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
-    "title": "Indicator three",
-  	"viz": "https://finanzasdf-admin.carto.com/api/v2/viz/abb29880-b843-11e5-97de-0e9c441fa3f5/viz.json"
-  },
-  {
-    "title": "Indicator four",
-  	"viz": "https://finanzasdf-admin.carto.com/api/v2/viz/abb29880-b843-11e5-97de-0e9c441fa3f5/viz.json"
-  },
-  {
-    "title": "Indicator five",
-  	"viz": "https://finanzasdf-admin.carto.com/api/v2/viz/abb29880-b843-11e5-97de-0e9c441fa3f5/viz.json"
+    "id": 3,
+    "title": "Pension",
+    "icon": "cat_pension.svg",
+    "kpis": [
+      {
+        "id": 8,
+        "category_id": 3,
+        "title": "What's the contribution to pensions?",
+        "unit": "%",
+        "unitText": "of GDP",
+        "info": {
+          "headline": "Metadata",
+          "body": "Data extracted from OECD.Stat. 2015."
+        },
+        "tableName": "kpi_08",
+        "layers": [
+          {
+            "sql": "SELECT q.id as cartodb_id, q.id,(SELECT the_geom FROM continents WHERE id = q.id) AS the_geom, (SELECT centroid FROM continents WHERE id = q.id) AS the_geom_webmercator, (SELECT name FROM continents WHERE id = q.id) AS name, (100 * q.data_population / q.total_population) AS data FROM ( SELECT c.id AS id, SUM(sub_q.data_population) AS data_population, SUM(sub_q.total_population) AS total_population FROM continents c, ( SELECT ST_Centroid(k.the_geom) AS the_geom, (k.data * g.data / 100) AS data_population, g.data AS total_population FROM (SELECT the_geom, data, iso3 FROM kpi_08 WHERE data IS NOT NULL) k INNER JOIN (SELECT id, data FROM gross_domestic_product WHERE data IS NOT NULL) g ON k.iso3 = g.id) sub_q WHERE ST_Intersects(c.the_geom, sub_q.the_geom) GROUP BY c.id ) q",
+            "cartocss": "#layer [zoom<3]{ marker-width: ramp([data], range(10, 50), quantiles(5)); marker-fill: #F07662; marker-fill-opacity: 1; marker-allow-overlap: true; marker-line-width: 2; marker-line-color: #EC4D33; marker-line-opacity: 1; [zoom=4]{ marker-width: ramp([data], range(20, 70), quantiles(5)); } [zoom>=5]{ marker-width: ramp([data], range(30, 80), quantiles(5)); } [zoom>=6]{ marker-width: ramp([data], range(50, 100), quantiles(5)); } } #layer::labels { text-name: [data] + '%'; text-face-name: 'Lato Regular'; text-size: 12; text-fill: #FFF; text-halo-radius: 0; text-opacity: 1; text-allow-overlap: true; text-avoid-edges: true; }",
+            "interactivity": [
+              "cartodb_id",
+              "name",
+              "data"
+            ]
+          },
+          {
+            "sql": "SELECT cartodb_id,the_geom_webmercator, data, iso3 as id,name, (SELECT AVG(data) FROM kpi_08) as average FROM kpi_08",
+            "cartocss": "#layer [zoom>=3] { polygon-fill: ramp([data], (#ffc6c4, #ee919b, #cc607d, #9e3963, #672044), quantiles); line-width: 1; line-color: #FFF; line-opacity: 0.5;}",
+            "interactivity": [
+              "cartodb_id",
+              "name",
+              "data",
+              "average"
+            ]
+          }
+        ]
+      }
+    ]
   }
 ]

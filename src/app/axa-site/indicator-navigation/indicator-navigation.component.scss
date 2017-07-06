@@ -1,0 +1,61 @@
+@import 'common';
+
+:host {
+  position: absolute;
+  top: calc(#{$headerHeight} + 8px);
+  right: 8px;
+  height: 174px;
+  width: 48px;
+  background-color: $azure;
+  border-radius: 2px;
+
+
+
+  div.indicatorNavigationWrapper {
+    display: flex;
+    flex-direction: column;
+    div.btn {
+      flex: 0 1 58px;
+      border-bottom: 1px solid $stTropaz;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+      &.disabled {
+        cursor: default;
+        &:before {
+          opacity: 0.5;
+        }
+      }
+      &:before {
+        content: '';
+        display: block;
+        width: 20px;
+        height: 20px;
+      }
+
+      &.close {
+        &:before {
+          background-image: url('/assets/icons/close-white.svg');
+        }
+      }
+      &.next {
+        &:before {
+          background-image: url('/assets/icons/arrow2-white.svg');
+          transform: rotate(-90deg);
+        }
+      }
+      &.back {
+        &:before {
+          background-image: url('/assets/icons/arrow2-white.svg');
+          transform: rotate(90deg);
+        }
+      }
+
+      &:last-of-type {
+        border-bottom: none;
+      }
+    }
+  }
+}
