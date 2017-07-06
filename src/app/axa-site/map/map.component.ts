@@ -28,7 +28,7 @@ export class MapComponent implements OnInit {
   firstMarkerPreviousPosition;
   firstCharacterGeometry;
   firstGeometryStyle = {
-    'color': '#FF1721',
+    'color': '#f02849',
     'weight': 1.5,
     'fillOpacity': 0.25,
     'opacity': 1
@@ -38,7 +38,7 @@ export class MapComponent implements OnInit {
   secondMarkerPreviousPosition;
   secondCharacterGeometry;
   secondGeometryStyle = {
-    'color': '#00008F',
+    'color': '#494df4',
     'weight': 1.5,
     'fillOpacity': 0.25,
     'opacity': 1
@@ -166,7 +166,10 @@ export class MapComponent implements OnInit {
 
     this.countryService.getGeojson().subscribe((geojson) => {
       this.geojson = geojson;
-      this.countryGeojsonLayer = L.geoJson(geojson, {onEachFeature: this.onEachFeature});
+      this.countryGeojsonLayer = L.geoJson(geojson, {onEachFeature: this.onEachFeature})
+        .on('click', (e) => {
+          this.setComparerMarkerByClick(e);
+        });
       this.countryGeojsonLayer.addTo(this.map);
     });
 
@@ -185,15 +188,24 @@ export class MapComponent implements OnInit {
     });
   }
 
+  setComparerMarkerByClick(e) {
+    this.setProperMarkerAndGeomPosition({x: e.layerPoint.x, y: e.layerPoint.y});
+  }
+
   onItemDrop($event) {
-    const coordsX = $event.nativeEvent.clientX;
-    const coordsY = $event.nativeEvent.clientY - 26;
+    this.setProperMarkerAndGeomPosition({x: $event.nativeEvent.clientX, y: $event.nativeEvent.clientY});
+  }
+
+  setProperMarkerAndGeomPosition(coords) {
+    const coordsX = coords.x;
+    const coordsY = coords.y;
+    const coordsYMarker = coords.y - 40;
     const point = L.point(coordsX, coordsY);
+    const pointMarker = L.point(coordsX, coordsYMarker);
     const markerCoords = this.map.containerPointToLatLng(point);
 
     this.drawGeometryFromCoords(markerCoords, 'second');
-
-    this.secondCharacterMarker.setLatLng(markerCoords).addTo(this.map);
+    this.secondCharacterMarker.setLatLng(this.map.containerPointToLatLng(pointMarker)).addTo(this.map);
   }
 
   drawGeometryFromCoords(markerCoords, who) {
