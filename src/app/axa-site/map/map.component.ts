@@ -318,4 +318,14 @@ export class MapComponent implements OnInit {
   indicatorDetailView() {
     return this.indicator !== false && this.indicator !== undefined;
   }
+
+  zoomIn() {
+    const currentZoom = this.map.getZoom();
+    this.map.setZoom(currentZoom + 1);
+  }
+
+  zoomOut() {
+    const currentZoom = this.map.getZoom();
+    this.map.setZoom(currentZoom - 1);
+  }
 }

@@ -4,71 +4,6 @@
 @import './reset.scss';
 @import './_common.scss';
 
-
-.leaflet-popup.axa-popup {
-  .leaflet-popup-tip-container {
-    opacity: 0;
-    visibility: hidden;
-  }
-  .leaflet-popup-content-wrapper {
-    background-color: $outerSpace;
-    border-radius: 2px;
-    box-shadow: 0 2px 10px rgba(0,0,0,.2);
-    .countryName {
-      @include font('semibold');
-      font-size: 16px;
-      line-height: 16px;
-      color: $white;
-      margin-bottom: 4px;
-    }
-    .value {
-      @include font('extrabold', $fontFamilySecond);
-      font-size: 32px;
-      line-height: 32px;
-      color: $white;
-
-      &.noData {
-        font-size: 20px;
-        line-height: 20px;
-      }
-    }
-
-    .avg {
-      @include font('semibold');
-      font-size: 16px;
-      line-height: 16px;
-      color: $white;
-      display: flex;
-      align-items: center;
-      span {
-        margin-bottom: 1px;
-        &.positive {
-          color: $malachite;
-        }
-        &.negative {
-          color: $amaranth;
-        }
-      }
-      &:before {
-        content: 'AVG';
-        border-radius: 1px;
-        height: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: $white;
-        background-color: $neutro-50;
-        font-size: 12px;
-        line-height: 12px;
-        letter-spacing: 1px;
-        margin-right: 8px;
-        padding: 0 2px;
-      }
-    }
-  }
-}
-
-
 html,
 body {
   height: 100%;
@@ -144,4 +79,72 @@ a {
       visibility: visible;
     }
   }
+}
+
+
+.leaflet-popup.axa-popup {
+  .leaflet-popup-tip-container {
+    opacity: 0;
+    visibility: hidden;
+  }
+  .leaflet-popup-content-wrapper {
+    background-color: $outerSpace;
+    border-radius: 2px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.2);
+    .countryName {
+      @include font('semibold');
+      font-size: 16px;
+      line-height: 16px;
+      color: $white;
+      margin-bottom: 4px;
+    }
+    .value {
+      @include font('extrabold', $fontFamilySecond);
+      font-size: 32px;
+      line-height: 32px;
+      color: $white;
+
+      &.noData {
+        font-size: 20px;
+        line-height: 20px;
+      }
+    }
+
+    .avg {
+      @include font('semibold');
+      font-size: 16px;
+      line-height: 16px;
+      color: $white;
+      display: flex;
+      align-items: center;
+      span {
+        margin-bottom: 1px;
+        &.positive {
+          color: $malachite;
+        }
+        &.negative {
+          color: $amaranth;
+        }
+      }
+      &:before {
+        content: 'AVG';
+        border-radius: 1px;
+        height: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $white;
+        background-color: $neutro-50;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: 1px;
+        margin-right: 8px;
+        padding: 0 2px;
+      }
+    }
+  }
+}
+
+.cartodb-logo {
+  display: none !important;
 }
