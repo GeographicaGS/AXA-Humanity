@@ -56,7 +56,7 @@
               "cartodb_id",
               "name",
               "data"
-            ]
+          ]
           },
           {
             "sql": "SELECT cartodb_id,the_geom_webmercator, data, iso3 as id,name, (SELECT AVG(data) FROM kpi_02) as average FROM kpi_02",

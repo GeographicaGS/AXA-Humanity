@@ -56,7 +56,7 @@ const DATA = [{
   },
   {
     type: 'light',
-    value: 20,279,
+    value: 20279,
     units: 'new hires',
     title: 'Per year',
     subtitle: 'worldwide',
@@ -65,7 +65,7 @@ const DATA = [{
   },
   {
     type: 'light',
-    value: 4,000,
+    value: 4000,
     units: 'new policies in its first month',
     title: 'Smart Women Plan',
     subtitle: 'Product of the Year, 2013',
