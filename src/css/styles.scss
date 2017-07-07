@@ -67,11 +67,12 @@ a {
   z-index: 1003;
   white-space: nowrap;
   margin-top: 6px;
-  // &.active {
-  //   opacity: 1;
-  //   height: auto;
-  //   visibility: visible;
-  // }
+  &.active {
+    opacity: 1;
+    height: auto;
+    visibility: visible;
+    z-index: 2000;
+  }
 }
 
 .tooltipContainer {

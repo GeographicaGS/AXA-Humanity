@@ -13,35 +13,96 @@
   position: relative;
 }
 
-.customZoomControl {
+.customControlsWrapper {
   position: absolute;
   bottom: 20px;
   left: 20px;
-  background-color: $white;
   z-index: 1200;
   display: flex;
-  flex-direction: row;
-  height: 32px;
-  width: 65px;
-  border-radius: 2px;
-  box-shadow: 0 0 4px 0 rgba(26,30,41,0.1);
 
-  .btn {
-    flex: 0 1 100%;
+  .customZoomControl {
+
+    background-color: $white;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;
+    height: 32px;
+    width: 65px;
+    border-radius: 2px;
+    box-shadow: 0 0 4px 0 rgba(26,30,41,0.1);
 
-    background-position: center center;
-    background-repeat: no-repeat;
-    cursor: pointer;
-    &.plusOne {
-      background-image: url('/assets/icons/zoom-in.svg');
-      border-right: 1px solid $neutro-10;
-    }
+    .btn {
+      flex: 0 1 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-    &.minusOne {
-      background-image: url('/assets/icons/zoom-out.svg');
+      background-position: center center;
+      background-repeat: no-repeat;
+      cursor: pointer;
+      &.plusOne {
+        background-image: url('/assets/icons/zoom-in.svg');
+        border-right: 1px solid $neutro-10;
+      }
+
+      &.minusOne {
+        background-image: url('/assets/icons/zoom-out.svg');
+      }
     }
   }
+
+  .axaLayerControl {
+    background-color: $white;
+    border-radius: 2px;
+    box-shadow: 0 0 4px 0 rgba(26,30,41,0.1);
+    height: 32px;
+    width: 195px;
+    margin-left: 20px;
+    font-size: 13px;
+    line-height: 14px;
+    color: $scorpion;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    span {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-left: 6px;
+      &:before {
+        content: '';
+        width: 19px;
+        height: 19px;
+        border: 1px solid $silver;
+        background-image: url('/assets/icons/trama-mapa-axa.png');
+        display: inline-flex;
+        margin-right: 7px;
+      }
+    }
+    div.eyeIcon {
+      width: 20px;
+      height: 20px;
+      background-image: url('/assets/icons/see.svg');
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      margin-right: 8px;
+      transition: background-image .3s;
+
+      &.disabled {
+        background-image: url('/assets/icons/hide.svg');
+      }
+    }
+
+    &:hover {
+      .eyeIcon:not(.disabled) {
+        background-image: url('/assets/icons/hide.svg');
+      }
+      .eyeIcon.disabled {
+        background-image: url('/assets/icons/see.svg');
+      }
+    }
+
+  }
+
 }

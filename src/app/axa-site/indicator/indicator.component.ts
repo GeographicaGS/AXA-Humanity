@@ -149,6 +149,8 @@ export class IndicatorComponent implements OnInit, AfterViewInit {
     const activeLi = document.getElementsByClassName('indicatorsList')[0].getElementsByClassName('active');
     if (activeLi.length === 0) {
       content.scrollTop = 0;
+
+      perfectScrollbar.update(<any>document.getElementsByClassName('content')[0]);
     } else if (parent.classList.toString().indexOf('active') === -1) {
       content.scrollTop = parent.offsetTop;
     }
@@ -195,17 +197,53 @@ export class IndicatorComponent implements OnInit, AfterViewInit {
     }
   }
 
-  highlightTitle(kpiId) {
+  highlightTitle($event, kpiId) {
     const titleElement = document.getElementById('kpi_' + kpiId + '_title');
     if (titleElement) {
-      titleElement.classList.add('over');
+      titleElement.classList.add('hover');
+    }
+
+    const tooltipContainer = $event.currentTarget;
+    if (tooltipContainer.classList.toString().indexOf('tooltipContainer') !== -1 && tooltipContainer.getAttribute('data-tooltipmsg')) {
+      // Handle tooltip position, place it in the top (centered) of the tooltipContainer
+      const target = <any>document.getElementsByClassName('globalViewMsg')[0];
+      target.innerHTML = tooltipContainer.getAttribute('data-tooltipmsg');
+      const containerBoundingRect = tooltipContainer.getBoundingClientRect();
+
+      target.style.top = (containerBoundingRect.top - containerBoundingRect.height - 4) + 'px';
+      const part_1 = containerBoundingRect.left - (target.getBoundingClientRect().width / 2);
+      const part_2 = containerBoundingRect.width / 2;
+      target.style.left = (part_1 + part_2) + 'px';
+      target.classList.add('active');
     }
   }
 
-  normalTitle(kpiId) {
+  normalTitle($event, kpiId) {
     const titleElement = document.getElementById('kpi_' + kpiId + '_title');
     if (titleElement) {
-      titleElement.classList.remove('over');
+      titleElement.classList.remove('hover');
+    }
+
+    const tooltipContainer = $event.currentTarget;
+    if (tooltipContainer.classList.toString().indexOf('tooltipContainer') !== -1 && tooltipContainer.getAttribute('data-tooltipmsg')) {
+      const target = <any>document.getElementsByClassName('globalViewMsg')[0];
+      if (target) {
+        target.classList.remove('active');
+      }
+    }
+  }
+
+  highlightTooltip($event, kpiId) {
+    const tooltipContainer = document.getElementById('kpi_' + kpiId + '_tooltip');
+    if (tooltipContainer) {
+      tooltipContainer.classList.add('hover');
+    }
+  }
+
+  normalTooltip($event, kpiId) {
+    const tooltipContainer = document.getElementById('kpi_' + kpiId + '_tooltip');
+    if (tooltipContainer) {
+      tooltipContainer.classList.remove('hover');
     }
   }
 

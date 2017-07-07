@@ -15,6 +15,10 @@ $indicatorHeaderHeight: 64px;
   transition: top .3s;
   &.freeFromTop {
     top: calc(#{$headerHeight} + 8px);
+
+    .content {
+      border-radius: 2px;
+    }
   }
   &.dragging {
     .header {
@@ -156,10 +160,20 @@ $indicatorHeaderHeight: 64px;
     transition: opacity .3s;
     max-height: 100%;
     position: relative;
+    touch-action: none;
     ul.indicatorsList {
       li {
         &.showingTitle {
           .title {
+            @include font('extrabold', $fontFamilySecond);
+            font-size: 20px;
+            line-height: 20px;
+            padding: 13.5px 20px;
+            &:after {
+              top: 50%;
+              margin-top: -6px;
+            }
+
             .kpiTitleAsHeader {
               text-transform: none;
               color: $white;
@@ -186,8 +200,11 @@ $indicatorHeaderHeight: 64px;
           background: $azure;
           top: 0;
           z-index: 102;
+          border-top: 1px solid $stTropaz;
 
           span.catIcon {
+            min-width: 20px;
+            min-height: 20px;
             width: 20px;
             height: 20px;
             background-position: center;
@@ -237,6 +254,7 @@ $indicatorHeaderHeight: 64px;
                 div.actions {
                   animation: actionIcons 1s;
                   opacity: 1;
+                  visibility: visible;
                   transform: translateY(0%);
                 }
               }
@@ -250,11 +268,14 @@ $indicatorHeaderHeight: 64px;
                 font-size: 20px;
                 line-height: 20px;
                 margin-bottom: 22px;
+                transition: color .3s;
                 span {
                   margin-right: 8px;
                 }
 
-                &.over {
+                &:hover,
+                &.hover {
+                  cursor: pointer;
                   color: $burntSienna;
                 }
               }
@@ -265,6 +286,7 @@ $indicatorHeaderHeight: 64px;
                 transform: translateY(-120%);
                 transition: transform .4s;
                 opacity: 0;
+                visibility: hidden;
                 div {
                   margin-bottom: 10px;
                 }
@@ -279,7 +301,8 @@ $indicatorHeaderHeight: 64px;
                   background-position: center center;
                   cursor: pointer;
                   transition: background-image .3s;
-                  &:hover {
+                  &:hover,
+                  &.hover {
                     background-image: url('/assets/icons/arrow-go_sienna.svg');
                     background-size: 20px;
                   }
@@ -299,13 +322,6 @@ $indicatorHeaderHeight: 64px;
                   &:hover {
                     background-image: url('/assets/icons/flag_sienna.svg');
                   }
-                }
-
-                .tooltipMessage {
-                  left: auto;
-                  bottom: auto;
-                  top: auto;
-                  right: 100%;
                 }
               }
             }
@@ -392,9 +408,19 @@ $indicatorHeaderHeight: 64px;
                   line-height: 48px;
                   margin: 6px auto 10px auto;
 
+                  span.unit {
+                    @include font('none', $fontFamilySecond);
+                    font-size: 32px;
+                  }
+
                   &.avg {
                     font-size: 32px;
                     line-height: 32px;
+                    span.unit {
+                      @include font('none', $fontFamilySecond);
+                      font-size: 20px;
+                      line-height: 32px;
+                    }
                   }
                 }
               }
@@ -405,6 +431,11 @@ $indicatorHeaderHeight: 64px;
                 font-size: 48px;
                 color: $white;
                 line-height: 48px;
+
+                span.unit {
+                  @include font('none', $fontFamilySecond);
+                  font-size: 32px;
+                }
               }
             }
 
@@ -478,23 +509,84 @@ $indicatorHeaderHeight: 64px;
               }
             }
 
-            div.info {
-              margin-top: 39px;
-              margin-bottom: 20px;
-              padding-top: 10px;
+            div.mapLegend {
+              display: flex;
+              flex-direction: column;
+              padding-top: 12px;
+              margin-top: 29px;
               border-top: 1px solid $stTropaz;
+              .row {
+                align-items: center;
+                &.legendTitle {
+                  color: $silver;
+                  font-size: 13px;
+                  line-height: 14px;
+                  margin-bottom: 6px;
+                }
+                &.separate {
+                  margin-top: 6px;
+                  display: flex;
+                  justify-content: space-between;
+                }
+
+                .max,
+                .min {
+                  color: $white;
+                  font-size: 14px;
+                  line-height: 14px;
+                }
+              }
+
+              .legend {
+                display: flex;
+                height: 10px;
+                border-radius: 5px;
+                border: 2px solid $stTropaz;
+                align-items: center;
+                justify-content: center;
+                span {
+                  flex: 1 1 100%;
+                  height: 6px;
+
+                  &:first-of-type {
+                    border-radius: 5px 0 0 5px;
+                  }
+                  &:last-of-type {
+                    border-radius: 0 5px 5px 0;
+                  }
+                }
+
+                $legendColors: (
+                  1: #ec4d33,
+                  2: #f07662,
+                  3: #F6ADA1,
+                  4: #F9C8C0,
+                  5: #FCE4E0
+                );
+                @each $index, $color in $legendColors {
+                  span:nth-child(#{$index}) {
+                    background-color: $color;
+                  }
+                }
+              }
+            }
+
+            div.info {
+              margin-top: 0;
+              margin-bottom: 0;
+              padding-top: 0;
 
               .headline {
                 @include font(bold);
-                font-size: 18px;
-                line-height: 24px;
+                font-size: 16px;
+                line-height: 20px;
                 color: $mercury;
               }
 
               .body {
                 @include font();
-                font-size: 16px;
-                line-height: 18px;
+                font-size: 14px;
+                line-height: 16px;
                 color: $mercury;
               }
 
@@ -510,12 +602,17 @@ $indicatorHeaderHeight: 64px;
                 height: auto;
                 max-height: 500px;
                 overflow-y: auto;
-              }
+                margin-top: 17px;
 
+                &.detail {
+                  margin-top: 15px;
+                  padding-top: 15px;
+                }
+              }
             }
 
             &:last-child {
-              border-bottom: 1px solid transparent;
+              border-bottom: 2px solid transparent;
             }
           }
         }
@@ -533,9 +630,8 @@ $indicatorHeaderHeight: 64px;
             height: auto;
             padding: 0 20px;
             li {
-              min-height: 280px;
               height: auto;
-              padding: 16px 0;
+              padding: 16px 0 28px 0;
             }
           }
         }
