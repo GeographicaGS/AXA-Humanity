@@ -196,9 +196,16 @@ export class MapComponent implements OnInit {
         {
           'sql': 'SELECT * FROM world_borders_hd_copy;',
           'cartocss': `#layer [axa=true]{
-            line-width: 0;
-            polygon-pattern-file: url(https://image.ibb.co/cLkDhv/trama_mapa_axa.png);
-            polygon-pattern-opacity: 1;polygon-pattern-alignment: global;
+              line-width: 0.4;
+              polygon-pattern-file: url('https://image.ibb.co/cLkDhv/trama_mapa_axa.png');
+              polygon-pattern-opacity: 1;
+              polygon-pattern-alignment: global;
+              line-color: #494df4 ;
+              line-opacity: 0.7;
+
+             [zoom>=4]{
+                line-width:0;
+              }
           }`
         }
       ]
