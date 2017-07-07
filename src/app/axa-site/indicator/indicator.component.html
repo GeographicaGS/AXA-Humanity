@@ -79,6 +79,28 @@
             <span>{{ indicator.kpi.unitText }}</span>
           </div>
 
+          <div class="mapLegend" *ngIf="indicator && indicator.stats && indicator.stats.max_value">
+            <div class="row legendTitle">Map legend</div>
+            <div class="row legend">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="row separate">
+              <span class="max">
+                <span *ngIf="indicator.kpi.unit === '%'">{{ indicator.stats.max_value | number:'.2' }} <span class="unit">{{ indicator.kpi.unit }}</span></span>
+                <span *ngIf="indicator.kpi.unit === 'EUR' || indicator.kpi.unit === 'USD'">{{ indicator.stats.max_value | currency:indicator.kpi.unit:true }}</span>
+                <span *ngIf="indicator.kpi.unit === ''">{{ indicator.stats.max_value | number:'.2' }}</span>
+              </span>
+              <span class="min">
+                <span *ngIf="indicator.kpi.unit === '%'">{{ indicator.stats.min_value | number:'.2' }} <span class="unit">{{ indicator.kpi.unit }}</span></span>
+                <span *ngIf="indicator.kpi.unit === 'EUR' || indicator.kpi.unit === 'USD'">{{ indicator.stats.min_value | currency:indicator.kpi.unit:true }}</span>
+                <span *ngIf="indicator.kpi.unit === ''">{{ indicator.stats.min_value | number:'.2' }}</span>
+              </span>
+            </div>
+          </div>
           <div class="info detail active" *ngIf="indicator.kpi.info">
             <div class="headline">{{ indicator.kpi.info.headline }}</div>
             <div class="body">{{ indicator.kpi.info.body }}</div>

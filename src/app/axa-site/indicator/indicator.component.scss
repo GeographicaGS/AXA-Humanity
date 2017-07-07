@@ -494,6 +494,68 @@ $indicatorHeaderHeight: 64px;
               }
             }
 
+            div.mapLegend {
+              display: flex;
+              flex-direction: column;
+              padding-top: 12px;
+              margin-top: 29px;
+              border-top: 1px solid $stTropaz;
+              .row {
+                align-items: center;
+                &.legendTitle {
+                  color: $silver;
+                  font-size: 13px;
+                  line-height: 14px;
+                  margin-bottom: 6px;
+                }
+                &.separate {
+                  margin-top: 6px;
+                  display: flex;
+                  justify-content: space-between;
+                }
+
+                .max,
+                .min {
+                  color: $white;
+                  font-size: 14px;
+                  line-height: 14px;
+                }
+              }
+
+              .legend {
+                display: flex;
+                height: 10px;
+                border-radius: 5px;
+                border: 2px solid $stTropaz;
+                align-items: center;
+                justify-content: center;
+                span {
+                  flex: 1 1 100%;
+                  height: 6px;
+
+                  &:first-of-type {
+                    border-radius: 5px 0 0 5px;
+                  }
+                  &:last-of-type {
+                    border-radius: 0 5px 5px 0;
+                  }
+                }
+
+                $legendColors: (
+                  1: #ec4d33,
+                  2: #f07662,
+                  3: #F6ADA1,
+                  4: #F9C8C0,
+                  5: #FCE4E0
+                );
+                @each $index, $color in $legendColors {
+                  span:nth-child(#{$index}) {
+                    background-color: $color;
+                  }
+                }
+              }
+            }
+
             div.info {
               margin-top: 0;
               margin-bottom: 0;
@@ -528,9 +590,8 @@ $indicatorHeaderHeight: 64px;
                 margin-top: 17px;
 
                 &.detail {
-                  margin-top: 29px;
-                  padding-top: 30px;
-                  border-top: 1px solid $stTropaz;
+                  margin-top: 15px;
+                  padding-top: 15px;
                 }
               }
             }
