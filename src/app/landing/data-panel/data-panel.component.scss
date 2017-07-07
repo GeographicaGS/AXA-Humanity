@@ -10,7 +10,7 @@
   @media (min-width: 992px) {
     padding: 70px 64px 0px 64px;
   }
-  @media (min-width: 1200px) {
+  @media (min-width: 1200px) and (min-height: 801px) {
     padding: 150px 64px 0px 64px;
   }
   h4{
@@ -58,7 +58,7 @@
               font-size: 72px;
               line-height: 72px;
             }
-            @media (min-width: 1200px) {
+            @media (min-width: 1200px) and (min-height: 801px) {
               font-size: 96px;
               line-height: 96px;
             }
@@ -77,7 +77,7 @@
             font-size: 36px;
             line-height: 48px;
           }
-          @media (min-width: 1200px) {
+          @media (min-width: 1200px) and (min-height: 801px) {
             font-size: 48px;
             line-height: 48px;
           }
@@ -95,7 +95,7 @@
           font-size: 16px;
           line-height: 16px;
         }
-        @media (min-width: 1200px) {
+        @media (min-width: 1200px) and (min-height: 801px) {
           font-size: 18px;
           line-height: 18px;
         }

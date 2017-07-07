@@ -611,6 +611,110 @@ $indicatorHeaderHeight: 64px;
               }
             }
 
+            .goalsWrapper {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              background: $darkIndigo;
+              border-radius: 2px;
+              height: 32px;
+              margin-top: 22px;
+
+              span {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-left: 4px;
+                @include font(semibold);
+                color: $silver;
+                font-size: 12px;
+                line-height: 16px;
+                letter-spacing: 1px;
+                &:before {
+                  content: '';
+                  width: 24px;
+                  height: 24px;
+                  background-image: url('/assets/goals/SDG Wheel_Transparent-01.png');
+                  background-size: cover;
+                  display: inline-flex;
+                  margin-right: 6px;
+                }
+              }
+
+              $goalsColors: (
+                1: #eb1420,
+                2: #cf9612,
+                3: #1c923c,
+                4: #be1929,
+                5: #f0361d,
+                6: #00a4d6,
+                7: #ffaf00,
+                8: #861530,
+                9: #f46110,
+                10: #e00079,
+                11: #fb9300,
+                12: #ca8217,
+                13: #3e6d34,
+                14: #0071b6,
+                15: #31a83b,
+                16: #004a82,
+                17: #162e5f
+              );
+
+              .goalsContainer {
+                display: flex;
+                flex-direction: row;
+                padding-right: 4px;
+                .box {
+                  flex: 1 1 100%;
+                  width: 24px;
+                  height: 24px;
+                  border-radius: 1px;
+                  margin-left: 4px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  @include font('bold');
+                  font-size: 14px;
+                  line-height: 16px;
+                  cursor: pointer;
+
+                  @each $index, $color in $goalsColors {
+                    &.goal_#{$index}) {
+                      background-color: $color;
+                      position: relative;
+
+                      .goalImage {
+                        width: 0;
+                        height: 0;
+                        opacity: 0;
+                        visibility: hidden;
+
+                        transition: width .3s, height .3s, opacity .3s;
+                      }
+
+                      &:hover {
+                        .goalImage {
+                          opacity: 1;
+                          visibility: visible;
+                          box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+                          width: 64px;
+                          height: 64px;
+
+                          position: absolute;
+                          right: 0;
+                          bottom: 0;
+                          background-image: url('/assets/goals/E_SDG goals_icons-individual-rgb-#{$index}.png');
+                          background-size: cover;
+                          z-index: 10;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+
             &:last-child {
               border-bottom: 2px solid transparent;
             }
