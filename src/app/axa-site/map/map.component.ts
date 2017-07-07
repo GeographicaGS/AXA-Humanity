@@ -23,6 +23,9 @@ export class MapComponent implements OnInit {
   currentLayer;
   layerSource;
 
+  axaLayer;
+  axaLayerSource;
+
   firstCharacterDefaultPosition: any = {lat: 40.07807142745009, lng: -4.130859375};
   firstCharacterMarker;
   firstMarkerPreviousPosition;
@@ -87,6 +90,14 @@ export class MapComponent implements OnInit {
   }
 
   private detailMode() {
+    this.map.on('zoomend', (e) => {
+      if (this.map.getZoom() < 4) {
+        if (this.axaLayer) {
+          this.toggleAxaLayer();
+        }
+      }
+    });
+
     this.windowService.getIndicator().subscribe((indicator) => {
       if (indicator) {
         this.indicator = indicator;
@@ -106,40 +117,56 @@ export class MapComponent implements OnInit {
             this.currentLayer = layer;
             layer.setInteraction(true);
 
+            const sublayer1 = layer.getSubLayer(0);
+            sublayer1.setInteraction(true);
+            sublayer1.on('mouseover', (e, latlng, point, data) => {
+              this.overPopup(latlng, data);
+            }).on('mouseout', () => {
+              this.outPopup();
+            });
+
             const sublayer2 = layer.getSubLayer(1);
             sublayer2.setInteraction(true);
-
             sublayer2.on('mouseover', (e, latlng, point, data) => {
-              if (this.infoPopup) {
-                this.infoPopup.setLatLng(latlng).setContent(this.setPopupTemplate(data));
-              } else {
-                this.infoPopup = L.popup({className: 'axa-popup', closeButton: false})
-                 .setLatLng(latlng)
-                 .setContent(this.setPopupTemplate(data))
-                 .openOn(this.map);
-              }
+              this.overPopup(latlng, data);
             }).on('mouseout', () => {
-              if (this.infoPopup) {
-                this.map.removeLayer(this.infoPopup);
-                this.infoPopup = false;
-              }
+              this.outPopup();
             });
+            this.defineAxaLayer();
           })
           .on('error', (error) => { console.log('error', error); });
       }
     });
   }
 
+  private overPopup(latlng, data) {
+    if (this.infoPopup) {
+      this.infoPopup.setLatLng(latlng).setContent(this.setPopupTemplate(data));
+    } else {
+      this.infoPopup = L.popup({className: 'axa-popup', closeButton: false})
+       .setLatLng(latlng)
+       .setContent(this.setPopupTemplate(data))
+       .openOn(this.map);
+    }
+  }
+
+  private outPopup() {
+    if (this.infoPopup) {
+      this.map.removeLayer(this.infoPopup);
+      this.infoPopup = false;
+    }
+  }
+
   private setPopupTemplate(data) {
-    let template = `<div class="countryName">${data.name}</div>`,
+    let template = `<div class='countryName'>${data.name}</div>`,
         dataFormatted,
         averageFormatted;
 
     if (data.data !== null) {
       dataFormatted = this.utils.formatNumber(data.data);
-      template = template + `<div class="value">${dataFormatted} ${this.indicator.kpi.unit}</div>`;
+      template = template + `<div class='value'>${dataFormatted} ${this.indicator.kpi.unit}</div>`;
     } else {
-      template = template + `<div class="value noData">No data found</div>`;
+      template = template + `<div class='value noData'>No data found</div>`;
     }
 
     if (data.average && data.data !== null) {
@@ -155,14 +182,46 @@ export class MapComponent implements OnInit {
         avgClass = 'negative';
       }
 
-      template = template + `<div class="avg"><span class="${avgClass}">${avgDiff}</span></div>`;
+      template = template + `<div class='avg'><span class='${avgClass}'>${avgDiff}</span></div>`;
     }
     return template;
+  }
+
+  defineAxaLayer() {
+
+    this.axaLayerSource = {
+      user_name: 'axa-cdo',
+      type: 'cartodb',
+      sublayers: [
+        {
+          'sql': 'SELECT * FROM world_borders_hd_copy;',
+          'cartocss': `#layer [axa=true]{
+            line-width: 0;
+            polygon-pattern-file: url(https://image.ibb.co/cLkDhv/trama_mapa_axa.png);
+            polygon-pattern-opacity: 1;polygon-pattern-alignment: global;
+          }`
+        }
+      ]
+    };
+
+    if (this.axaLayer) {
+      this.map.removeLayer(this.axaLayer);
+    }
+
+    cdb.createLayer(this.map, this.axaLayerSource, {legends: true, https: true})
+      .addTo(this.map)
+      .on('done', (layer) => {
+        this.axaLayer = layer;
+        this.axaLayer.setZIndex(100);
+      })
+      .on('error', (error) => { console.log('error', error); });
   }
 
   private comparisonMode() {
 
     this.defineCharacterMarkers();
+
+    this.defineAxaLayer();
 
     this.countryService.getGeojson().subscribe((geojson) => {
       this.geojson = geojson;
@@ -335,5 +394,18 @@ export class MapComponent implements OnInit {
   zoomOut() {
     const currentZoom = this.map.getZoom();
     this.map.setZoom(currentZoom - 1);
+  }
+
+  toggleAxaLayer() {
+    if (!this.axaLayer) {
+      this.defineAxaLayer();
+    } else {
+      this.map.removeLayer(this.axaLayer);
+      this.axaLayer = false;
+    }
+  }
+
+  hasAxaLayerEnabled() {
+    return this.axaLayer === false;
   }
 }
