@@ -99,6 +99,7 @@ export class MapComponent implements OnInit {
     });
 
     this.windowService.getIndicator().subscribe((indicator) => {
+      this.map.setZoom(4);
       if (indicator) {
         this.indicator = indicator;
         this.layerSource = {
