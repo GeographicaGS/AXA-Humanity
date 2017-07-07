@@ -8,8 +8,8 @@ const START_PIXEL_SIZE = 20;
 const FINISH_PIXEL_SIZE = 180;
 const START_ALPHA = 0.7;
 const FINISH_ALPHA = 0.05;
-const START_ALPHA_BORDER = 0.6;
-const FINISH_ALPHA_BORDER = 0.05;
+const START_ALPHA_BORDER = 0.95;
+const FINISH_ALPHA_BORDER = 0.2;
 const ALPHA_DECREMENT = (START_ALPHA - FINISH_ALPHA) / (FINISH_PIXEL_SIZE - START_PIXEL_SIZE);
 const ALPHA_BORDER_DECREMENT = (START_ALPHA_BORDER - FINISH_ALPHA_BORDER) / (FINISH_PIXEL_SIZE - START_PIXEL_SIZE);
 
@@ -126,8 +126,8 @@ export class GlobeComponent implements OnInit {
   }
 
   private getAnimationColor(alpha: number): any {
-    return this.mode === 'dark' ? new Cesium.Color(1, 0, 0, alpha)
-      : new Cesium.Color(0, 0, 1, alpha);
+    return this.mode === 'dark' ? new Cesium.Color(0.9333, 0.1372, 0.26666, alpha)
+      : new Cesium.Color(0.2862, 0.3019, 0.9568, alpha);
   }
 
   private layersSmooth(src, dst) {
