@@ -156,6 +156,7 @@ $indicatorHeaderHeight: 64px;
     transition: opacity .3s;
     max-height: 100%;
     position: relative;
+    touch-action: none;
     ul.indicatorsList {
       li {
         &.showingTitle {
@@ -237,6 +238,7 @@ $indicatorHeaderHeight: 64px;
                 div.actions {
                   animation: actionIcons 1s;
                   opacity: 1;
+                  visibility: visible;
                   transform: translateY(0%);
                 }
               }
@@ -250,11 +252,14 @@ $indicatorHeaderHeight: 64px;
                 font-size: 20px;
                 line-height: 20px;
                 margin-bottom: 22px;
+                transition: color .3s;
                 span {
                   margin-right: 8px;
                 }
 
-                &.over {
+                &:hover,
+                &.hover {
+                  cursor: pointer;
                   color: $burntSienna;
                 }
               }
@@ -265,6 +270,7 @@ $indicatorHeaderHeight: 64px;
                 transform: translateY(-120%);
                 transition: transform .4s;
                 opacity: 0;
+                visibility: hidden;
                 div {
                   margin-bottom: 10px;
                 }
@@ -279,7 +285,8 @@ $indicatorHeaderHeight: 64px;
                   background-position: center center;
                   cursor: pointer;
                   transition: background-image .3s;
-                  &:hover {
+                  &:hover,
+                  &.hover {
                     background-image: url('/assets/icons/arrow-go_sienna.svg');
                     background-size: 20px;
                   }
@@ -299,13 +306,6 @@ $indicatorHeaderHeight: 64px;
                   &:hover {
                     background-image: url('/assets/icons/flag_sienna.svg');
                   }
-                }
-
-                .tooltipMessage {
-                  left: auto;
-                  bottom: auto;
-                  top: auto;
-                  right: 100%;
                 }
               }
             }

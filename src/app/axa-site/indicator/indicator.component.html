@@ -102,11 +102,10 @@
         <li *ngFor="let kpi of indicator.kpis; let i= index;">
 
           <div class="kpiTitle">
-            <div class="titleWrapper" id="kpi_{{ kpi.id }}_title"><span>{{ kpi.id }}.</span> {{ kpi.title }}</div>
-            <div class="actions" routerLink="/map/{{ kpi.id }}">
+            <div class="titleWrapper" id="kpi_{{ kpi.id }}_title" routerLink="/map/{{ kpi.id }}" (mouseover)="highlightTooltip($event, kpi.id)" (mouseout)="normalTooltip($event, kpi.id)"><span>{{ kpi.id }}.</span> {{ kpi.title }}</div>
+            <div class="actions">
 
-              <div class="worldIcon tooltipContainer" (mouseover)="highlightTitle(kpi.id)" (mouseout)="normalTitle(kpi.id)">
-                <div class="tooltipMessage">View global data</div>
+              <div id="kpi_{{ kpi.id }}_tooltip" routerLink="/map/{{ kpi.id }}" class="worldIcon tooltipContainer" [attr.data-tooltipmsg]="'View global data'" (mouseover)="highlightTitle($event, kpi.id)" (mouseout)="normalTitle($event, kpi.id)">
               </div>
 
               <div class="flagIcon"></div>
