@@ -211,7 +211,9 @@ export class IndicatorComponent implements OnInit, AfterViewInit {
       const containerBoundingRect = tooltipContainer.getBoundingClientRect();
 
       target.style.top = (containerBoundingRect.top - containerBoundingRect.height - 4) + 'px';
-      target.style.left = (containerBoundingRect.left - (target.getBoundingClientRect().width / 2) + (containerBoundingRect.width / 2)) + 'px';
+      const part_1 = containerBoundingRect.left - (target.getBoundingClientRect().width / 2);
+      const part_2 = containerBoundingRect.width / 2;
+      target.style.left = (part_1 + part_2) + 'px';
       target.classList.add('active');
     }
   }

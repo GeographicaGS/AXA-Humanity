@@ -23,6 +23,9 @@ export class MapComponent implements OnInit {
   currentLayer;
   layerSource;
 
+  axaLayer;
+  axaLayerSource;
+
   firstCharacterDefaultPosition: any = {lat: 40.07807142745009, lng: -4.130859375};
   firstCharacterMarker;
   firstMarkerPreviousPosition;
@@ -124,6 +127,7 @@ export class MapComponent implements OnInit {
                 this.infoPopup = false;
               }
             });
+            this.defineAxaLayer();
           })
           .on('error', (error) => { console.log('error', error); });
       }
@@ -131,15 +135,15 @@ export class MapComponent implements OnInit {
   }
 
   private setPopupTemplate(data) {
-    let template = `<div class="countryName">${data.name}</div>`,
+    let template = `<div class='countryName'>${data.name}</div>`,
         dataFormatted,
         averageFormatted;
 
     if (data.data !== null) {
       dataFormatted = this.utils.formatNumber(data.data);
-      template = template + `<div class="value">${dataFormatted} ${this.indicator.kpi.unit}</div>`;
+      template = template + `<div class='value'>${dataFormatted} ${this.indicator.kpi.unit}</div>`;
     } else {
-      template = template + `<div class="value noData">No data found</div>`;
+      template = template + `<div class='value noData'>No data found</div>`;
     }
 
     if (data.average && data.data !== null) {
@@ -155,14 +159,51 @@ export class MapComponent implements OnInit {
         avgClass = 'negative';
       }
 
-      template = template + `<div class="avg"><span class="${avgClass}">${avgDiff}</span></div>`;
+      template = template + `<div class='avg'><span class='${avgClass}'>${avgDiff}</span></div>`;
     }
     return template;
+  }
+
+  defineAxaLayer() {
+
+    this.axaLayerSource = {
+      user_name: 'axa-cdo',
+      type: 'cartodb',
+      sublayers: [
+        {
+          'sql': 'SELECT * FROM world_borders_hd_copy;',
+          'cartocss': `#layer [axa=true] [zoom > 4]{
+            line-width: 0;
+            polygon-pattern-file: url(https://image.ibb.co/cLkDhv/trama_mapa_axa.png);
+            polygon-pattern-opacity: 1;polygon-pattern-alignment: global;
+          }
+          #layer [axa=true] [zoom <= 3]{
+            line-width: 0;
+            polygon-pattern-file: url(https://image.ibb.co/cLkDhv/trama_mapa_axa.png);
+            polygon-pattern-opacity: 1;polygon-pattern-alignment: global;
+          }`
+        }
+      ]
+    };
+
+    if (this.axaLayer) {
+      this.map.removeLayer(this.axaLayer);
+    }
+
+    cdb.createLayer(this.map, this.axaLayerSource, {legends: true, https: true})
+      .addTo(this.map)
+      .on('done', (layer) => {
+        this.axaLayer = layer;
+        this.axaLayer.setZIndex(100);
+      })
+      .on('error', (error) => { console.log('error', error); });
   }
 
   private comparisonMode() {
 
     this.defineCharacterMarkers();
+
+    this.defineAxaLayer();
 
     this.countryService.getGeojson().subscribe((geojson) => {
       this.geojson = geojson;
