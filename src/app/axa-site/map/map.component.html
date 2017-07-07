@@ -1,8 +1,18 @@
 <div droppable (onDrop)="onItemDrop($event)" id="map" [dragOverClass]="'dragging'"></div>
-<div class="customZoomControl">
-  <div class="btn plusOne" (click)="zoomIn()"></div>
-  <div class="btn minusOne" (click)="zoomOut()"></div>
+
+<div class="customControlsWrapper">
+  <div class="customZoomControl">
+    <div class="btn plusOne" (click)="zoomIn()"></div>
+    <div class="btn minusOne" (click)="zoomOut()"></div>
+  </div>
+
+  <div class="axaLayerControl" (click)="toggleAxaLayer()">
+    <span>Existing AXA locations</span>
+    <div class="eyeIcon" [ngClass]="{'disabled': hasAxaLayerEnabled()}"></div>
+  </div>
 </div>
 
-<app-axa-indicator [indicator]="indicator"></app-axa-indicator>
+<app-axa-indicator [indicator]="indicator">
+
+</app-axa-indicator>
 <app-axa-indicator-navigation *ngIf="indicatorDetailView()" [indicator]="indicator"></app-axa-indicator-navigation>
