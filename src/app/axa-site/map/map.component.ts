@@ -377,4 +377,17 @@ export class MapComponent implements OnInit {
     const currentZoom = this.map.getZoom();
     this.map.setZoom(currentZoom - 1);
   }
+
+  toggleAxaLayer() {
+    if (!this.axaLayer) {
+      this.defineAxaLayer();
+    } else {
+      this.map.removeLayer(this.axaLayer);
+      this.axaLayer = false;
+    }
+  }
+
+  hasAxaLayerEnabled() {
+    return this.axaLayer === false;
+  }
 }
