@@ -77,8 +77,8 @@ export class MapComponent implements OnInit {
       minZoom: this.options.minZoom,
       maxZoom: this.options.maxZoom,
       layers: [
-         L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/{style}/{z}/{x}/{y}.png',
-         { style: 'light_all', zIndex: 0 } )
+        L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/{style}/{z}/{x}/{y}.png',
+        { style: 'light_nolabels', zIndex: 0 } )
       ]
     });
 
@@ -116,6 +116,7 @@ export class MapComponent implements OnInit {
           .addTo(this.map)
           .on('done', (layer) => {
             this.currentLayer = layer;
+            this.currentLayer.setZIndex(99);
             layer.setInteraction(true);
 
             const sublayer1 = layer.getSubLayer(0);
@@ -134,6 +135,11 @@ export class MapComponent implements OnInit {
               this.outPopup();
             });
             this.defineAxaLayer();
+
+            L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/{style}/{z}/{x}/{y}.png', {
+              style: 'light_only_labels',
+              zIndex: 101
+            }).addTo(this.map);
           })
           .on('error', (error) => { console.log('error', error); });
       }
@@ -230,6 +236,11 @@ export class MapComponent implements OnInit {
     this.defineCharacterMarkers();
 
     this.defineAxaLayer();
+
+    L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/{style}/{z}/{x}/{y}.png', {
+      style: 'light_only_labels',
+      zIndex: 101
+    }).addTo(this.map);
 
     this.countryService.getGeojson().subscribe((geojson) => {
       this.geojson = geojson;
