@@ -24,7 +24,7 @@ const DATA = [{
     units: '% of entrepreneurs women have',
     title: '0 €',
     subtitle: 'on protection or savings oriented life insurance',
-    position : [10, 48],
+    position : [48, 10],
     zone: 'Europe'
   },
   {
@@ -33,7 +33,7 @@ const DATA = [{
     units: 'cm of rise in the sea level in this century',
     title: '100 million people',
     subtitle: 'will be displaced by the elevation of waters',
-    position : [-41, 66],
+    position : [66, -41],
     zone: 'Poles'
   }
   {
@@ -60,7 +60,7 @@ const DATA = [{
     units: 'new hires',
     title: 'Per year',
     subtitle: 'worldwide',
-    position : [13, 12],
+    position : [24, 46],
     zone: 'AXA Worldwide'
   },
   {
