@@ -1,6 +1,8 @@
 <div *ngIf="infoModel!==null" class="globeInfoContainer" [ngClass]="classes()">
   <p class="zone">{{infoModel.zone}}</p>
-  <p class="value">{{infoModel.value | number }}</p>
+  <p class="value">{{infoModel.value | number }}
+    <span *ngIf="infoModel.units_value!==null" class="units_value">{{infoModel.units_value}}</span>
+  </p>
   <p class="units">{{infoModel.units}}</p>
   <p class="title">{{infoModel.title}}</p>
   <p class="subtitle">{{infoModel.subtitle}}</p>
