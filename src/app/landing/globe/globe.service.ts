@@ -35,7 +35,7 @@ const DATA = [{
     subtitle: 'will be displaced by the elevation of waters',
     position : [66, -41],
     zone: 'Poles'
-  }
+  },
   {
     type: 'light',
     value: 1,

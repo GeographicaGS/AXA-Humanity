@@ -105,7 +105,12 @@
             <div class="headline">{{ indicator.kpi.info.headline }}</div>
             <div class="body">{{ indicator.kpi.info.body }}</div>
           </div>
-
+          <div class="goalsWrapper">
+            <span>RELATED SDGs GOALS</span>
+            <div class="goalsContainer">
+              <div class="box goal_{{ goal }}" *ngFor="let goal of indicator.kpi.goals">{{ goal }}<div class="goalImage"></div></div>
+            </div>
+          </div>
         </li>
       </ul>
     </li>
@@ -187,6 +192,13 @@
           <div id="kpiInfo_{{ kpi.id }}" class="info" *ngIf="kpi.info">
             <!-- <div class="headline">{{ kpi.info.headline }}</div> -->
             <div class="body">{{ kpi.info.body }}</div>
+          </div>
+
+          <div class="goalsWrapper">
+            <span>RELATED SDGs GOALS</span>
+            <div class="goalsContainer">
+              <div class="box goal_{{ goal }}" *ngFor="let goal of kpi.goals">{{ goal }}<div class="goalImage"></div></div>
+            </div>
           </div>
         </li>
       </ul>
