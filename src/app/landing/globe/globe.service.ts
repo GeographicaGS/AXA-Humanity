@@ -12,7 +12,7 @@ const DATA = [{
   {
     type: 'dark',
     value: 422,
-    units: 'million people',
+    units: 'Million people',
     title: 'One',
     subtitle: 'in 9 will have pension',
     position : [0, -61],
@@ -21,7 +21,8 @@ const DATA = [{
   {
     type: 'dark',
     value: 69,
-    units: '% of entrepreneurs women have',
+    units: 'of entrepreneurs women have',
+    units_value: '%',
     title: '0 €',
     subtitle: 'on protection or savings oriented life insurance',
     position : [10, 48],
@@ -30,8 +31,9 @@ const DATA = [{
   {
     type: 'dark',
     value: 70,
-    units: 'cm of rise in the sea level in this century',
-    title: '100 million people',
+    units: 'of rise in the sea level in this century',
+    units_value: 'cm',
+    title: '100 M people',
     subtitle: 'will be displaced by the elevation of waters',
     position : [-41, 66],
     zone: 'Poles'
