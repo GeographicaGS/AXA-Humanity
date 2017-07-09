@@ -239,7 +239,7 @@ export class GlobeComponent implements OnInit {
 
     this.modeTimeout = setTimeout( () => {
       this.modeTick();
-    }, 7000);
+    }, 9000);
   }
 
   modeClass() {

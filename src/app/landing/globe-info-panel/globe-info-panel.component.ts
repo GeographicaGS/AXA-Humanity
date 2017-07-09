@@ -24,7 +24,7 @@ export class GlobeInfoPanelComponent implements OnInit, OnChanges {
     this.animation = true;
     setTimeout(() => {
       this.animation = false;
-    }, 5000);
+    }, 6000);
   }
 
   classes() {
