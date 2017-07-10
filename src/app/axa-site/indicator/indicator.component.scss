@@ -678,6 +678,7 @@ $indicatorHeaderHeight: 64px;
                   font-size: 14px;
                   line-height: 16px;
                   cursor: pointer;
+                  color: $white;
 
                   @each $index, $color in $goalsColors {
                     &.goal_#{$index}) {
