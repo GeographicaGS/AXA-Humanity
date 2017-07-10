@@ -259,7 +259,7 @@ export class IndicatorComponent implements OnInit, AfterViewInit {
     });
 
     if (response) {
-      return response[property]
+      return response[property];
     }
     return null;
   }
