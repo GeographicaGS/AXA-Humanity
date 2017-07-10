@@ -693,7 +693,15 @@ $indicatorHeaderHeight: 64px;
                         transition: width .3s, height .3s, opacity .3s;
                       }
 
+                      .tooltipMessage {
+                        right: 0;
+                        left: auto;
+                      }
                       &:hover {
+                        .tooltipMessage {
+                          opacity: 1;
+                          visibility: visible;
+                        }
                         .goalImage {
                           opacity: 1;
                           visibility: visible;
@@ -704,7 +712,7 @@ $indicatorHeaderHeight: 64px;
                           position: absolute;
                           right: 0;
                           bottom: 0;
-                          background-image: url('/assets/goals/E_SDG goals_icons-individual-rgb-#{$index}.png');
+                          background-image: url('/assets/goals/E_SDG-goals_icons-individual-rgb-#{$index}.png');
                           background-size: cover;
                           z-index: 10;
                         }
