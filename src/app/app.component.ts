@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { GoogleAnalyticsEventsService } from './common/google-analytics-events.service';
+declare var ga: Function;
 
 @Component({
   selector: 'app-root',
@@ -7,5 +9,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app works!';
+
+
+  constructor(public router: Router, public googleAnalyticsEventsService: GoogleAnalyticsEventsService) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        ga('set', 'page', event.urlAfterRedirects);
+        ga('send', 'pageview');
+      }
+    });
+  }
 }
