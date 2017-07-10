@@ -40,8 +40,9 @@ const DATA = [{
   },
   {
     type: 'light',
-    value: 1st,
+    value: 1,
     units: 'World Ranking of Insurer Innovation',
+    units_value: 'st',
     title: 'Nº 30',
     subtitle: 'from all sectors',
     position : [47, 2],
@@ -49,8 +50,9 @@ const DATA = [{
   },
   {
     type: 'light',
-    value: 166 M€,
+    value: 166,
     units: 'committed',
+    units_value: 'M€',
     title: '531 projects supported',
     subtitle: 'by AXA Research Fund',
     position : [13, 12],
@@ -58,8 +60,9 @@ const DATA = [{
   },
   {
     type: 'light',
-    value: €13 bn,
+    value: 13,
     units: 'of claims paid to Protection and Health customers',
+    units_value: 'Bn €',
     title: '4.6 m',
     subtitle: 'customer assisted on a car breakdown',
     position : [46, 24],
