@@ -24,7 +24,7 @@ export class UtilsService {
     let all = part_1 + part_2 + part_3;
     if (thousand === ',' && decimal === '.') {
       // Thousand & decimals were not specified in the signature, let's convert the number to locale
-      all = all.toLocaleString();
+      all = parseFloat(all).toLocaleString();
     }
     return all + units;
   }
