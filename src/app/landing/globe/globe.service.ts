@@ -12,7 +12,7 @@ const DATA = [{
   {
     type: 'dark',
     value: 422,
-    units: 'Million people',
+    units: 'Million inhabitants',
     title: 'One',
     subtitle: 'in 9 will have pension',
     position : [0, -61],
@@ -40,7 +40,7 @@ const DATA = [{
   },
   {
     type: 'light',
-    value: 1,
+    value: 1st,
     units: 'World Ranking of Insurer Innovation',
     title: 'Nº 30',
     subtitle: 'from all sectors',
@@ -49,19 +49,19 @@ const DATA = [{
   },
   {
     type: 'light',
-    value: 166,
-    units: 'million committed',
-    title: '531 projects',
-    subtitle: 'supported by AXA Research Fund',
+    value: 166 M€,
+    units: 'committed',
+    title: '531 projects supported',
+    subtitle: 'by AXA Research Fund',
     position : [13, 12],
     zone: 'AXA Worldwide'
   },
   {
     type: 'light',
-    value: 20279,
-    units: 'new hires',
-    title: 'Per year',
-    subtitle: 'worldwide',
+    value: €13 bn,
+    units: 'of claims paid to Protection and Health customers',
+    title: '4.6 m',
+    subtitle: 'customer assisted on a car breakdown',
     position : [46, 24],
     zone: 'AXA Worldwide'
   },
