@@ -4,6 +4,8 @@ import { HttpModule, RequestOptions } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
 import { UtilsService } from './utils.service';
+import { GoogleAnalyticsEventsService } from './google-analytics-events.service';
+
 import { CommonRoutingModule } from './common-routing.module';
 
 @NgModule({
@@ -12,7 +14,7 @@ import { CommonRoutingModule } from './common-routing.module';
     CommonRoutingModule
   ],
   exports: [CommonRoutingModule],
-  providers: [UtilsService],
+  providers: [UtilsService, GoogleAnalyticsEventsService],
   declarations: []
 })
 export class CommonModule { }
