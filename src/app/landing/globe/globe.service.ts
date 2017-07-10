@@ -62,7 +62,7 @@ const DATA = [{
     units: 'new hires',
     title: 'Per year',
     subtitle: 'worldwide',
-    position : [24, 46],
+    position : [46, 24],
     zone: 'AXA Worldwide'
   },
   {
@@ -71,7 +71,7 @@ const DATA = [{
     units: 'new policies in its first month',
     title: 'Smart Women Plan',
     subtitle: 'Product of the Year, 2013',
-    position : [78, 20],
+    position : [24, 78],
     zone: 'India'
   }];
 
