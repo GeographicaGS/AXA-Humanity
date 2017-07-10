@@ -89,15 +89,15 @@
               <span></span>
             </div>
             <div class="row separate">
-              <span class="max">
-                <span *ngIf="indicator.kpi.unit === '%'">{{ indicator.stats.max_value | number:'.2' }} <span class="unit">{{ indicator.kpi.unit }}</span></span>
-                <span *ngIf="indicator.kpi.unit === 'EUR' || indicator.kpi.unit === 'USD'">{{ indicator.stats.max_value | currency:indicator.kpi.unit:true }}</span>
-                <span *ngIf="indicator.kpi.unit === ''">{{ indicator.stats.max_value | number:'.2' }}</span>
-              </span>
               <span class="min">
                 <span *ngIf="indicator.kpi.unit === '%'">{{ indicator.stats.min_value | number:'.2' }} <span class="unit">{{ indicator.kpi.unit }}</span></span>
                 <span *ngIf="indicator.kpi.unit === 'EUR' || indicator.kpi.unit === 'USD'">{{ indicator.stats.min_value | currency:indicator.kpi.unit:true }}</span>
                 <span *ngIf="indicator.kpi.unit === ''">{{ indicator.stats.min_value | number:'.2' }}</span>
+              </span>
+              <span class="max">
+                <span *ngIf="indicator.kpi.unit === '%'">{{ indicator.stats.max_value | number:'.2' }} <span class="unit">{{ indicator.kpi.unit }}</span></span>
+                <span *ngIf="indicator.kpi.unit === 'EUR' || indicator.kpi.unit === 'USD'">{{ indicator.stats.max_value | currency:indicator.kpi.unit:true }}</span>
+                <span *ngIf="indicator.kpi.unit === ''">{{ indicator.stats.max_value | number:'.2' }}</span>
               </span>
             </div>
           </div>
