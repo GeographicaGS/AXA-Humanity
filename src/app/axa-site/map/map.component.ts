@@ -90,13 +90,6 @@ export class MapComponent implements OnInit {
   }
 
   private detailMode() {
-    this.map.on('zoomend', (e) => {
-      if (this.map.getZoom() < 4) {
-        if (this.axaLayer) {
-          this.toggleAxaLayer();
-        }
-      }
-    });
 
     this.windowService.getIndicator().subscribe((indicator) => {
       this.map.setZoom(3);
@@ -134,7 +127,6 @@ export class MapComponent implements OnInit {
             }).on('mouseout', () => {
               this.outPopup();
             });
-            this.defineAxaLayer();
 
             L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/{style}/{z}/{x}/{y}.png', {
               style: 'light_only_labels',
@@ -234,8 +226,6 @@ export class MapComponent implements OnInit {
   private comparisonMode() {
 
     this.defineCharacterMarkers();
-
-    this.defineAxaLayer();
 
     L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/{style}/{z}/{x}/{y}.png', {
       style: 'light_only_labels',
