@@ -253,13 +253,13 @@ export class IndicatorComponent implements OnInit, AfterViewInit {
     this.windowService.setSecondCountry(this.secondCountry);
   }
 
-  getGoalText(goalId) {
+  getGoalProperty(goalId, property) {
     const response = environment.goals.find((goal) => {
       return goal.id === goalId;
     });
 
     if (response) {
-      return response.text;
+      return response[property]
     }
     return null;
   }
