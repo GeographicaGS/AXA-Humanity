@@ -557,11 +557,11 @@ $indicatorHeaderHeight: 64px;
                 }
 
                 $legendColors: (
-                  1: #ec4d33,
-                  2: #f07662,
+                  1: #FCE4E0,
+                  2: #F9C8C0,
                   3: #F6ADA1,
-                  4: #F9C8C0,
-                  5: #FCE4E0
+                  4: #f07662,
+                  5: #ec4d33
                 );
                 @each $index, $color in $legendColors {
                   span:nth-child(#{$index}) {
