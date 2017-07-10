@@ -9,7 +9,8 @@ export class LandingComponent implements OnInit {
 
   public infoModel: any = null;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() { }
 
