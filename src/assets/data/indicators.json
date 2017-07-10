@@ -32,7 +32,7 @@
           },
           {
             "sql": "SELECT cartodb_id,the_geom_webmercator, data, iso3 as id,name, (SELECT AVG(data) FROM kpi_01) as average FROM kpi_01",
-            "cartocss": "#layer [zoom>=4] {polygon-fill: ramp([data], (#ec4d33, #f07662, #F6ADA1, #F9C8C0, #FCE4E0), quantiles); polygon-opacity: 0.9; line-width: 1; line-color: #ec4d33; line-opacity: 0.4; line-comp-op: multiply;} #layer [data = null] {polygon-fill:#232323; polygon-opacity: 0; line-width: 1;",
+            "cartocss": "#layer [zoom>=4] {polygon-fill: ramp([data], (#ec4d33, #f07662, #F6ADA1, #F9C8C0, #FCE4E0), quantiles); polygon-opacity: 0.9; line-width: 1; line-color: #ec4d33; line-opacity: 0.4; line-comp-op: multiply;} #layer [data = null] {polygon-fill:#232323; polygon-opacity: 0; line-width: 1;}",
             "interactivity": [
               "cartodb_id",
               "name",
@@ -69,7 +69,7 @@
           },
           {
             "sql": "SELECT cartodb_id,the_geom_webmercator, data, iso3 as id,name, (SELECT AVG(data) FROM kpi_02) as average FROM kpi_02",
-            "cartocss": "#layer [zoom>=4] {polygon-fill: ramp([data], (#ec4d33, #f07662, #F6ADA1, #F9C8C0, #FCE4E0), quantiles); polygon-opacity: 0.9; line-width: 1; line-color: #ec4d33; line-opacity: 0.4; line-comp-op: multiply;} #layer [data = null] {polygon-fill:#232323; polygon-opacity: 0; line-width: 1;",
+            "cartocss": "#layer [zoom>=4] {polygon-fill: ramp([data], (#ec4d33, #f07662, #F6ADA1, #F9C8C0, #FCE4E0), quantiles); polygon-opacity: 0.9; line-width: 1; line-color: #ec4d33; line-opacity: 0.4; line-comp-op: multiply;} #layer [data = null] {polygon-fill:#232323; polygon-opacity: 0; line-width: 1;}",
             "interactivity": [
               "cartodb_id",
               "name",
@@ -106,7 +106,7 @@
           },
           {
             "sql": "SELECT cartodb_id,the_geom_webmercator, data, iso3 as id,name, (SELECT AVG(data) FROM kpi_03) as average FROM kpi_03",
-            "cartocss": "#layer [zoom>=4] {polygon-fill: ramp([data], (#ec4d33, #f07662, #F6ADA1, #F9C8C0, #FCE4E0), quantiles); polygon-opacity: 0.9; line-width: 1; line-color: #ec4d33; line-opacity: 0.4; line-comp-op: multiply;} #layer [data = null] {polygon-fill:#232323; polygon-opacity: 0; line-width: 1;",
+            "cartocss": "#layer [zoom>=4] {polygon-fill: ramp([data], (#ec4d33, #f07662, #F6ADA1, #F9C8C0, #FCE4E0), quantiles); polygon-opacity: 0.9; line-width: 1; line-color: #ec4d33; line-opacity: 0.4; line-comp-op: multiply;} #layer [data = null] {polygon-fill:#232323; polygon-opacity: 0; line-width: 1;}",
             "interactivity": [
               "cartodb_id",
               "name",
@@ -143,7 +143,7 @@
           },
           {
             "sql": "SELECT cartodb_id,the_geom_webmercator, data, iso3 as id,name, (SELECT AVG(data) FROM kpi_04) as average FROM kpi_04",
-            "cartocss": "#layer [zoom>=4] {polygon-fill: ramp([data], (#ec4d33, #f07662, #F6ADA1, #F9C8C0, #FCE4E0), quantiles); polygon-opacity: 0.9; line-width: 1; line-color: #ec4d33; line-opacity: 0.4; line-comp-op: multiply;} #layer [data = null] {polygon-fill:#232323; polygon-opacity: 0; line-width: 1;",
+            "cartocss": "#layer [zoom>=4] {polygon-fill: ramp([data], (#ec4d33, #f07662, #F6ADA1, #F9C8C0, #FCE4E0), quantiles); polygon-opacity: 0.9; line-width: 1; line-color: #ec4d33; line-opacity: 0.4; line-comp-op: multiply;} #layer [data = null] {polygon-fill:#232323; polygon-opacity: 0; line-width: 1;}",
             "interactivity": [
               "cartodb_id",
               "name",
@@ -181,7 +181,7 @@
           },
           {
            "sql": "SELECT cartodb_id,the_geom_webmercator, data, iso3 as id,name, (SELECT AVG(data) FROM kpi_05) as average FROM kpi_05",
-           "cartocss": "#layer [zoom>=4] {polygon-fill: ramp([data], (#ec4d33, #f07662, #F6ADA1, #F9C8C0, #FCE4E0), quantiles); polygon-opacity: 0.9; line-width: 1; line-color: #ec4d33; line-opacity: 0.4; line-comp-op: multiply;} #layer [data = null] {polygon-fill:#232323; polygon-opacity: 0; line-width: 1;",
+           "cartocss": "#layer [zoom>=4] {polygon-fill: ramp([data], (#ec4d33, #f07662, #F6ADA1, #F9C8C0, #FCE4E0), quantiles); polygon-opacity: 0.9; line-width: 1; line-color: #ec4d33; line-opacity: 0.4; line-comp-op: multiply;} #layer [data = null] {polygon-fill:#232323; polygon-opacity: 0; line-width: 1;}",
            "interactivity": [
              "cartodb_id",
              "name",
@@ -219,7 +219,7 @@
           },
           {
             "sql": "SELECT cartodb_id,the_geom_webmercator, data, iso3 as id,name, (SELECT AVG(data) FROM kpi_06) as average FROM kpi_06",
-            "cartocss": "#layer [zoom>=4] {polygon-fill: ramp([data], (#ec4d33, #f07662, #F6ADA1, #F9C8C0, #FCE4E0), quantiles); polygon-opacity: 0.9; line-width: 1; line-color: #ec4d33; line-opacity: 0.4; line-comp-op: multiply;} #layer [data = null] {polygon-fill:#232323; polygon-opacity: 0; line-width: 1;",
+            "cartocss": "#layer [zoom>=4] {polygon-fill: ramp([data], (#ec4d33, #f07662, #F6ADA1, #F9C8C0, #FCE4E0), quantiles); polygon-opacity: 0.9; line-width: 1; line-color: #ec4d33; line-opacity: 0.4; line-comp-op: multiply;} #layer [data = null] {polygon-fill:#232323; polygon-opacity: 0; line-width: 1;}",
             "interactivity": [
               "cartodb_id",
               "name",
@@ -262,7 +262,7 @@
           },
           {
             "sql": "SELECT cartodb_id,the_geom_webmercator, data, iso3 as id,name, (SELECT AVG(data) FROM kpi_07) as average FROM kpi_07",
-            "cartocss": "#layer [zoom>=4] {polygon-fill: ramp([data], (#ec4d33, #f07662, #F6ADA1, #F9C8C0, #FCE4E0), quantiles); polygon-opacity: 0.9; line-width: 1; line-color: #ec4d33; line-opacity: 0.4; line-comp-op: multiply;} #layer [data = null] {polygon-fill:#232323; polygon-opacity: 0; line-width: 1;",
+            "cartocss": "#layer [zoom>=4] {polygon-fill: ramp([data], (#ec4d33, #f07662, #F6ADA1, #F9C8C0, #FCE4E0), quantiles); polygon-opacity: 0.9; line-width: 1; line-color: #ec4d33; line-opacity: 0.4; line-comp-op: multiply;} #layer [data = null] {polygon-fill:#232323; polygon-opacity: 0; line-width: 1;}",
             "interactivity": [
               "cartodb_id",
               "name",
@@ -305,7 +305,7 @@
           },
           {
             "sql": "SELECT cartodb_id,the_geom_webmercator, data, iso3 as id,name, (SELECT AVG(data) FROM kpi_08) as average FROM kpi_08",
-            "cartocss": "#layer [zoom>=4] {polygon-fill: ramp([data], (#ec4d33, #f07662, #F6ADA1, #F9C8C0, #FCE4E0), quantiles); polygon-opacity: 0.9; line-width: 1; line-color: #ec4d33; line-opacity: 0.4; line-comp-op: multiply;} #layer [data = null] {polygon-fill:#232323; polygon-opacity: 0; line-width: 1;",
+            "cartocss": "#layer [zoom>=4] {polygon-fill: ramp([data], (#ec4d33, #f07662, #F6ADA1, #F9C8C0, #FCE4E0), quantiles); polygon-opacity: 0.9; line-width: 1; line-color: #ec4d33; line-opacity: 0.4; line-comp-op: multiply;} #layer [data = null] {polygon-fill:#232323; polygon-opacity: 0; line-width: 1;}",
             "interactivity": [
               "cartodb_id",
               "name",
