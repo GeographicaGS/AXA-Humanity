@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
+import { WindowService } from '../window.service';
 
 @Component({
   selector: 'app-axa-footer',
@@ -7,7 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  @HostBinding('class.loading') isLoading = true;
+
+  constructor(private windowService: WindowService) {
+    this.windowService.getLoadingStatus().subscribe((loading) => {
+      if (!loading) {
+        this.isLoading = false;
+      }
+    });
+  }
 
   ngOnInit() {
   }

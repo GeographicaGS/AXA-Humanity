@@ -11,6 +11,14 @@
   background: transparentize($white, .15);
   z-index: 1001;
 
+  transform: translateY(-200%);
+  transition: transform .8s;
+  transition-delay: .2s;
+
+  &:not(.loading) {
+    transform: translateY(0%);
+  }
+
   @include respond-to($small) {
     padding-left: $headerSmallPaddingLeft;
     padding-right: $headerSmallPaddingRight;

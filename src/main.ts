@@ -8,6 +8,4 @@ if (environment.production) {
   enableProdMode();
 }
 window['CESIUM_BASE_URL'] = '/assets/cesium';
-setTimeout(() => {
-  platformBrowserDynamic().bootstrapModule(AppModule);
-}, 500);
+platformBrowserDynamic().bootstrapModule(AppModule);

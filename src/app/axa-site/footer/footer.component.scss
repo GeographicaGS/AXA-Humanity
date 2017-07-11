@@ -4,11 +4,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: $footerHeight;
+  height: 0;
 
   color: $gray;
   font-size: 12px;
   line-height: 12px;
+
+  transform: translateY(200%);
+  transition: transform .3s, height .3s;
+  transition-delay: .2s;
+
+  &:not(.loading) {
+    transform: translateY(0%);
+    height: $footerHeight;
+  }
 
   .leftSide {
     margin-left: 15px;
