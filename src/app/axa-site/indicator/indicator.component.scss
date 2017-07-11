@@ -13,6 +13,15 @@ $indicatorHeaderHeight: 64px;
   display: flex;
   flex-direction: column;
   transition: top .3s;
+
+  transform: translateY(-500%);
+  transition: transform .8s, top .3s;
+  transition-delay: .2s;
+
+  &:not(.loading) {
+    transform: translateY(0%);
+  }
+
   &.freeFromTop {
     top: calc(#{$headerHeight} + 8px);
 

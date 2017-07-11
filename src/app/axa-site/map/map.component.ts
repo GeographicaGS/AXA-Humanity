@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { Http } from '@angular/http';
 import { WindowService } from '../window.service';
 import { Observable } from 'rxjs/Rx';
@@ -17,6 +17,8 @@ declare var L: any;
 export class MapComponent implements OnInit {
 
   @Input('indicator') indicator;
+
+  @HostBinding('class.loading') isLoading = true;
 
   geojson;
 
@@ -68,6 +70,15 @@ export class MapComponent implements OnInit {
     private http: Http,
     private windowService: WindowService,
     private countryService: CountryGeojsonService) {
+
+      this.windowService.getLoadingStatus().subscribe((loading) => {
+        if (!loading) {
+          setTimeout(() => {
+            this.isLoading = false;
+            this.map.invalidateSize();
+          }, 120);
+        }
+      });
   }
 
   ngOnInit() {

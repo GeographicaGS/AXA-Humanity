@@ -7,6 +7,7 @@ import { DataPanelComponent } from './data-panel/data-panel.component';
 import { GlobeService } from './globe/globe.service';
 import { LandingRoutingModule } from './landing.routing.module';
 
+
 const components = [
   GlobeComponent,
   LandingComponent,

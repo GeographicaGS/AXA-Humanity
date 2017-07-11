@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
+import { WindowService } from '../../axa-site/window.service';
 
 @Component({
   selector: 'app-landing',
@@ -7,11 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingComponent implements OnInit {
 
+  @HostBinding('class.loading') isLoading = true;
+  @HostBinding('class.loaded') isNotLoading = false;
+
   public infoModel: any = null;
 
-  constructor() { }
+  constructor(private windowService: WindowService) {
+    this.windowService.getLoadingStatus().subscribe((loading) => {
+      this.isLoading = loading;
+      this.isNotLoading = !this.isLoading;
+    });
+  }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
   changeInfoModel(infoModel: any) {
     this.infoModel = infoModel;
