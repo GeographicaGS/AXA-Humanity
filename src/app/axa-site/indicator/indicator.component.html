@@ -3,7 +3,7 @@
     <span *ngIf="getFirstCountryName() !== false">{{ getFirstCountryName() }}</span>
   </div>
 
-  <span *ngIf="!isComparisonGoingOn()" class="secondCharacter">
+  <span *ngIf="!isComparisonGoingOn()" class="secondCharacter tooltipContainer">
     Compare
     <span class="iconBase">
       <span
@@ -11,6 +11,8 @@
         (onDragStart)="onDragStart($event)"
         (onDragEnd)="onDragEnd($event)" class="icon"></span>
     </span>
+
+    <div *ngIf="!dragging" class="tooltipMessage">Drag and drop the blue figure or select acountry on the map</div>
   </span>
 
   <div class="clearBtnWrapper" *ngIf="isComparisonGoingOn()">
