@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { GoogleAnalyticsEventsService } from './common/google-analytics-events.service';
 import { WindowService } from './axa-site/window.service';
+import { UtilsService } from './common/utils.service';
+
 declare var ga: Function;
 
 @Component({
@@ -12,12 +14,20 @@ declare var ga: Function;
 export class AppComponent {
 
   isLoading = true;
+  webGlSupported;
+  landingPage = false;
 
   constructor(private windowService: WindowService,
+              private utils: UtilsService,
               public router: Router,
               public googleAnalyticsEventsService: GoogleAnalyticsEventsService) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
+        if (event.urlAfterRedirects === '/landing') {
+          this.landingPage = true;
+        } else {
+          this.landingPage = false;
+        }
         ga('set', 'page', event.urlAfterRedirects);
         ga('send', 'pageview');
       }
@@ -27,8 +37,11 @@ export class AppComponent {
       this.isLoading = loading;
     });
 
+    this.webGlSupported = this.utils.webglDetect();
+
     setTimeout(() => {
       this.windowService.setLoadingStatusAsFalse();
     }, 500);
   }
+
 }
