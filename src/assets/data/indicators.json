@@ -7,7 +7,7 @@
       {
         "id": 1,
         "category_id": 1,
-        "title": "How many people is in risk of sinking into poverty due to a surgical operation?",
+        "title": "How many people are in risk of sinking into poverty due to a surgical operation?",
         "unit": "%",
         "unitText": "people at risk",
         "info": {
@@ -50,7 +50,7 @@
         "unitText": "of people > 15 years old",
         "info": {
           "headline": "Metadata",
-          "body": "Denotes the percentage of respondents who report borrowing any money in the past 12 months (by themselves or together with someone else) for health or medical purposes (male, % age 15+). [w2: data are available for wave 2]. Demirguc-Kunt et al., 2015"
+          "body": "Denotes the percentage of respondents who report borrowing any money in the past 12 months (by themselves or together with someone else) for health or medical purposes (% age 15+). [w2: data are available for wave 2]. Demirguc-Kunt et al., 2015"
         },
         "goals": [
           3,
@@ -119,8 +119,8 @@
       {
         "id": 4,
         "category_id": 1,
-        "title": "How many people on the specialist surgical workforce?",
-        "unit": "%",
+        "title": "Number of surgical specialists professionals",
+        "unit": "",
         "unitText": "per 100.000 population",
         "info": {
           "headline": "Metadata",
@@ -134,7 +134,7 @@
         "layers": [
           {
             "sql": "SELECT q.id as cartodb_id, q.id, (SELECT the_geom FROM continents WHERE id = q.id) AS the_geom, (SELECT centroid FROM continents WHERE id = q.id) AS the_geom_webmercator, (SELECT name FROM continents WHERE id = q.id) AS name, round((100000 * q.data_population / q.total_population)::numeric,2) AS data FROM ( SELECT c.id AS id, SUM(sub_q.data_population) AS data_population, SUM(sub_q.total_population) AS total_population FROM continents c, ( SELECT ST_Centroid(k.the_geom) AS the_geom, (k.data * p.data / 100000) AS data_population, p.data AS total_population FROM (SELECT the_geom, data, iso3 FROM kpi_04 WHERE data IS NOT NULL) k INNER JOIN (SELECT id, data FROM population WHERE data IS NOT NULL) p ON k.iso3 = p.id) sub_q WHERE ST_Intersects(c.the_geom, sub_q.the_geom) GROUP BY c.id ) q",
-            "cartocss": "#layer ['mapnik::geometry_type'=1] [zoom<4] {marker-width: ramp([data], range(48, 112), quantiles(5)); marker-fill: #f07662; marker-fill-opacity: 0.85; marker-allow-overlap: true; marker-line-width: 1; marker-line-color: #ec4d33; marker-line-opacity: 1; [zoom=3]{ marker-width: ramp([data], range(48, 112), quantiles(5));} [zoom=4]{ marker-width: ramp([data], range(64, 160), quantiles(5));}} #layer::labels { text-name: [data] + '%'; text-face-name: 'DejaVu Sans Book'; text-size: 13; text-fill: #FFF; text-opacity: 1; text-allow-overlap: true; text-halo-fill: #fff; text-halo-radius: 0.1;}",
+            "cartocss": "#layer ['mapnik::geometry_type'=1] [zoom<4] {marker-width: ramp([data], range(48, 112), quantiles(5)); marker-fill: #f07662; marker-fill-opacity: 0.85; marker-allow-overlap: true; marker-line-width: 1; marker-line-color: #ec4d33; marker-line-opacity: 1; [zoom=3]{ marker-width: ramp([data], range(48, 112), quantiles(5));} [zoom=4]{ marker-width: ramp([data], range(64, 160), quantiles(5));}} #layer::labels { text-name: [data]; text-face-name: 'DejaVu Sans Book'; text-size: 13; text-fill: #FFF; text-opacity: 1; text-allow-overlap: true; text-halo-fill: #fff; text-halo-radius: 0.1;}",
             "interactivity": [
               "cartodb_id",
               "name",
@@ -210,7 +210,7 @@
         "layers": [
           {
             "sql": "SELECT q.id as cartodb_id, q.id, (SELECT the_geom FROM continents WHERE id = q.id) AS the_geom, (SELECT centroid FROM continents WHERE id = q.id) AS the_geom_webmercator, (SELECT name FROM continents WHERE id = q.id) AS name, data FROM ( SELECT c.id AS id, SUM(k.data) AS data FROM continents c, (SELECT the_geom, data FROM kpi_06 WHERE data IS NOT NULL) k WHERE ST_Intersects(c.the_geom, ST_Centroid(k.the_geom)) GROUP BY c.id ) q",
-            "cartocss": "#layer ['mapnik::geometry_type'=1] [zoom<4] {marker-width: ramp([data], range(48, 112), quantiles(5)); marker-fill: #f07662; marker-fill-opacity: 0.85; marker-allow-overlap: true; marker-line-width: 1; marker-line-color: #ec4d33; marker-line-opacity: 1; [zoom=3]{ marker-width: ramp([data], range(48, 112), quantiles(5));} [zoom=4]{ marker-width: ramp([data], range(64, 160), quantiles(5));}} #layer::labels { text-name: [data] + '%'; text-face-name: 'DejaVu Sans Book'; text-size: 13; text-fill: #FFF; text-opacity: 1; text-allow-overlap: true; text-halo-fill: #fff; text-halo-radius: 0.1;}",
+            "cartocss": "#layer ['mapnik::geometry_type'=1] [zoom<4] {marker-width: ramp([data], range(48, 112), quantiles(5)); marker-fill: #f07662; marker-fill-opacity: 0.85; marker-allow-overlap: true; marker-line-width: 1; marker-line-color: #ec4d33; marker-line-opacity: 1; [zoom=3]{ marker-width: ramp([data], range(48, 112), quantiles(5));} [zoom=4]{ marker-width: ramp([data], range(64, 160), quantiles(5));}} #layer::labels { text-name: [data]; text-face-name: 'DejaVu Sans Book'; text-size: 13; text-fill: #FFF; text-opacity: 1; text-allow-overlap: true; text-halo-fill: #fff; text-halo-radius: 0.1;}",
             "interactivity": [
               "cartodb_id",
               "name",
@@ -240,7 +240,7 @@
         "id": 7,
         "category_id": 2,
         "title": "How many people died because of car accident injuries?",
-        "unit": "%",
+        "unit": "",
         "unitText": "per 100.000 people",
         "info": {
           "headline": "Metadata",
@@ -253,7 +253,7 @@
         "layers": [
           {
             "sql": "SELECT q.id as cartodb_id, q.id, (SELECT the_geom FROM continents WHERE id = q.id) AS the_geom, (SELECT centroid FROM continents WHERE id = q.id) AS the_geom_webmercator, (SELECT name FROM continents WHERE id = q.id) AS name, round((100000 * q.data_population / q.total_population)::numeric,2) AS data FROM ( SELECT c.id AS id, SUM(sub_q.data_population) AS data_population, SUM(sub_q.total_population) AS total_population FROM continents c, ( SELECT ST_Centroid(k.the_geom) AS the_geom, (k.data * p.data / 100000) AS data_population, p.data AS total_population FROM (SELECT the_geom, data, iso3 FROM kpi_07 WHERE data IS NOT NULL) k INNER JOIN (SELECT id, data FROM population WHERE data IS NOT NULL) p ON k.iso3 = p.id) sub_q WHERE ST_Intersects(c.the_geom, sub_q.the_geom) GROUP BY c.id ) q",
-            "cartocss": "#layer ['mapnik::geometry_type'=1] [zoom<4] {marker-width: ramp([data], range(48, 112), quantiles(5)); marker-fill: #f07662; marker-fill-opacity: 0.85; marker-allow-overlap: true; marker-line-width: 1; marker-line-color: #ec4d33; marker-line-opacity: 1; [zoom=3]{ marker-width: ramp([data], range(48, 112), quantiles(5));} [zoom=4]{ marker-width: ramp([data], range(64, 160), quantiles(5));}} #layer::labels { text-name: [data] + '%'; text-face-name: 'DejaVu Sans Book'; text-size: 13; text-fill: #FFF; text-opacity: 1; text-allow-overlap: true; text-halo-fill: #fff; text-halo-radius: 0.1;}",
+            "cartocss": "#layer ['mapnik::geometry_type'=1] [zoom<4] {marker-width: ramp([data], range(48, 112), quantiles(5)); marker-fill: #f07662; marker-fill-opacity: 0.85; marker-allow-overlap: true; marker-line-width: 1; marker-line-color: #ec4d33; marker-line-opacity: 1; [zoom=3]{ marker-width: ramp([data], range(48, 112), quantiles(5));} [zoom=4]{ marker-width: ramp([data], range(64, 160), quantiles(5));}} #layer::labels { text-name: [data]; text-face-name: 'DejaVu Sans Book'; text-size: 13; text-fill: #FFF; text-opacity: 1; text-allow-overlap: true; text-halo-fill: #fff; text-halo-radius: 0.1;}",
             "interactivity": [
               "cartodb_id",
               "name",
