@@ -90,7 +90,7 @@
     div.eyeIcon {
       width: 20px;
       height: 20px;
-      background-image: url('/assets/icons/see.svg');
+      background-image: url('/assets/icons/hide.svg');
       background-position: center center;
       background-repeat: no-repeat;
       background-size: cover;
@@ -98,19 +98,9 @@
       transition: background-image .3s;
 
       &.disabled {
-        background-image: url('/assets/icons/hide.svg');
-      }
-    }
-
-    &:hover {
-      .eyeIcon:not(.disabled) {
-        background-image: url('/assets/icons/hide.svg');
-      }
-      .eyeIcon.disabled {
         background-image: url('/assets/icons/see.svg');
       }
     }
-
   }
 
 }

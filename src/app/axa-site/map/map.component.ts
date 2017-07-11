@@ -25,7 +25,7 @@ export class MapComponent implements OnInit {
   currentLayer;
   layerSource;
 
-  axaLayer;
+  axaLayer: any = false;
   axaLayerSource;
 
   labelsLayer;
@@ -439,6 +439,6 @@ export class MapComponent implements OnInit {
   }
 
   hasAxaLayerEnabled() {
-    return this.axaLayer === false;
+    return this.axaLayer !== false;
   }
 }
