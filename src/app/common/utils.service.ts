@@ -35,33 +35,4 @@ export class UtilsService {
 
     return number.toLocaleString() + units;
   }
-
-  webglDetect(returnContext = false) {
-    let w = <any>window;
-    if (!!w.WebGLRenderingContext) {
-      const canvas = document.createElement("canvas"),
-           names = ["webgl", "experimental-webgl", "moz-webgl", "webkit-3d"];
-     let context = false;
-
-      for(var i=0;i<4;i++) {
-        try {
-          const context = <any>canvas.getContext(names[i]);
-          if (context && typeof context.getParameter == "function") {
-            // WebGL is enabled
-            if (returnContext) {
-              // return WebGL object if the function's argument is present
-              return {name:names[i], gl:context};
-            }
-            // else, return just true
-            return true;
-          }
-        } catch(e) {}
-      }
-      // WebGL is supported, but disabled
-      return false;
-    }
-    // WebGL not supported
-    return false;
-  }
-
 }
