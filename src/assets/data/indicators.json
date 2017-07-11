@@ -224,7 +224,7 @@
             ]
           },
           {
-            "sql": "SELECT cartodb_id,the_geom_webmercator, data, iso3 as id,name, (SELECT AVG(data) FROM kpi_06) as average FROM kpi_06",
+            "sql": "SELECT cartodb_id,the_geom_webmercator, data, iso3 as id,name, (SELECT CAST(AVG(data) as INT) FROM kpi_06) as average FROM kpi_06",
             "cartocss": "#layer [zoom>=4] {polygon-fill: ramp([data], (#FCE4E0, #F9C8C0, #F6ADA1,#f07662, #ec4d33), quantiles); polygon-opacity: 0.9; line-width: 1; line-color: #ec4d33; line-opacity: 0.4; line-comp-op: multiply;} #layer [data = null] [zoom>=4] {polygon-fill:#232323; polygon-opacity: 0; line-width: 1;}",
             "interactivity": [
               "cartodb_id",
