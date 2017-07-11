@@ -10,7 +10,6 @@ declare var ga: Function;
 })
 export class AppComponent {
 
-
   constructor(public router: Router, public googleAnalyticsEventsService: GoogleAnalyticsEventsService) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
