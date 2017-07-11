@@ -1,7 +1,7 @@
 @import 'common';
 
 :host {
-  
+
   width: 0;
   transform: translateX(120%);
   transition: transform .8s;
@@ -18,15 +18,17 @@
   @media (min-width: 1200px) and (min-height: 801px) {
     padding: 150px 64px 0px 64px;
   }
-  h4{
+  h4 {
     @include font(bold);
     font-size: 16px;
-    color: $indigo;
     text-align: center;
     text-transform: uppercase;
     padding-bottom: 10px;
     position: relative;
     letter-spacing: 4px;
+    a {
+      color: $indigo;
+    }
     &:after{
       content: '';
       position: absolute;
