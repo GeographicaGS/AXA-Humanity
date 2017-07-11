@@ -2,9 +2,39 @@
 
 :host {
   display: flex;
-  width: 100%;
-  height: 100%;
-  header{
+  background-color: #000;
+
+  &.loading {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    app-data-panel {
+      width: 0;
+      transform: translateX(120%);
+      transition: transform .8s;
+      transition-delay: .8s;
+    }
+  }
+
+  &.loaded {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    header, footer {
+      transform: translateY(0%);
+    }
+
+    app-data-panel {
+      width: 368px;
+      transform: translateX(0%);
+    }
+  }
+
+  header {
+    transform: translateY(-120%);
+    transition: transform .8s;
+    transition-delay: .8s;
+
     position: absolute;
     top:0;
     left:40px;
@@ -58,6 +88,11 @@
   }
 
   footer {
+
+    transform: translateY(120%);
+    transition: transform .8s;
+    transition-delay: .8s;
+
     position: absolute;
     bottom: 0;
     left: 0;

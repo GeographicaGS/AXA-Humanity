@@ -19,12 +19,20 @@ export class IndicatorComponent implements OnInit, AfterViewInit {
 
   @HostBinding('class.freeFromTop') freeFromTop;
 
+  @HostBinding('class.loading') isLoading = true;
+
   indicators: any[];
 
   firstCountry;
   secondCountry;
 
-  constructor(private windowService: WindowService, private indicatorService: IndicatorService) { }
+  constructor(private windowService: WindowService, private indicatorService: IndicatorService) {
+    this.windowService.getLoadingStatus().subscribe((loading) => {
+      if (!loading) {
+        this.isLoading = false;
+      }
+    });
+  }
 
   ngOnInit() {
 
