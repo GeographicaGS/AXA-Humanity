@@ -50,9 +50,9 @@
                 {{ indicator.stats.max_country }}
               </div>
               <div class="statValue">
-                <span *ngIf="indicator.kpi.unit === '%'">{{ indicator.stats.max_value | number:'.2' }} <span class="unit">{{ indicator.kpi.unit }}</span></span>
+                <span *ngIf="indicator.kpi.unit === '%'">{{ indicator.stats.max_value | number:'.0-2' }} <span class="unit">{{ indicator.kpi.unit }}</span></span>
                 <span *ngIf="indicator.kpi.unit === 'EUR' || indicator.kpi.unit === 'USD'">{{ indicator.stats.max_value | currency:indicator.kpi.unit:true }}</span>
-                <span *ngIf="indicator.kpi.unit === ''">{{ indicator.stats.max_value | number:'.2' }}</span>
+                <span *ngIf="indicator.kpi.unit === ''">{{ indicator.stats.max_value | number:'.0-2' }}</span>
               </div>
             </div>
 
@@ -61,18 +61,21 @@
                 {{ indicator.stats.min_country }}
               </div>
               <div class="statValue min">
-                <span *ngIf="indicator.kpi.unit === '%'">{{ indicator.stats.min_value | number:'.2' }} <span class="unit">{{ indicator.kpi.unit }}</span></span>
+                <span *ngIf="indicator.kpi.unit === '%'">{{ indicator.stats.min_value | number:'.0-2' }} <span class="unit">{{ indicator.kpi.unit }}</span></span>
                 <span *ngIf="indicator.kpi.unit === 'EUR' || indicator.kpi.unit === 'USD'">{{ indicator.stats.min_value | currency:indicator.kpi.unit:true }}</span>
-                <span *ngIf="indicator.kpi.unit === ''">{{ indicator.stats.min_value | number:'.2' }}</span>
+                <span *ngIf="indicator.kpi.unit === ''">{{ indicator.stats.min_value | number:'.0-2' }}</span>
               </div>
             </div>
 
             <div class="statWrapper">
               <div class="statName avg"></div>
               <div class="statValue avg">
-                <span *ngIf="indicator.kpi.unit === '%'">{{ indicator.stats.avg_value | number:'.1-2' }} <span class="unit">{{ indicator.kpi.unit }}</span></span>
+                <span *ngIf="indicator.kpi.unit === '%' || indicator.kpi.unit === ''">
+                  <span *ngIf="indicator.kpi.integer === true">{{ indicator.stats.avg_value | number:'.0-0' }}</span>
+                  <span *ngIf="indicator.kpi.integer !== true">{{ indicator.stats.avg_value | number:'.1-2' }}</span>
+                  <span class="unit" *ngIf="indicator.kpi.unit === '%'">{{ indicator.kpi.unit }}</span>
+                </span>
                 <span *ngIf="indicator.kpi.unit === 'EUR' || indicator.kpi.unit === 'USD'">{{ indicator.stats.avg_value | currency:indicator.kpi.unit:true }}</span>
-                <span *ngIf="indicator.kpi.unit === ''">{{ indicator.stats.avg_value | number:'.2' }}</span>
               </div>
             </div>
           </div>
@@ -92,14 +95,14 @@
             </div>
             <div class="row separate">
               <span class="min">
-                <span *ngIf="indicator.kpi.unit === '%'">{{ indicator.stats.min_value | number:'.2' }} <span class="unit">{{ indicator.kpi.unit }}</span></span>
+                <span *ngIf="indicator.kpi.unit === '%'">{{ indicator.stats.min_value | number:'.0-2' }} <span class="unit">{{ indicator.kpi.unit }}</span></span>
                 <span *ngIf="indicator.kpi.unit === 'EUR' || indicator.kpi.unit === 'USD'">{{ indicator.stats.min_value | currency:indicator.kpi.unit:true }}</span>
-                <span *ngIf="indicator.kpi.unit === ''">{{ indicator.stats.min_value | number:'.2' }}</span>
+                <span *ngIf="indicator.kpi.unit === ''">{{ indicator.stats.min_value | number:'.0-2' }}</span>
               </span>
               <span class="max">
-                <span *ngIf="indicator.kpi.unit === '%'">{{ indicator.stats.max_value | number:'.2' }} <span class="unit">{{ indicator.kpi.unit }}</span></span>
+                <span *ngIf="indicator.kpi.unit === '%'">{{ indicator.stats.max_value | number:'.0-2' }} <span class="unit">{{ indicator.kpi.unit }}</span></span>
                 <span *ngIf="indicator.kpi.unit === 'EUR' || indicator.kpi.unit === 'USD'">{{ indicator.stats.max_value | currency:indicator.kpi.unit:true }}</span>
-                <span *ngIf="indicator.kpi.unit === ''">{{ indicator.stats.max_value | number:'.2' }}</span>
+                <span *ngIf="indicator.kpi.unit === ''">{{ indicator.stats.max_value | number:'.0-2' }}</span>
               </span>
             </div>
           </div>
@@ -149,9 +152,9 @@
             *ngIf="getFirstCountryName() !== false && getSecondCountryName() === false"
           >
             <div class="noValue" *ngIf="!kpi.firstCountryValue">No value</div>
-            <div class="value" *ngIf="kpi.firstCountryValue && kpi.unit === '%'">{{ kpi.firstCountryValue | number:'.2' }} <span class="unit">{{ kpi.unit }}</span></div>
+            <div class="value" *ngIf="kpi.firstCountryValue && kpi.unit === '%'">{{ kpi.firstCountryValue | number:'.0-2' }} <span class="unit">{{ kpi.unit }}</span></div>
             <div class="value" *ngIf="kpi.firstCountryValue && (kpi.unit === 'EUR' || kpi.unit === 'USD')">{{ kpi.firstCountryValue | currency:kpi.unit:true }}</div>
-            <div class="value" *ngIf="kpi.firstCountryValue && kpi.unit === ''">{{ kpi.firstCountryValue | number:'.2' }}</div>
+            <div class="value" *ngIf="kpi.firstCountryValue && kpi.unit === ''">{{ kpi.firstCountryValue | number:'.0-2' }}</div>
           </div>
 
           <div class="comparisonMode"
@@ -164,9 +167,9 @@
                 <div class="countryName">{{ getFirstCountryName() }}</div>
 
                 <div class="value" *ngIf="!kpi.firstCountryValue">No value</div>
-                <div class="value" *ngIf="kpi.firstCountryValue && kpi.unit === '%'">{{ kpi.firstCountryValue | number:'.2' }} <span class="unit">{{ kpi.unit }}</span></div>
+                <div class="value" *ngIf="kpi.firstCountryValue && kpi.unit === '%'">{{ kpi.firstCountryValue | number:'.0-2' }} <span class="unit">{{ kpi.unit }}</span></div>
                 <div class="value" *ngIf="kpi.firstCountryValue && (kpi.unit === 'EUR' || kpi.unit === 'USD')">{{ kpi.firstCountryValue | currency:kpi.unit:true }}</div>
-                <div class="value" *ngIf="kpi.firstCountryValue && kpi.unit === ''">{{ kpi.firstCountryValue | number:'.2' }}</div>
+                <div class="value" *ngIf="kpi.firstCountryValue && kpi.unit === ''">{{ kpi.firstCountryValue | number:'.0-2' }}</div>
 
               </div>
               <div class="barFigure"><span class="barFill red" [ngStyle]="getFillBar(kpi.firstCountryValue, kpi.secondCountryValue, kpi.unit)"></span></div>
@@ -178,9 +181,9 @@
                 <div class="countryName">{{ getSecondCountryName() }}</div>
 
                 <div class="value" *ngIf="!kpi.secondCountryValue">No value</div>
-                <div class="value" *ngIf="kpi.secondCountryValue && kpi.unit === '%'">{{ kpi.secondCountryValue | number:'.2' }} <span class="unit">{{ kpi.unit }}</span></div>
+                <div class="value" *ngIf="kpi.secondCountryValue && kpi.unit === '%'">{{ kpi.secondCountryValue | number:'.0-2' }} <span class="unit">{{ kpi.unit }}</span></div>
                 <div class="value" *ngIf="kpi.secondCountryValue && (kpi.unit === 'EUR' || kpi.unit === 'USD')">{{ kpi.secondCountryValue | currency:kpi.unit:true }}</div>
-                <div class="value" *ngIf="kpi.secondCountryValue && kpi.unit === ''">{{ kpi.secondCountryValue | number:'.2' }}</div>
+                <div class="value" *ngIf="kpi.secondCountryValue && kpi.unit === ''">{{ kpi.secondCountryValue | number:'.0-2' }}</div>
 
               </div>
 
