@@ -34,13 +34,13 @@ const DATA = [{
   {
     type: 'dark',
     value: 70,
-    units: 'of rise in the sea level in this century',
+    units: 'average of rise in the sea level in this century',
     units_value: 'cm',
     title: '100 M people',
     subtitle: 'will be displaced by the elevation of waters',
     position : [66, -41],
     zone: 'Poles',
-    source: 'CSIC'
+    source: 'Greenpeace - IPCC'
   },
   {
     type: 'light',
@@ -73,7 +73,7 @@ const DATA = [{
     subtitle: 'customer assisted on a car breakdown',
     position : [46, 24],
     zone: 'AXA Worldwide',
-    source: 'AXA Essential'
+    source: 'AXA Essentials'
   },
   {
     type: 'light',
