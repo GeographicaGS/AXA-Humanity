@@ -7,7 +7,8 @@ const DATA = [{
     title: 'One',
     subtitle: 'in 10 has healthcare',
     position : [31, 72],
-    zone: 'Asia occidental'
+    zone: 'Asia occidental',
+    source: 'Worldbank'
   },
   {
     type: 'dark',
@@ -16,7 +17,8 @@ const DATA = [{
     title: 'One',
     subtitle: 'in 9 will have pension',
     position : [0, -61],
-    zone: 'South America'
+    zone: 'South America',
+    source: 'Worldbank'
   },
   {
     type: 'dark',
@@ -26,7 +28,8 @@ const DATA = [{
     title: '0 €',
     subtitle: 'on protection or savings oriented life insurance',
     position : [48, 10],
-    zone: 'Europe'
+    zone: 'Europe',
+    source: 'SheforShield Report, AXA'
   },
   {
     type: 'dark',
@@ -36,7 +39,8 @@ const DATA = [{
     title: '100 M people',
     subtitle: 'will be displaced by the elevation of waters',
     position : [66, -41],
-    zone: 'Poles'
+    zone: 'Poles',
+    source: 'CSIC'
   },
   {
     type: 'light',
@@ -46,7 +50,8 @@ const DATA = [{
     title: 'Nº 30',
     subtitle: 'from all sectors',
     position : [47, 2],
-    zone: 'AXA Worldwide'
+    zone: 'AXA Worldwide',
+    source: 'Boston Consulting Group'
   },
   {
     type: 'light',
@@ -56,7 +61,8 @@ const DATA = [{
     title: '531 projects supported',
     subtitle: 'by AXA Research Fund',
     position : [13, 12],
-    zone: 'AXA Worldwide'
+    zone: 'AXA Worldwide',
+    source: 'AXA Research Fund'
   },
   {
     type: 'light',
@@ -66,7 +72,8 @@ const DATA = [{
     title: '4.6 m',
     subtitle: 'customer assisted on a car breakdown',
     position : [46, 24],
-    zone: 'AXA Worldwide'
+    zone: 'AXA Worldwide',
+    source: 'AXA Essential'
   },
   {
     type: 'light',
@@ -75,7 +82,8 @@ const DATA = [{
     title: 'Smart Women Plan',
     subtitle: 'Product of the Year, 2013',
     position : [24, 78],
-    zone: 'India'
+    zone: 'India',
+    source: 'SheforShield Report, AXA'
   }];
 
 export class GlobeService {
