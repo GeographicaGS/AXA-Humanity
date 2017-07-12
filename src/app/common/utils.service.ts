@@ -35,7 +35,7 @@ export class UtilsService {
 
     return number.toLocaleString() + units;
   }
-  
+
   webglDetect(returnContext = false) {
     const w = <any>window;
     if (!!w.WebGLRenderingContext) {
