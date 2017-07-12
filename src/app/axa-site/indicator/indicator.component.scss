@@ -163,8 +163,8 @@ $indicatorHeaderHeight: 64px;
       .tooltipMessage {
         right: 0;
         left: auto;
-        font-size: 14px;
-        line-height: 16px;
+        width: 200px;
+        white-space: normal;
       }
     }
   }
@@ -718,6 +718,7 @@ $indicatorHeaderHeight: 64px;
                         .tooltipMessage {
                           opacity: 1;
                           visibility: visible;
+                          font-weight: normal;
                         }
                         .goalImage {
                           opacity: 1;

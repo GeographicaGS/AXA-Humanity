@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { GlobeService } from './globe.service';
+import { WindowService } from '../../axa-site/window.service';
+import { UtilsService } from '../../common/utils.service';
 
 declare var cdb: any;
 declare var L: any;
@@ -35,11 +37,22 @@ export class GlobeComponent implements OnInit {
   private interval: any;
   private modeTimeout: any;
 
+  webGlSupported = this.utils.webglDetect();
+
   @Output()
   changeInfo: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private globeService: GlobeService) {
+  constructor(private windowService: WindowService,
+              private utils: UtilsService,
+              private globeService: GlobeService) {
 
+    let timeout = 500;
+    if (!this.webGlSupported) {
+      timeout = 6000;
+    }
+    setTimeout(() => {
+      this.windowService.setLoadingStatusAsFalse();
+    }, timeout);
   }
 
   ngOnInit() {

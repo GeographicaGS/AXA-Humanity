@@ -17,7 +17,7 @@ const routes: Routes = [
     redirectTo: '/landing',
     pathMatch: 'full'
   },
-  { path: '**', redirectTo: '/not_found' }
+  { path: '**', redirectTo: '/landing' }
 ];
 
 const config = <any>environment;

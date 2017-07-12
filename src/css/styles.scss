@@ -55,8 +55,7 @@ a {
   height: 0;
   text-align: center;
   color: $silver;
-  padding: 5px 8px 5px 8px;
-  font-size: 12px;
+  padding: 5px 10px 5px 10px;
   display: inline-table;
   left: 0;
   right: 0;
@@ -65,6 +64,8 @@ a {
   z-index: 1003;
   white-space: nowrap;
   margin-top: 6px;
+  font-size: 13px;
+  line-height: 16px;
   &.active {
     opacity: 1;
     height: auto;
