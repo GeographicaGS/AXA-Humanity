@@ -8,7 +8,7 @@ const DATA = [{
     subtitle: 'in 10 has healthcare',
     position : [31, 72],
     zone: 'Asia occidental',
-    source:"Worldbank"
+    source: 'Worldbank'
   },
   {
     type: 'dark',
@@ -18,7 +18,7 @@ const DATA = [{
     subtitle: 'in 9 will have pension',
     position : [0, -61],
     zone: 'South America',
-    source:"Worldbank"
+    source: 'Worldbank'
   },
   {
     type: 'dark',
@@ -29,7 +29,7 @@ const DATA = [{
     subtitle: 'on protection or savings oriented life insurance',
     position : [48, 10],
     zone: 'Europe',
-    source:"SheforShield Report, AXA"
+    source: 'SheforShield Report, AXA'
   },
   {
     type: 'dark',
@@ -40,7 +40,7 @@ const DATA = [{
     subtitle: 'will be displaced by the elevation of waters',
     position : [66, -41],
     zone: 'Poles',
-    source:"CSIC"
+    source: 'CSIC'
   },
   {
     type: 'light',
@@ -51,7 +51,7 @@ const DATA = [{
     subtitle: 'from all sectors',
     position : [47, 2],
     zone: 'AXA Worldwide',
-    source:"Boston Consulting Group"
+    source: 'Boston Consulting Group'
   },
   {
     type: 'light',
@@ -62,7 +62,7 @@ const DATA = [{
     subtitle: 'by AXA Research Fund',
     position : [13, 12],
     zone: 'AXA Worldwide',
-    source:"AXA Research Fund"
+    source: 'AXA Research Fund'
   },
   {
     type: 'light',
@@ -73,7 +73,7 @@ const DATA = [{
     subtitle: 'customer assisted on a car breakdown',
     position : [46, 24],
     zone: 'AXA Worldwide',
-    source:"AXA Essential"
+    source: 'AXA Essential'
   },
   {
     type: 'light',
@@ -83,7 +83,7 @@ const DATA = [{
     subtitle: 'Product of the Year, 2013',
     position : [24, 78],
     zone: 'India',
-    source:"SheforShield Report, AXA"
+    source: 'SheforShield Report, AXA'
   }];
 
 export class GlobeService {
