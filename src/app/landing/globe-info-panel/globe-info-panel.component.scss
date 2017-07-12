@@ -55,8 +55,12 @@ $speed: 0.5s;
       margin-top: 24px;
     }
 
+    .title_units_value_left,
+    .title_units_value,
+    .units_value_left,
     .units_value {
-      font-size: 28px;
+      font-size: 36px;
+      line-height: 36px;
     }
 
     &.dark {
