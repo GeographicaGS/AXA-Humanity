@@ -159,6 +159,13 @@ $indicatorHeaderHeight: 64px;
           position: absolute;
         }
       }
+
+      .tooltipMessage {
+        right: 0;
+        left: auto;
+        font-size: 14px;
+        line-height: 16px;
+      }
     }
   }
 

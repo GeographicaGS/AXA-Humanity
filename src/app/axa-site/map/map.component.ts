@@ -25,7 +25,7 @@ export class MapComponent implements OnInit {
   currentLayer;
   layerSource;
 
-  axaLayer;
+  axaLayer: any = false;
   axaLayerSource;
 
   labelsLayer;
@@ -184,7 +184,7 @@ export class MapComponent implements OnInit {
         averageFormatted;
 
     if (data.data !== null) {
-      dataFormatted = this.utils.formatNumber(data.data);
+      dataFormatted = this.utils.formatNumberToLocale(data.data);
       template = template + `<div class='value'>${dataFormatted} ${this.indicator.kpi.unit}</div>`;
     } else {
       template = template + `<div class='value noData'>No data found</div>`;
@@ -193,13 +193,12 @@ export class MapComponent implements OnInit {
     if (data.average && data.data !== null) {
       let avgDiff,
           avgClass = 'positive';
-      averageFormatted = this.utils.formatNumber(data.average);
+      averageFormatted = this.utils.formatNumberToLocale(data.average);
       if (data.data > data.average) {
-        avgDiff = this.utils.formatNumber(data.data - data.average);
+        avgDiff = this.utils.formatNumberToLocale(data.data - data.average);
         avgDiff = '+ ' + avgDiff;
       } else {
-        avgDiff = this.utils.formatNumber(data.average - data.data);
-        avgDiff = '- ' + avgDiff;
+        avgDiff = this.utils.formatNumberToLocale(data.data - data.average);
         avgClass = 'negative';
       }
 
@@ -439,6 +438,6 @@ export class MapComponent implements OnInit {
   }
 
   hasAxaLayerEnabled() {
-    return this.axaLayer === false;
+    return this.axaLayer !== false;
   }
 }

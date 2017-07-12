@@ -29,6 +29,13 @@ export class UtilsService {
     return all + units;
   }
 
+  formatNumberToLocale(number, units = '') {
+    units = ' ' + units;
+    units = units === ' ' ? '' : units;
+
+    return number.toLocaleString() + units;
+  }
+  
   webglDetect(returnContext = false) {
     const w = <any>window;
     if (!!w.WebGLRenderingContext) {
