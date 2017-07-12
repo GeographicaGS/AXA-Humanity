@@ -14,7 +14,7 @@ declare var ga: Function;
 export class AppComponent {
 
   isLoading = true;
-  webGlSupported;
+  webGlSupported = this.utils.webglDetect();
   landingPage = false;
 
   constructor(private windowService: WindowService,
@@ -37,11 +37,6 @@ export class AppComponent {
       this.isLoading = loading;
     });
 
-    this.webGlSupported = this.utils.webglDetect();
-
-    setTimeout(() => {
-      this.windowService.setLoadingStatusAsFalse();
-    }, 500);
   }
 
 }
