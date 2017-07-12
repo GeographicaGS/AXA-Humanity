@@ -599,11 +599,11 @@ $indicatorHeaderHeight: 64px;
                 color: $mercury;
               }
 
-              .body {
+              .body {
+                color: $mercury;
                 @include font();
                 font-size: 14px;
                 line-height: 16px;
-                color: $mercury;
               }
 
               height: 0;
