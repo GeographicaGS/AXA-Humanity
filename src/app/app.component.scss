@@ -18,6 +18,70 @@
     background-position: center center;
     background-repeat: no-repeat;
 
+    .webglWarningWrapper {
+      position: absolute;
+      bottom: 80px;
+      left: 50%;
+      color: $white;
+      transform: translateX(-50%);
+      height: 80px;
+      background-color: $burntSienna;
+      border-radius: 4px;
+      min-width: 310px;
+      padding: 11px 14px 11px 20px;
+
+      .firstRow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        .text {
+          font-size: 14px;
+          line-height: 16px;
+        }
+        .linkIcon {
+          width: 20px;
+          height: 20px;
+          background-image: url('/assets/icons/link-ext.svg');
+          background-position: center center;
+          background-repeat: no-repeat;
+        }
+      }
+      .googleChromeVersionWrapper {
+        display: flex;
+        align-items: flex-end;
+        margin-top: 4px;
+        .browserName {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          &:before {
+            content: '';
+            background-image: url('/assets/logos/chrome.png');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 30px;
+            height: 30px;
+            display: block;
+            margin-right: 6px;
+          }
+          font-size: 24px;
+          line-height: 24px;
+          color: #000;
+        }
+        .browserVersion {
+          margin-left: 6px;
+          font-size: 14px;
+          color: #000;
+          line-height: 24px;
+          span.number {
+            @include font('bold');
+          }
+        }
+      }
+    }
+
     .centerWrapper {
       display: flex;
       flex-direction: column;
@@ -33,7 +97,7 @@
           display: block;
           width: 50px;
           color: $white;
-          animation: dots .4s linear forwards running infinite;
+          animation: dots .8s linear forwards running infinite;
           position: absolute;
           top: 1px;
           right: -34px;

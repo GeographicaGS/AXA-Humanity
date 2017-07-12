@@ -20,6 +20,10 @@ export class AxaSiteComponent implements OnInit {
       this.isLoading = loading;
       this.isNotLoading = !this.isLoading;
     });
+
+    setTimeout(() => {
+      this.windowService.setLoadingStatusAsFalse();
+    }, 500);
   }
 
   ngOnInit() {
