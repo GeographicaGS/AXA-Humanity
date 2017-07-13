@@ -13,6 +13,15 @@ $indicatorHeaderHeight: 64px;
   display: flex;
   flex-direction: column;
   transition: top .3s;
+
+  transform: translateY(-500%);
+  transition: transform .8s, top .3s;
+  transition-delay: .2s;
+
+  &:not(.loading) {
+    transform: translateY(0%);
+  }
+
   &.freeFromTop {
     top: calc(#{$headerHeight} + 8px);
 
@@ -149,6 +158,13 @@ $indicatorHeaderHeight: 64px;
           cursor: pointer;
           position: absolute;
         }
+      }
+
+      .tooltipMessage {
+        right: 0;
+        left: auto;
+        width: 200px;
+        white-space: normal;
       }
     }
   }
@@ -575,6 +591,21 @@ $indicatorHeaderHeight: 64px;
               margin-top: 0;
               margin-bottom: 0;
               padding-top: 0;
+              height: 0;
+              opacity: 0;
+              visibility: hidden;
+              transition: opacity .3s;
+
+              &.active {
+                opacity: 1;
+                visibility: visible;
+                height: auto;
+                margin-top: 17px;
+                &.detail {
+                  margin-top: 15px;
+                  padding-top: 15px;
+                }
+              }
 
               .headline {
                 @include font(bold);
@@ -583,31 +614,11 @@ $indicatorHeaderHeight: 64px;
                 color: $mercury;
               }
 
-              .body {
+              .body {
+                color: $mercury;
                 @include font();
                 font-size: 14px;
                 line-height: 16px;
-                color: $mercury;
-              }
-
-              height: 0;
-              max-height: 0;
-              opacity: 0;
-              visibility: hidden;
-
-              transition: opacity .3s, max-height .3s;
-              &.active {
-                opacity: 1;
-                visibility: visible;
-                height: auto;
-                max-height: 500px;
-                overflow-y: auto;
-                margin-top: 17px;
-
-                &.detail {
-                  margin-top: 15px;
-                  padding-top: 15px;
-                }
               }
             }
 
@@ -678,6 +689,7 @@ $indicatorHeaderHeight: 64px;
                   font-size: 14px;
                   line-height: 16px;
                   cursor: pointer;
+                  color: $white;
 
                   @each $index, $color in $goalsColors {
                     &.goal_#{$index}) {
@@ -693,7 +705,16 @@ $indicatorHeaderHeight: 64px;
                         transition: width .3s, height .3s, opacity .3s;
                       }
 
+                      .tooltipMessage {
+                        right: 0;
+                        left: auto;
+                      }
                       &:hover {
+                        .tooltipMessage {
+                          opacity: 1;
+                          visibility: visible;
+                          font-weight: normal;
+                        }
                         .goalImage {
                           opacity: 1;
                           visibility: visible;
@@ -704,7 +725,7 @@ $indicatorHeaderHeight: 64px;
                           position: absolute;
                           right: 0;
                           bottom: 0;
-                          background-image: url('/assets/goals/E_SDG goals_icons-individual-rgb-#{$index}.png');
+                          background-image: url('/assets/goals/E_SDG-goals_icons-individual-rgb-#{$index}.png');
                           background-size: cover;
                           z-index: 10;
                         }

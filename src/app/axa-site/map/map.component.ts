@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { Http } from '@angular/http';
 import { WindowService } from '../window.service';
 import { Observable } from 'rxjs/Rx';
@@ -18,13 +18,17 @@ export class MapComponent implements OnInit {
 
   @Input('indicator') indicator;
 
+  @HostBinding('class.loading') isLoading = true;
+
   geojson;
 
   currentLayer;
   layerSource;
 
-  axaLayer;
+  axaLayer: any = false;
   axaLayerSource;
+
+  labelsLayer;
 
   firstCharacterDefaultPosition: any = {lat: 48.864716, lng: 2.349014}; // France
   firstCharacterMarker;
@@ -66,6 +70,15 @@ export class MapComponent implements OnInit {
     private http: Http,
     private windowService: WindowService,
     private countryService: CountryGeojsonService) {
+
+      this.windowService.getLoadingStatus().subscribe((loading) => {
+        if (!loading) {
+          setTimeout(() => {
+            this.isLoading = false;
+            this.map.invalidateSize();
+          }, 120);
+        }
+      });
   }
 
   ngOnInit() {
@@ -80,8 +93,13 @@ export class MapComponent implements OnInit {
         L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/{style}/{z}/{x}/{y}.png',
         { style: 'light_nolabels', zIndex: 0 } )
       ]
+    }).on('zoomend', () => {
+      if (this.map.getZoom() < 4 && this.labelsLayer) {
+        this.labelsLayer.setZIndex(98);
+      } else if (this.labelsLayer) {
+        this.labelsLayer.setZIndex(101);
+      }
     });
-
     if (this.indicator) {
       this.detailMode();
     } else {
@@ -128,9 +146,13 @@ export class MapComponent implements OnInit {
               this.outPopup();
             });
 
-            L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/{style}/{z}/{x}/{y}.png', {
+            let axaZIndex = 101;
+            if (this.map.getZoom() < 4) {
+              axaZIndex = 98;
+            }
+            this.labelsLayer = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/{style}/{z}/{x}/{y}.png', {
               style: 'light_only_labels',
-              zIndex: 101
+              zIndex: axaZIndex
             }).addTo(this.map);
           })
           .on('error', (error) => { console.log('error', error); });
@@ -162,7 +184,7 @@ export class MapComponent implements OnInit {
         averageFormatted;
 
     if (data.data !== null) {
-      dataFormatted = this.utils.formatNumber(data.data);
+      dataFormatted = this.utils.formatNumberToLocale(data.data);
       template = template + `<div class='value'>${dataFormatted} ${this.indicator.kpi.unit}</div>`;
     } else {
       template = template + `<div class='value noData'>No data found</div>`;
@@ -171,13 +193,12 @@ export class MapComponent implements OnInit {
     if (data.average && data.data !== null) {
       let avgDiff,
           avgClass = 'positive';
-      averageFormatted = this.utils.formatNumber(data.average);
+      averageFormatted = this.utils.formatNumberToLocale(data.average);
       if (data.data > data.average) {
-        avgDiff = this.utils.formatNumber(data.data - data.average);
+        avgDiff = this.utils.formatNumberToLocale(data.data - data.average);
         avgDiff = '+ ' + avgDiff;
       } else {
-        avgDiff = this.utils.formatNumber(data.average - data.data);
-        avgDiff = '- ' + avgDiff;
+        avgDiff = this.utils.formatNumberToLocale(data.data - data.average);
         avgClass = 'negative';
       }
 
@@ -215,17 +236,17 @@ export class MapComponent implements OnInit {
     }
 
     cdb.createLayer(this.map, this.axaLayerSource, {legends: true, https: true})
-      .addTo(this.map)
       .on('done', (layer) => {
         this.axaLayer = layer;
         this.axaLayer.setZIndex(100);
       })
-      .on('error', (error) => { console.log('error', error); });
+      .on('error', (error) => { console.log('error', error); })
+      .addTo(this.map);
   }
 
   private comparisonMode() {
 
-    L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/{style}/{z}/{x}/{y}.png', {
+    this.labelsLayer = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/{style}/{z}/{x}/{y}.png', {
       style: 'light_only_labels',
       zIndex: 101
     }).addTo(this.map);
@@ -417,6 +438,6 @@ export class MapComponent implements OnInit {
   }
 
   hasAxaLayerEnabled() {
-    return this.axaLayer === false;
+    return this.axaLayer !== false;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { WindowService } from './window.service';
 import { IndicatorService } from './indicator/indicator.service';
@@ -10,9 +10,21 @@ import { IndicatorService } from './indicator/indicator.service';
 })
 export class AxaSiteComponent implements OnInit {
 
+  @HostBinding('class.loading') isLoading = true;
+  @HostBinding('class.loaded') isNotLoading = false;
+
   indicator: any = undefined;
 
-  constructor(private route: ActivatedRoute, private indicatorService: IndicatorService, private windowService: WindowService) { }
+  constructor(private route: ActivatedRoute, private indicatorService: IndicatorService, private windowService: WindowService) {
+    this.windowService.getLoadingStatus().subscribe((loading) => {
+      this.isLoading = loading;
+      this.isNotLoading = !this.isLoading;
+    });
+
+    setTimeout(() => {
+      this.windowService.setLoadingStatusAsFalse();
+    }, 500);
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {

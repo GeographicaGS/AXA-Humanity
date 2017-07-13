@@ -1,1 +1,20 @@
 <router-outlet></router-outlet>
+
+<div class="loadingPage" *ngIf="isLoading === true">
+  <div class="centerWrapper">
+    <div class="title">Humanity</div>
+    <div class="hint">People-centered Data <a href="#" target="_blank">by AXA</a></div>
+    <div class="logo"></div>
+  </div>
+
+  <div class="webglWarningWrapper" *ngIf="webGlSupported === false && landingPage === true">
+    <div class="firstRow">
+      <span class="text">Recommended Browser for this site:</span>
+      <a class="linkIcon" href="https://www.google.com/chrome/browser/desktop/index.html" target="_blank"></a>
+    </div>
+    <a class="googleChromeVersionWrapper" href="https://www.google.com/chrome/browser/desktop/index.html" target="_blank">
+      <span class="browserName">Google Chrome</span>
+      <span class="browserVersion">Version <span class="number">+59</span></span>
+    </a>
+  </div>
+</div>

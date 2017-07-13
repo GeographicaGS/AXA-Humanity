@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { WindowService } from '../window.service';
 
 @Component({
@@ -10,6 +10,8 @@ export class HeaderComponent implements OnInit {
 
   @Input('indicator') indicator = undefined;
 
+  @HostBinding('class.loading') isLoading = true;
+
   public headerTitle = 'board';
 
   constructor(private windowService: WindowService) {
@@ -18,6 +20,12 @@ export class HeaderComponent implements OnInit {
         this.headerTitle = 'board';
       } else {
         this.headerTitle = indicator.category.title;
+      }
+    });
+
+    this.windowService.getLoadingStatus().subscribe((loading) => {
+      if (!loading) {
+        this.isLoading = false;
       }
     });
   }

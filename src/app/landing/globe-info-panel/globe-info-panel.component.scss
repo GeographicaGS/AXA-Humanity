@@ -13,7 +13,7 @@ $speed: 0.5s;
     position: relative;
     color: white;
     opacity:1;
-    padding: 15px 20px 20px 20px;
+    padding: 15px 20px 13px 20px;
 
     &.show{
       opacity: 1;
@@ -55,8 +55,12 @@ $speed: 0.5s;
       margin-top: 24px;
     }
 
+    .title_units_value_left,
+    .title_units_value,
+    .units_value_left,
     .units_value {
-      font-size: 28px;
+      font-size: 36px;
+      line-height: 36px;
     }
 
     &.dark {
@@ -75,6 +79,22 @@ $speed: 0.5s;
 
       .title,.subtitle {
         color: #fff;
+      }
+    }
+
+    .source {
+      color: $silver;
+      font-size: 13px;
+      line-height: 16px;
+
+      &:before {
+        content: '';
+        display: block;
+        width: 42px;
+        height: 1px;
+        background-color: transparentize($white, .8);
+        margin-bottom: 7px;
+        margin-top: 25px;
       }
     }
 

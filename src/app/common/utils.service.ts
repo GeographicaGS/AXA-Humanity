@@ -24,9 +24,44 @@ export class UtilsService {
     let all = part_1 + part_2 + part_3;
     if (thousand === ',' && decimal === '.') {
       // Thousand & decimals were not specified in the signature, let's convert the number to locale
-      all = all.toLocaleString();
+      all = parseFloat(all).toLocaleString();
     }
     return all + units;
+  }
+
+  formatNumberToLocale(number, units = '') {
+    units = ' ' + units;
+    units = units === ' ' ? '' : units;
+
+    return number.toLocaleString() + units;
+  }
+
+  webglDetect(returnContext = false) {
+    const w = <any>window;
+    if (!!w.WebGLRenderingContext) {
+      const canvas = document.createElement('canvas'),
+            names = ['webgl', 'experimental-webgl', 'moz-webgl', 'webkit-3d'];
+      let context: any = false;
+
+      for (let i = 0; i < 4 ; i++) {
+        try {
+          context = <any>canvas.getContext(names[i]);
+          if (context && typeof context.getParameter === 'function') {
+            // WebGL is enabled
+            if (returnContext) {
+              // return WebGL object if the function's argument is present
+              return {name: names[i], gl: context};
+            }
+            // else, return just true
+            return true;
+          }
+        } catch (e) { }
+      }
+      // WebGL is supported, but disabled
+      return false;
+    }
+    // WebGL not supported
+    return false;
   }
 
 }

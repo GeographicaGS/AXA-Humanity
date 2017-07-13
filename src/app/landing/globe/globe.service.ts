@@ -7,63 +7,78 @@ const DATA = [{
     title: 'One',
     subtitle: 'in 10 has healthcare',
     position : [31, 72],
-    zone: 'Asia occidental'
+    zone: 'Asia occidental',
+    source: 'Worldbank'
   },
   {
     type: 'dark',
     value: 422,
-    units: 'Million people',
+    units: 'inhabitants',
+    units_value: 'M',
     title: 'One',
     subtitle: 'in 9 will have pension',
     position : [0, -61],
-    zone: 'South America'
+    zone: 'South America',
+    source: 'Worldbank'
   },
   {
     type: 'dark',
     value: 69,
     units: 'of entrepreneurs women have',
     units_value: '%',
-    title: '0 €',
+    title: '0',
+    title_units_value: '€',
     subtitle: 'on protection or savings oriented life insurance',
     position : [48, 10],
-    zone: 'Europe'
+    zone: 'Europe',
+    source: 'SheforShield Report, AXA'
   },
   {
     type: 'dark',
     value: 70,
-    units: 'of rise in the sea level in this century',
+    units: 'average of rise in the sea level in this century',
     units_value: 'cm',
-    title: '100 M people',
-    subtitle: 'will be displaced by the elevation of waters',
+    title: '100',
+    title_units_value: 'M',
+    subtitle: 'people will be displaced by the elevation of waters',
     position : [66, -41],
-    zone: 'Poles'
+    zone: 'Poles',
+    source: 'Greenpeace - IPCC'
   },
   {
     type: 'light',
     value: 1,
     units: 'World Ranking of Insurer Innovation',
-    title: 'Nº 30',
+    units_value: 'st',
+    title: '30',
+    title_units_value_left: 'Nº',
     subtitle: 'from all sectors',
     position : [47, 2],
-    zone: 'AXA Worldwide'
+    zone: 'AXA Worldwide',
+    source: 'Boston Consulting Group'
   },
   {
     type: 'light',
     value: 166,
-    units: 'million committed',
-    title: '531 projects',
-    subtitle: 'supported by AXA Research Fund',
+    units: 'committed',
+    units_value: 'M€',
+    title: '531',
+    subtitle: 'projects supported by AXA Research Fund',
     position : [13, 12],
-    zone: 'AXA Worldwide'
+    zone: 'AXA Worldwide',
+    source: 'AXA Research Fund'
   },
   {
     type: 'light',
-    value: 20279,
-    units: 'new hires',
-    title: 'Per year',
-    subtitle: 'worldwide',
+    value: 13,
+    units: 'of claims paid to Protection and Health customers',
+    units_value: 'bn €',
+    title: '4.6',
+    title_units_value: 'M',
+    subtitle: 'customer assisted on a car breakdown',
     position : [46, 24],
-    zone: 'AXA Worldwide'
+    zone: 'AXA Worldwide',
+    source: 'AXA Essentials'
   },
   {
     type: 'light',
@@ -72,7 +87,8 @@ const DATA = [{
     title: 'Smart Women Plan',
     subtitle: 'Product of the Year, 2013',
     position : [24, 78],
-    zone: 'India'
+    zone: 'India',
+    source: 'SheforShield Report, AXA'
   }];
 
 export class GlobeService {

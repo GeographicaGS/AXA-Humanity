@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, HostBinding, AfterViewInit } from '@angular/core';
 import { WindowService } from '../window.service';
 import { IndicatorService } from './indicator.service';
+import { environment } from '../../../environments/environment';
 
 import * as stickybits from 'stickybits';
 import * as perfectScrollbar from 'perfect-scrollbar';
@@ -18,12 +19,20 @@ export class IndicatorComponent implements OnInit, AfterViewInit {
 
   @HostBinding('class.freeFromTop') freeFromTop;
 
+  @HostBinding('class.loading') isLoading = true;
+
   indicators: any[];
 
   firstCountry;
   secondCountry;
 
-  constructor(private windowService: WindowService, private indicatorService: IndicatorService) { }
+  constructor(private windowService: WindowService, private indicatorService: IndicatorService) {
+    this.windowService.getLoadingStatus().subscribe((loading) => {
+      if (!loading) {
+        this.isLoading = false;
+      }
+    });
+  }
 
   ngOnInit() {
 
@@ -250,5 +259,16 @@ export class IndicatorComponent implements OnInit, AfterViewInit {
   clearSecondCountry() {
     this.secondCountry = false;
     this.windowService.setSecondCountry(this.secondCountry);
+  }
+
+  getGoalProperty(goalId, property) {
+    const response = environment.goals.find((goal) => {
+      return goal.id === goalId;
+    });
+
+    if (response) {
+      return response[property];
+    }
+    return null;
   }
 }

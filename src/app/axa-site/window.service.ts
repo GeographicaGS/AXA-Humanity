@@ -19,6 +19,9 @@ export class WindowService {
   private secondCountry = new BehaviorSubject<any>(false);
   private $secondCountry = this.secondCountry.asObservable();
 
+  private loadingStatus = new BehaviorSubject<any>(true);
+  private $loadingStatus = this.loadingStatus.asObservable();
+
   constructor() { }
 
   get nativeWindow (): any {
@@ -59,6 +62,18 @@ export class WindowService {
 
   comparisonGoingOn() {
     return this.firstCountry !== null && this.secondCountry !== null;
+  }
+
+  getLoadingStatus() {
+    return this.loadingStatus;
+  }
+
+  setLoadingStatusAsTrue() {
+    this.loadingStatus.next(true);
+  }
+
+  setLoadingStatusAsFalse() {
+    this.loadingStatus.next(false);
   }
 
 }
