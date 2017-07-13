@@ -591,6 +591,21 @@ $indicatorHeaderHeight: 64px;
               margin-top: 0;
               margin-bottom: 0;
               padding-top: 0;
+              height: 0;
+              opacity: 0;
+              visibility: hidden;
+              transition: opacity .3s;
+
+              &.active {
+                opacity: 1;
+                visibility: visible;
+                height: auto;
+                margin-top: 17px;
+                &.detail {
+                  margin-top: 15px;
+                  padding-top: 15px;
+                }
+              }
 
               .headline {
                 @include font(bold);
@@ -604,26 +619,6 @@ $indicatorHeaderHeight: 64px;
                 @include font();
                 font-size: 14px;
                 line-height: 16px;
-              }
-
-              height: 0;
-              max-height: 0;
-              opacity: 0;
-              visibility: hidden;
-
-              transition: opacity .3s, max-height .3s;
-              &.active {
-                opacity: 1;
-                visibility: visible;
-                height: auto;
-                max-height: 500px;
-                overflow-y: auto;
-                margin-top: 17px;
-
-                &.detail {
-                  margin-top: 15px;
-                  padding-top: 15px;
-                }
               }
             }
 
